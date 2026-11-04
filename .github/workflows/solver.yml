@@ -27,3 +27,17 @@ jobs:
       - run: uv run pytest -q -m "not slow"
       - name: Esquemas de contracts/ al día
         run: uv run python -m solver.export_schema && git diff --exit-code ../../contracts/
+
+  bench:
+    # Informativo: los runners de GitHub tienen menos núcleos que la meta del benchmark.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    defaults:
+      run:
+        working-directory: apps/solver
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run python bench/run.py --tiempo 60 --workers 4
+      - run: uv run pytest -q -m slow

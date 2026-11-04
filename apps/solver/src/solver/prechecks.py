@@ -47,10 +47,24 @@ def _horas_reales(franjas: list[Franja]) -> int:
     return len({(f.dia, f.inicio_min) for f in franjas})
 
 
+def _asignados(inst: Instance) -> dict[str, list[str]]:
+    """Cursos que seguro da cada profesor: los que tiene fijos y aquellos donde es el único
+    candidato."""
+    out: dict[str, list[str]] = defaultdict(list)
+    for c in inst.req.cursos:
+        if c.vacante:
+            continue
+        candidatos = inst.candidatos(c.id)
+        if len(candidatos) == 1:
+            out[candidatos[0]].append(c.id)
+    return out
+
+
 def _horas_profesores(inst: Instance) -> list[Diagnostico]:
     out = []
+    asignados = _asignados(inst)
     for p in inst.profesores.values():
-        fijos = [c.id for c in inst.req.cursos if c.profesor == p.id and not c.vacante]
+        fijos = asignados.get(p.id, [])
         if not fijos:
             continue
         requeridas = sum(_horas(inst, c) for c in fijos)
@@ -187,7 +201,36 @@ def _sincronias(inst: Instance) -> list[Diagnostico]:
                     f"La sincronía {sinc} mezcla cursos con plantillas o bloques distintos",
                 )
             )
+        opciones = [inst.candidatos(c) for c in cursos if not inst.cursos[c].vacante]
+        alcanzan = _emparejamiento(opciones)
+        if alcanzan < len(opciones):
+            out.append(
+                _d(
+                    "PRE_SINCRONIA_PROFESORES",
+                    "H3",
+                    [_e("sincronia", sinc)],
+                    f"La sincronía {sinc} necesita {len(opciones)} profesores distintos a la "
+                    f"misma hora y sus candidatos solo alcanzan para {alcanzan}",
+                )
+            )
     return out
+
+
+def _emparejamiento(opciones: list[list[str]]) -> int:
+    """Tamaño del emparejamiento máximo curso → profesor distinto (caminos de aumento)."""
+    pareja: dict[str, int] = {}
+
+    def intenta(i: int, vistos: set[str]) -> bool:
+        for p in opciones[i]:
+            if p in vistos:
+                continue
+            vistos.add(p)
+            if p not in pareja or intenta(pareja[p], vistos):
+                pareja[p] = i
+                return True
+        return False
+
+    return sum(intenta(i, set()) for i in range(len(opciones)))
 
 
 def _bloques(inst: Instance) -> list[Diagnostico]:
@@ -232,13 +275,12 @@ def _mismo_docente(inst: Instance) -> list[Diagnostico]:
     if inst.req.parametros.reglas.S7.modo != "obligatoria":
         return []
     out = []
+    asignados = _asignados(inst)
     for g in inst.grupos.values():
         dias = sum(1 for d in inst.dias(g.plantilla) if inst.franjas_clase(g.plantilla, d))
         for p in inst.profesores.values():
             cursos = [
-                c
-                for c in inst.req.cursos
-                if c.profesor == p.id and not c.vacante and g.id in c.grupos
+                inst.cursos[c] for c in asignados.get(p.id, []) if g.id in inst.cursos[c].grupos
             ]
             if len(cursos) < 2:
                 continue

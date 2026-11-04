@@ -1,1 +1,119 @@
-# Motor de horarios
+# Motor de horarios (`apps/solver`)
+
+Servicio sin estado que recibe en JSON el problema de horarios de una escuela y devuelve un horario óptimo o, si no existe, **la explicación en español de qué reglas chocan**. También valida horarios hechos a mano.
+
+Usa Google OR-Tools CP-SAT, FastAPI y Pydantic. El contrato (JSON Schema) se genera desde los modelos de `src/solver/contract.py` y vive en [`contracts/`](../../contracts).
+
+## Correrlo
+
+Requiere [uv](https://docs.astral.sh/uv/). En Manjaro: `sudo pacman -S uv`.
+
+```bash
+cd apps/solver
+uv sync
+uv run pytest -q -m "not slow"          # pruebas rápidas (~1 min)
+SOLVER_TOKEN=dev uv run uvicorn solver.api:create_app --factory --port 8000
+```
+
+Con Docker:
+
+```bash
+docker build -t horarios-solver apps/solver
+docker run --rm -e SOLVER_TOKEN=dev -p 8000:8000 horarios-solver
+```
+
+Sin `SOLVER_TOKEN` el servicio no arranca: no existe un modo sin token.
+
+## Endpoints
+
+| Método | Ruta | Cuerpo | Respuesta |
+|---|---|---|---|
+| `GET` | `/health` | — | `{"status": "ok", "schema_version": "1"}` (no pide token) |
+| `POST` | `/solve` | `SolveRequest` | `SolveResponse`: `estado`, `sesiones`, `puntaje`, `desglose`, `diagnostico` |
+| `POST` | `/validate` | `ValidateRequest` (problema + sesiones) | `ValidateResponse`: violaciones por regla y puntaje |
+
+`/solve` y `/validate` exigen `Authorization: Bearer <SOLVER_TOKEN>`. Si el cuerpo no cumple el esquema o tiene referencias rotas, la respuesta es 422 con la lista de errores.
+
+Ejemplo con la escuela demo:
+
+```bash
+curl -s -X POST localhost:8000/solve \
+  -H "Authorization: Bearer dev" -H "Content-Type: application/json" \
+  -d @contracts/fixtures/demo/prepa-horizonte.json
+```
+
+Estados posibles de `/solve`:
+
+- `ok`: hay horario.
+- `factible_parcial`: con `permitir_parcial`, quedaron bloques sin acomodar.
+- `sin_solucion`: está demostrado que no hay horario; el `diagnostico` dice por qué.
+- `tiempo_agotado`: no se encontró horario en el tiempo dado.
+
+## Reglas
+
+**Duras (siempre se cumplen):**
+
+| | |
+|---|---|
+| H1 | Cada bloque se acomoda una vez, en franjas de clase seguidas, sin cruzar recesos (se elige uno de los repartos permitidos de la materia) |
+| H2–H4 | Un grupo, un profesor o un espacio no están en dos lugares a la vez; el espacio es del tipo correcto y le caben los alumnos |
+| H5–H7 | Profesor habilitado, disponible y dentro de sus horas por día y por semana |
+| H8 | Los cursos de una sincronía (Inglés por nivel) van a la misma hora |
+| H9 | Los bloques de una materia caen en días distintos |
+| H10 | Las sesiones fijadas no se mueven |
+| H11 | Tiempo de traslado entre planteles el mismo día |
+
+**Configurables** (apagada, preferencia de peso 1 a 10, u obligatoria):
+
+| | Regla | Default |
+|---|---|---|
+| S1 | Sin huecos para los grupos | obligatoria |
+| S2 | Pocos huecos para profesores (`sin_huecos` la vuelve obligatoria para un profesor) | preferencia 7 |
+| S3 | Menos días por profesor (no admite obligatoria) | preferencia 5 |
+| S4 | Usar franjas preferentes | preferencia 4 |
+| S5 | Repartir cada materia en la semana | preferencia 3 |
+| S6 | Reglas de franja ("Actividad Física no en la primera hora") | preferencia 5 |
+| S7 | Un docente, una materia por día en cada grupo | obligatoria |
+
+## Cómo resuelve
+
+1. **Prechecks** de milisegundos: horas contra disponibilidad, carga del grupo, espacios, bloques que no caben y sincronías sin profesores distintos. Si fallan, la respuesta es `sin_solucion` con un mensaje concreto y el modelo ni se construye.
+2. **Fase A:** CP-SAT busca un horario que cumpla las reglas duras y las obligatorias, sin preferencias.
+3. **Fase B:** optimiza las preferencias partiendo del horario de la fase A. Si no mejora a tiempo, se queda el de la fase A.
+4. **Espacios:** con el horario fijo, un modelo pequeño por plantel y tipo elige el salón.
+5. **Si no hay solución:** se repite el modelo con cada familia de reglas como *supuesto* de CP-SAT. Su núcleo (`SufficientAssumptionsForInfeasibility`) dice qué reglas chocan, en español.
+
+El puntaje y el desglose siempre se calculan con `solver.scoring`, independiente del modelo. Las pruebas de propiedades comprueban que todo horario `ok` pase el validador independiente.
+
+## Benchmark
+
+`uv run python bench/run.py` corre la escuela demo ficticia "Prepa Horizonte" (`bench/generate_demo.py`):
+
+- 3 planteles, 39 grupos (BG matutino y vespertino + BIS sabatino), 69 profesores, 333 cursos y 735 bloques.
+- Inglés por nivel con 9 sincronías.
+- 15 profesores en dos planteles.
+
+Resultado con 60 s y 8 workers en un Intel Core 5 120U (12 hilos):
+
+| Estado | Tiempo | Modelo | Puntaje | Validador |
+|---|---|---|---|---|
+| `ok` (CP-SAT FEASIBLE) | 50.9 s | 125 798 variables, 200 833 restricciones | 452 350 | 0 violaciones |
+
+| Regla | Crudo | Peso | Penalización |
+|---|---|---|---|
+| S1 | 0 | 5 | 0 |
+| S2 | 40 900 min | 7 | 286 300 |
+| S3 | 270 días-profesor | 5 | 135 000 |
+| S4 | 295 franjas | 4 | 11 800 |
+| S5 | 120 | 3 | 18 000 |
+| S6 | 5 | 5 | 1 250 |
+| S7 | 0 | 5 | 0 |
+
+Notas:
+
+- **Varianza:** con más de 1 worker, CP-SAT no es determinista; el puntaje cambia entre corridas.
+- **Hardware:** con menos núcleos (por ejemplo, un servicio pequeño de Render), la misma demo necesita más tiempo límite.
+- **Ajuste de la demo, para que sea factible:**
+  - Cada materia del BIS sabatino tiene su propio profesor, porque S7 no deja que uno dé dos materias al mismo grupo el mismo sábado.
+  - Inglés tiene al menos 2 profesores por plantel, porque los dos niveles van a la misma hora.
+  - Ambos casos los detectan los prechecks.

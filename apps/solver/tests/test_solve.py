@@ -12,7 +12,7 @@ from solver.contract import (
 )
 from solver.instance import InstanceError, build_instance
 from solver.scoring import score
-from solver.solve import map_status, solve, validate
+from solver.solve import map_status, reglas_de_factibilidad, solve, validate
 from solver.validator import validate_schedule
 
 from helpers import FIXTURES
@@ -133,3 +133,37 @@ def test_curso_extra_sin_fijar_se_acomoda(minimo):
     minimo.parametros.num_workers = 1
     resp = solve(minimo)
     assert resp.estado == "ok" and len(resp.sesiones) == 4
+
+
+def test_fase_a_conserva_solo_las_obligatorias(minimo):
+    reglas = minimo.parametros.reglas
+    reglas.S2 = reglas.S2.model_copy(update={"modo": "obligatoria"})
+    a = reglas_de_factibilidad(reglas)
+    assert {r: getattr(a, r).modo for r in ("S1", "S2", "S3", "S4", "S5", "S6", "S7")} == {
+        "S1": "obligatoria",
+        "S2": "obligatoria",
+        "S3": "apagada",
+        "S4": "apagada",
+        "S5": "apagada",
+        "S6": "apagada",
+        "S7": "obligatoria",
+    }
+    assert reglas.S3.modo == "preferencia"  # no modifica las originales
+
+
+def test_dos_fases_optimizan_preferencias(minimo):
+    minimo.plantillas[0].franjas = [f for f in minimo.plantillas[0].franjas if f.dia == 0]
+    minimo.materias[0] = minimo.materias[0].model_copy(
+        update={"horas_semana": 1, "patrones": [[1]]}
+    )
+    minimo.grupos.append(minimo.grupos[0].model_copy(update={"id": "G2", "nombre": "1B"}))
+    minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
+    minimo.cursos = [
+        CursoIn(id="C1", materia="M1", grupos=["G1"], profesor="PR1"),
+        CursoIn(id="C2", materia="M1", grupos=["G2"], profesor="PR1"),
+    ]
+    minimo.fijadas = [SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=0)]
+    minimo.parametros.num_workers = 1
+    resp = solve(minimo)
+    assert resp.estado == "ok" and resp.desglose["S2"].crudo == 0
+    assert {s.curso: s.orden_inicio for s in resp.sesiones} == {"C1": 0, "C2": 1}

@@ -27,6 +27,11 @@ def _materia(id, nombre, horas, patrones, tipo="aula"):
     return MateriaIn(id=id, nombre=nombre, horas_semana=horas, patrones=patrones, tipo_espacio=tipo)
 
 
+def _otro_profesor(req):
+    """Un segundo profesor igual al primero: ningún curso tiene candidato único."""
+    req.profesores.append(req.profesores[0].model_copy(update={"id": "PR2", "nombre": "B"}))
+
+
 def test_sin_cursos_no_hay_diagnostico(minimo):
     minimo.cursos = []
     assert _diag(minimo) == []
@@ -76,6 +81,7 @@ def test_carga_del_grupo_contra_su_plantilla(minimo):
     minimo.cursos = [CursoIn(id=f"C{i}", materia="M1", grupos=["G1"]) for i in range(6)]
     minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
     minimo.profesores[0].horas_max = 30
+    _otro_profesor(minimo)
     (d,) = _diag(minimo)
     assert (d.codigo, d.regla) == ("PRE_HORAS_GRUPO", "H2")
     assert d.entidades == [Entidad(tipo="grupo", id="G1")]
@@ -91,6 +97,7 @@ def test_sincronia_cuenta_una_sola_vez_para_el_grupo(minimo):
     ]
     minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
     minimo.profesores[0].horas_max = 30
+    _otro_profesor(minimo)
     assert [x.codigo for x in _diag(minimo)] == []
 
 
@@ -106,6 +113,7 @@ def test_demanda_de_laboratorio(minimo):
         for i in range(6)
     ]
     minimo.cursos = [CursoIn(id=f"C{i}", materia="M2", grupos=[f"G{i}"]) for i in range(6)]
+    _otro_profesor(minimo)
     (d,) = _diag(minimo)
     assert (d.codigo, d.regla) == ("PRE_ESPACIO", "H4")
     assert d.entidades == [Entidad(tipo="plantel", id="P1")]
@@ -148,6 +156,7 @@ def test_sincronia_con_bloques_distintos(minimo):
         CursoIn(id="C1", materia="M1", grupos=["G1"], sincronia="ING"),
         CursoIn(id="C2", materia="M2", grupos=["G1"], sincronia="ING"),
     ]
+    _otro_profesor(minimo)
     (d,) = _diag(minimo)
     assert (d.codigo, d.regla) == ("PRE_SINCRONIA", "H8")
     assert d.entidades == [Entidad(tipo="sincronia", id="ING")]
@@ -255,3 +264,45 @@ def test_orden_estable_por_codigo():
     p["espacios"][0]["capacidad"] = 10
     codigos = [d.codigo for d in _diag(SolveRequest.model_validate(p))]
     assert codigos == sorted(codigos) == ["PRE_ESPACIO", "PRE_SIN_PROFESOR"]
+
+
+def test_unico_candidato_cuenta_como_fijo(minimo):
+    _solo_dias(minimo, {0, 1})
+    minimo.materias = [_materia(f"M{i}", f"Materia {i}", 1, [[1]]) for i in range(3)]
+    minimo.profesores[0].materias = [m.id for m in minimo.materias]
+    minimo.cursos = [CursoIn(id=f"C{i}", materia=f"M{i}", grupos=["G1"]) for i in range(3)]
+    (d,) = _diag(minimo)
+    assert d.codigo == "PRE_MISMO_DOCENTE"
+
+
+def test_horas_de_unico_candidato_contra_maximo(minimo):
+    minimo.profesores[0].horas_max = 3
+    (d,) = _diag(minimo)
+    assert d.codigo == "PRE_HORAS_MAX"
+    assert d.mensaje == "A. López tiene 4 h asignadas y su máximo es 3 h"
+
+
+def test_sincronia_sin_profesores_distintos_suficientes(minimo):
+    minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
+    minimo.cursos = [
+        CursoIn(id=f"I{i}", materia="M1", grupos=["G1"], sincronia="ING", alumnos=15)
+        for i in range(2)
+    ]
+    (d,) = [x for x in _diag(minimo) if x.codigo == "PRE_SINCRONIA_PROFESORES"]
+    assert d.regla == "H3"
+    assert d.entidades == [Entidad(tipo="sincronia", id="ING")]
+    assert d.mensaje == (
+        "La sincronía ING necesita 2 profesores distintos a la misma hora y sus candidatos "
+        "solo alcanzan para 1"
+    )
+    _otro_profesor(minimo)
+    assert not [x for x in _diag(minimo) if x.codigo == "PRE_SINCRONIA_PROFESORES"]
+
+
+def test_sincronia_con_vacantes_no_necesita_profesor(minimo):
+    minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
+    minimo.cursos = [
+        CursoIn(id="I0", materia="M1", grupos=["G1"], sincronia="ING", alumnos=15),
+        CursoIn(id="I1", materia="M1", grupos=["G1"], sincronia="ING", alumnos=15, vacante=True),
+    ]
+    assert not [x for x in _diag(minimo) if x.codigo == "PRE_SINCRONIA_PROFESORES"]

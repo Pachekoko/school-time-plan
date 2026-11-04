@@ -27,8 +27,9 @@ build-backend = "hatchling.build"
 packages = ["src/solver"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "bench"]
 testpaths = ["tests"]
+markers = ["slow: corridas largas del motor (benchmark); en CI van en su propio job"]
 filterwarnings = [
     # Lo emite la importación de OR-Tools (no es código del motor).
     "ignore:Bitwise inversion '~' on bool is deprecated:DeprecationWarning",
@@ -45,4 +46,4 @@ select = ["E", "F", "I", "UP", "B"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["solver"]
-known-local-folder = ["helpers", "strategies"]
+known-local-folder = ["helpers", "strategies", "generate_demo", "from_carga_xlsx"]
