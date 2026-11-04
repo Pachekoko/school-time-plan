@@ -240,3 +240,13 @@ def test_espacios_sin_reparto_no_es_sin_solucion(minimo, monkeypatch):
     (d,) = resp.diagnostico
     assert (d.codigo, d.regla) == ("ESPACIOS", "H4")
     assert d.entidades[0].id == "P1" and "aula" in d.mensaje
+
+
+def test_curso_con_gato_y_fijada_imposible_se_explica(minimo):
+    minimo.cursos[0].id = "C#1"
+    minimo.profesores[0].no_disponible = [RefFranja(plantilla="MAT", dia=1, orden=0)]
+    minimo.fijadas = [SesionIn(curso="C#1", bloque=0, dia=1, orden_inicio=0)]
+    minimo.parametros.num_workers = 1
+    resp = solve(minimo)
+    assert resp.estado == "sin_solucion"
+    assert any("La sesión fijada de Matemáticas" in d.mensaje for d in resp.diagnostico)

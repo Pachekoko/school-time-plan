@@ -46,6 +46,7 @@
         "alumnos": {
           "anyOf": [
             {
+              "maximum": 10000,
               "minimum": 1,
               "type": "integer"
             },
@@ -98,6 +99,7 @@
           "type": "string"
         },
         "capacidad": {
+          "maximum": 10000,
           "minimum": 1,
           "title": "Capacidad",
           "type": "integer"
@@ -123,6 +125,7 @@
           "type": "integer"
         },
         "orden": {
+          "maximum": 200,
           "minimum": 0,
           "title": "Orden",
           "type": "integer"
@@ -176,6 +179,7 @@
           "type": "string"
         },
         "alumnos": {
+          "maximum": 10000,
           "minimum": 1,
           "title": "Alumnos",
           "type": "integer"
@@ -203,6 +207,7 @@
           "type": "string"
         },
         "horas_semana": {
+          "maximum": 168,
           "minimum": 1,
           "title": "Horas Semana",
           "type": "integer"
@@ -210,6 +215,7 @@
         "patrones": {
           "items": {
             "items": {
+              "maximum": 24,
               "minimum": 1,
               "type": "integer"
             },
@@ -274,6 +280,7 @@
         },
         "minutos_traslado": {
           "default": 50,
+          "maximum": 1440,
           "minimum": 0,
           "title": "Minutos Traslado",
           "type": "integer"
@@ -358,16 +365,19 @@
         },
         "horas_min": {
           "default": 0,
+          "maximum": 168,
           "minimum": 0,
           "title": "Horas Min",
           "type": "integer"
         },
         "horas_max": {
+          "maximum": 168,
           "minimum": 0,
           "title": "Horas Max",
           "type": "integer"
         },
         "max_dia": {
+          "maximum": 24,
           "minimum": 1,
           "title": "Max Dia",
           "type": "integer"
@@ -419,6 +429,7 @@
           "type": "integer"
         },
         "orden": {
+          "maximum": 200,
           "minimum": 0,
           "title": "Orden",
           "type": "integer"
@@ -544,11 +555,13 @@
         },
         "patron": {
           "default": 0,
+          "maximum": 200,
           "minimum": 0,
           "title": "Patron",
           "type": "integer"
         },
         "bloque": {
+          "maximum": 200,
           "minimum": 0,
           "title": "Bloque",
           "type": "integer"
@@ -570,6 +583,7 @@
         "orden_inicio": {
           "anyOf": [
             {
+              "maximum": 200,
               "minimum": 0,
               "type": "integer"
             },

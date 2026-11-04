@@ -49,3 +49,13 @@ def test_mensajes_por_regla(minimo):
 def test_nucleo_vacio_no_inventa_nada(minimo):
     inst = build_instance(minimo)
     assert explain_core(inst, Supuestos(cp_model.CpModel()), []) == []
+
+
+def test_id_de_curso_con_gato(minimo):
+    minimo.cursos[0].id = "C#1"
+    minimo.fijadas = [SesionIn(curso="C#1", bloque=0, dia=1, orden_inicio=2)]
+    inst = build_instance(minimo)
+    sup = Supuestos(cp_model.CpModel())
+    lit = sup.lit("H10", [_e("sesion", "C#1#0.0")])
+    (d,) = explain_core(inst, sup, [lit.Index()])
+    assert d.mensaje == "La sesión fijada de Matemáticas (1A, Mar 08:40) choca con el resto"

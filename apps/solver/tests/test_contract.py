@@ -74,3 +74,27 @@ def test_fijada_sin_hora_es_invalida():
     p["fijadas"] = [{"curso": "C1", "bloque": 0, "sin_acomodar": True}]
     with pytest.raises(ValidationError, match="fijada"):
         SolveRequest.model_validate(p)
+
+
+@pytest.mark.parametrize(
+    "coleccion, campo, valor",
+    [
+        ("profesores", "horas_max", 10**19),
+        ("profesores", "max_dia", 10**6),
+        ("grupos", "alumnos", 10**9),
+        ("espacios", "capacidad", 10**9),
+        ("materias", "horas_semana", 10**6),
+    ],
+)
+def test_enteros_absurdos_se_rechazan(coleccion, campo, valor):
+    p = minimo_dict()
+    p[coleccion][0][campo] = valor
+    with pytest.raises(ValidationError):
+        SolveRequest.model_validate(p)
+
+
+def test_traslado_absurdo_se_rechaza():
+    p = minimo_dict()
+    p["parametros"] = {"minutos_traslado": 10**9}
+    with pytest.raises(ValidationError):
+        SolveRequest.model_validate(p)
