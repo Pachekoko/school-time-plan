@@ -34,6 +34,23 @@ def validate_schedule(inst: Instance, sesiones: list[SesionIn]) -> list[Violacio
     ]
 
 
+def validate_partial(inst: Instance, sesiones: list[SesionIn]) -> list[Violacion]:
+    """Solo lo que es imposible en cualquier horario que contenga estas sesiones (p. ej. las
+    fijadas): no exige que estén todos los bloques, ni profesor, ni espacio, ni cargas."""
+    colocadas, rechazadas = colocar(inst, sesiones)
+    return [
+        *_rechazos(inst, rechazadas),
+        *_h2(inst, colocadas),
+        *_h3(inst, colocadas),
+        *_h4(inst, colocadas, exigir=False),
+        *_h5(inst, colocadas, exigir=False),
+        *_h6(inst, colocadas),
+        *_h8(inst, colocadas),
+        *_h9(inst, colocadas),
+        *_h11(inst, colocadas),
+    ]
+
+
 def _e(tipo: str, id: str) -> Entidad:
     return Entidad(tipo=tipo, id=id)
 
@@ -64,6 +81,10 @@ def _choques(unidades: dict[Hashable, set[Ranura]]) -> list[Ranura]:
 
 
 def _h1(inst, sesiones, colocadas, rechazadas) -> list[Violacion]:
+    return [*_rechazos(inst, rechazadas), *_completos(inst, sesiones, colocadas)]
+
+
+def _rechazos(inst, rechazadas) -> list[Violacion]:
     out = []
     for s, motivo in rechazadas:
         curso = _e("curso", s.curso)
@@ -84,6 +105,11 @@ def _h1(inst, sesiones, colocadas, rechazadas) -> list[Violacion]:
             out.append(
                 _v("H1", [curso], f"{nombre(inst, 'curso', s.curso)} no puede empezar el {cuando}")
             )
+    return out
+
+
+def _completos(inst, sesiones, colocadas) -> list[Violacion]:
+    out = []
     usados: dict[str, set[int]] = defaultdict(set)
     for s in sesiones:
         usados[s.curso].add(s.patron)
@@ -156,7 +182,7 @@ def _h3(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
     ]
 
 
-def _h4(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
+def _h4(inst: Instance, colocadas: list[Colocada], exigir: bool = True) -> list[Violacion]:
     out = []
     por_espacio: dict[str, dict[Hashable, set[Ranura]]] = defaultdict(dict)
     for i, c in enumerate(colocadas):
@@ -164,8 +190,9 @@ def _h4(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
         curso = _e("curso", c.curso)
         e_id = c.sesion.espacio
         if e_id is None:
-            cuando = hora(inst, c.plantilla, c.dia, c.sesion.orden_inicio)
-            out.append(_v("H4", [curso], f"{curso_legible} no tiene espacio el {cuando}"))
+            if exigir:
+                cuando = hora(inst, c.plantilla, c.dia, c.sesion.orden_inicio)
+                out.append(_v("H4", [curso], f"{curso_legible} no tiene espacio el {cuando}"))
             continue
         espacio = inst.espacios.get(e_id)
         if espacio is None:
@@ -201,7 +228,7 @@ def _h4(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
     return out
 
 
-def _h5(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
+def _h5(inst: Instance, colocadas: list[Colocada], exigir: bool = True) -> list[Violacion]:
     out = []
     por_curso: dict[str, list[Colocada]] = defaultdict(list)
     for c in colocadas:
@@ -213,7 +240,7 @@ def _h5(inst: Instance, colocadas: list[Colocada]) -> list[Violacion]:
             if any(p is not None for p in profesores):
                 out.append(_v("H5", [curso], f"{legible} es vacante y no lleva profesor"))
             continue
-        if None in profesores:
+        if exigir and None in profesores:
             out.append(_v("H5", [curso], f"{legible} no tiene profesor"))
         candidatos = inst.candidatos(curso_id)
         for p in sorted({p for p in profesores if p is not None}):

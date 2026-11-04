@@ -1,6 +1,6 @@
 from solver.contract import CursoIn, MateriaIn, ProfesorIn, RefFranja, SesionIn
 from solver.instance import build_instance
-from solver.validator import validate_schedule
+from solver.validator import validate_partial, validate_schedule
 
 
 def _s(curso="C1", dia=0, orden=0, bloque=0, patron=0, espacio="A1", profesor="PR1", **kw):
@@ -114,3 +114,12 @@ def test_sin_huecos_por_profesor_reporta_s2(minimo):
     viol = validate_schedule(inst, sesiones)
     assert _reglas(viol) == ["S2"]
     assert viol[0].entidades[0].id == "PR1"
+
+
+def test_validate_partial_no_exige_completo_ni_profesor_ni_espacio(minimo):
+    inst = build_instance(minimo)
+    parcial = [SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=0)]
+    assert validate_partial(inst, parcial) == []
+    assert sorted(v.regla for v in validate_schedule(inst, parcial)) == ["H1", "H4", "H5"]
+    malo = [SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=3)]  # cruza el fin del día
+    assert [v.regla for v in validate_partial(inst, malo)] == ["H1"]
