@@ -2098,15 +2098,13 @@
       "id": "PR010",
       "nombre": "Irene Ibarra",
       "planteles": [
-        "CEN"
+        "CEN",
+        "NOR"
       ],
       "materias": [
         "S1-QUIMICAI",
         "S2-FISICAI",
-        "S3-BIOLOGIA",
-        "S4-QUIMICAII",
-        "S5-FISICAII",
-        "S6-ECOLOGIA"
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2195,16 +2193,12 @@
       "id": "PR011",
       "nombre": "Sofía Zúñiga",
       "planteles": [
-        "CEN",
-        "NOR"
+        "CEN"
       ],
       "materias": [
         "S1-QUIMICAI",
         "S2-FISICAI",
-        "S3-BIOLOGIA",
-        "S4-QUIMICAII",
-        "S5-FISICAII",
-        "S6-ECOLOGIA"
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2244,41 +2238,6 @@
           "plantilla": "MAT",
           "dia": 0,
           "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 7
         }
       ],
       "preferente": [],
@@ -2288,13 +2247,9 @@
       "id": "PR012",
       "nombre": "Rosa Ibarra",
       "planteles": [
-        "CEN",
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-QUIMICAI",
-        "S2-FISICAI",
-        "S3-BIOLOGIA",
         "S4-QUIMICAII",
         "S5-FISICAII",
         "S6-ECOLOGIA"
@@ -2310,12 +2265,9 @@
       "id": "PR013",
       "nombre": "María Juárez",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-QUIMICAI",
-        "S2-FISICAI",
-        "S3-BIOLOGIA",
         "S4-QUIMICAII",
         "S5-FISICAII",
         "S6-ECOLOGIA"
@@ -2324,41 +2276,6 @@
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 4,
@@ -2407,10 +2324,7 @@
       "materias": [
         "S1-QUIMICAI",
         "S2-FISICAI",
-        "S3-BIOLOGIA",
-        "S4-QUIMICAII",
-        "S5-FISICAII",
-        "S6-ECOLOGIA"
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2423,15 +2337,13 @@
       "id": "PR015",
       "nombre": "Hugo Luna",
       "planteles": [
-        "NOR"
+        "NOR",
+        "SUR"
       ],
       "materias": [
         "S1-QUIMICAI",
         "S2-FISICAI",
-        "S3-BIOLOGIA",
-        "S4-QUIMICAII",
-        "S5-FISICAII",
-        "S6-ECOLOGIA"
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2520,13 +2432,9 @@
       "id": "PR016",
       "nombre": "Rubén Durán",
       "planteles": [
-        "SUR",
-        "CEN"
+        "NOR"
       ],
       "materias": [
-        "S1-QUIMICAI",
-        "S2-FISICAI",
-        "S3-BIOLOGIA",
         "S4-QUIMICAII",
         "S5-FISICAII",
         "S6-ECOLOGIA"
@@ -2537,77 +2445,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -2618,12 +2526,9 @@
       "id": "PR017",
       "nombre": "Rubén Lara",
       "planteles": [
-        "SUR"
+        "NOR"
       ],
       "materias": [
-        "S1-QUIMICAI",
-        "S2-FISICAI",
-        "S3-BIOLOGIA",
         "S4-QUIMICAII",
         "S5-FISICAII",
         "S6-ECOLOGIA"
@@ -2634,77 +2539,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -2720,10 +2625,7 @@
       "materias": [
         "S1-QUIMICAI",
         "S2-FISICAI",
-        "S3-BIOLOGIA",
-        "S4-QUIMICAII",
-        "S5-FISICAII",
-        "S6-ECOLOGIA"
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2736,14 +2638,12 @@
       "id": "PR019",
       "nombre": "Tomás Galindo",
       "planteles": [
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
-        "S4-PENSAMIENTOCOMPUTACIONAL",
-        "S5-PROGRAMACION",
-        "S6-CIENCIADEDATOS"
+        "S1-QUIMICAI",
+        "S2-FISICAI",
+        "S3-BIOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2781,41 +2681,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 3,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 3,
           "orden": 7
         }
@@ -2903,15 +2768,12 @@
       "id": "PR020",
       "nombre": "Diego Nava",
       "planteles": [
-        "CEN",
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
-        "S4-PENSAMIENTOCOMPUTACIONAL",
-        "S5-PROGRAMACION",
-        "S6-CIENCIADEDATOS"
+        "S4-QUIMICAII",
+        "S5-FISICAII",
+        "S6-ECOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2924,14 +2786,12 @@
       "id": "PR021",
       "nombre": "Silvia Zúñiga",
       "planteles": [
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
-        "S4-PENSAMIENTOCOMPUTACIONAL",
-        "S5-PROGRAMACION",
-        "S6-CIENCIADEDATOS"
+        "S4-QUIMICAII",
+        "S5-FISICAII",
+        "S6-ECOLOGIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -2944,15 +2804,11 @@
       "id": "PR022",
       "nombre": "María Robles",
       "planteles": [
-        "NOR",
-        "SUR"
+        "CEN"
       ],
       "materias": [
         "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
-        "S4-PENSAMIENTOCOMPUTACIONAL",
-        "S5-PROGRAMACION",
-        "S6-CIENCIADEDATOS"
+        "S2-CULTURADIGITALII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3041,11 +2897,9 @@
       "id": "PR023",
       "nombre": "Luis Zúñiga",
       "planteles": [
-        "SUR"
+        "CEN"
       ],
       "materias": [
-        "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
         "S4-PENSAMIENTOCOMPUTACIONAL",
         "S5-PROGRAMACION",
         "S6-CIENCIADEDATOS"
@@ -3054,41 +2908,6 @@
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 0,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 0,
@@ -3132,15 +2951,12 @@
       "id": "PR024",
       "nombre": "Félix Vega",
       "planteles": [
-        "SUR",
-        "CEN"
+        "NOR",
+        "SUR"
       ],
       "materias": [
         "S1-CULTURADIGITALI",
-        "S2-CULTURADIGITALII",
-        "S4-PENSAMIENTOCOMPUTACIONAL",
-        "S5-PROGRAMACION",
-        "S6-CIENCIADEDATOS"
+        "S2-CULTURADIGITALII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3153,55 +2969,17 @@
       "id": "PR025",
       "nombre": "Paula Robles",
       "planteles": [
-        "CEN"
+        "NOR"
       ],
       "materias": [
-        "S1-ACTIVIDADFISICAI",
-        "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
-        "S4-ACTIVIDADFISICAIV",
-        "S5-ACTIVIDADFISICAV",
-        "S6-ACTIVIDADFISICAVI"
+        "S4-PENSAMIENTOCOMPUTACIONAL",
+        "S5-PROGRAMACION",
+        "S6-CIENCIADEDATOS"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 4,
@@ -3245,15 +3023,11 @@
       "id": "PR026",
       "nombre": "Carmen Juárez",
       "planteles": [
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-ACTIVIDADFISICAI",
-        "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
-        "S4-ACTIVIDADFISICAIV",
-        "S5-ACTIVIDADFISICAV",
-        "S6-ACTIVIDADFISICAVI"
+        "S1-CULTURADIGITALI",
+        "S2-CULTURADIGITALII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3266,55 +3040,17 @@
       "id": "PR027",
       "nombre": "Jorge Ríos",
       "planteles": [
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-ACTIVIDADFISICAI",
-        "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
-        "S4-ACTIVIDADFISICAIV",
-        "S5-ACTIVIDADFISICAV",
-        "S6-ACTIVIDADFISICAVI"
+        "S4-PENSAMIENTOCOMPUTACIONAL",
+        "S5-PROGRAMACION",
+        "S6-CIENCIADEDATOS"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 4,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 4,
@@ -3353,77 +3089,77 @@
       ],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -3434,15 +3170,12 @@
       "id": "PR028",
       "nombre": "Paula Durán",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
         "S1-ACTIVIDADFISICAI",
         "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
-        "S4-ACTIVIDADFISICAIV",
-        "S5-ACTIVIDADFISICAV",
-        "S6-ACTIVIDADFISICAVI"
+        "S3-ACTIVIDADFISICAIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3480,41 +3213,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 4,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 4,
           "orden": 7
         }
@@ -3602,13 +3300,9 @@
       "id": "PR029",
       "nombre": "Jorge Durán",
       "planteles": [
-        "SUR",
         "CEN"
       ],
       "materias": [
-        "S1-ACTIVIDADFISICAI",
-        "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
         "S4-ACTIVIDADFISICAIV",
         "S5-ACTIVIDADFISICAV",
         "S6-ACTIVIDADFISICAVI"
@@ -3624,15 +3318,12 @@
       "id": "PR030",
       "nombre": "Germán Juárez",
       "planteles": [
-        "SUR"
+        "NOR"
       ],
       "materias": [
         "S1-ACTIVIDADFISICAI",
         "S2-ACTIVIDADFISICAII",
-        "S3-ACTIVIDADFISICAIII",
-        "S4-ACTIVIDADFISICAIV",
-        "S5-ACTIVIDADFISICAV",
-        "S6-ACTIVIDADFISICAVI"
+        "S3-ACTIVIDADFISICAIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3645,21 +3336,12 @@
       "id": "PR031",
       "nombre": "Carmen Campos",
       "planteles": [
-        "CEN"
+        "NOR"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S4-ACTIVIDADFISICAIV",
+        "S5-ACTIVIDADFISICAV",
+        "S6-ACTIVIDADFISICAVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3667,77 +3349,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -3748,22 +3430,12 @@
       "id": "PR032",
       "nombre": "Pablo Cruz",
       "planteles": [
-        "CEN",
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S1-ACTIVIDADFISICAI",
+        "S2-ACTIVIDADFISICAII",
+        "S3-ACTIVIDADFISICAIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3803,41 +3475,6 @@
           "plantilla": "MAT",
           "dia": 4,
           "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 7
         }
       ],
       "preferente": [],
@@ -3847,21 +3484,12 @@
       "id": "PR033",
       "nombre": "Nora Vega",
       "planteles": [
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S4-ACTIVIDADFISICAIV",
+        "S5-ACTIVIDADFISICAV",
+        "S6-ACTIVIDADFISICAVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3869,77 +3497,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -3959,13 +3587,7 @@
         "S2-HUMANIDADESII",
         "S2-CIENCIASSOCIALESII",
         "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -3978,7 +3600,7 @@
       "id": "PR035",
       "nombre": "Elena Soto",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
         "S1-HUMANIDADESI",
@@ -3986,13 +3608,7 @@
         "S2-HUMANIDADESII",
         "S2-CIENCIASSOCIALESII",
         "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4030,41 +3646,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 1,
           "orden": 7
         }
@@ -4076,15 +3657,9 @@
       "id": "PR036",
       "nombre": "Rosa Mora",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
         "S4-CIUDADANIA",
         "S4-ARTE",
         "S5-ETICA",
@@ -4096,41 +3671,6 @@
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 2,
@@ -4174,15 +3714,9 @@
       "id": "PR037",
       "nombre": "Óscar Lara",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
         "S4-CIUDADANIA",
         "S4-ARTE",
         "S5-ETICA",
@@ -4196,77 +3730,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -4285,13 +3819,7 @@
         "S2-HUMANIDADESII",
         "S2-CIENCIASSOCIALESII",
         "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4304,8 +3832,7 @@
       "id": "PR039",
       "nombre": "Félix Ochoa",
       "planteles": [
-        "SUR",
-        "CEN"
+        "NOR"
       ],
       "materias": [
         "S1-HUMANIDADESI",
@@ -4313,13 +3840,7 @@
         "S2-HUMANIDADESII",
         "S2-CIENCIASSOCIALESII",
         "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4357,41 +3878,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 4,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 4,
           "orden": 7
         }
@@ -4479,16 +3965,9 @@
       "id": "PR040",
       "nombre": "Carmen Luna",
       "planteles": [
-        "SUR",
-        "CEN"
+        "NOR"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
         "S4-CIUDADANIA",
         "S4-ARTE",
         "S5-ETICA",
@@ -4500,41 +3979,6 @@
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 2,
@@ -4578,15 +4022,9 @@
       "id": "PR041",
       "nombre": "Félix Galindo",
       "planteles": [
-        "SUR"
+        "NOR"
       ],
       "materias": [
-        "S1-HUMANIDADESI",
-        "S1-CIENCIASSOCIALESI",
-        "S2-HUMANIDADESII",
-        "S2-CIENCIASSOCIALESII",
-        "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
         "S4-CIUDADANIA",
         "S4-ARTE",
         "S5-ETICA",
@@ -4605,7 +4043,8 @@
       "id": "PR042",
       "nombre": "Nora Duarte",
       "planteles": [
-        "SUR"
+        "SUR",
+        "CEN"
       ],
       "materias": [
         "S1-HUMANIDADESI",
@@ -4613,13 +4052,7 @@
         "S2-HUMANIDADESII",
         "S2-CIENCIASSOCIALESII",
         "S3-HISTORIADEMEXICO",
-        "S3-FILOSOFIA",
-        "S4-CIUDADANIA",
-        "S4-ARTE",
-        "S5-ETICA",
-        "S5-ECONOMIA",
-        "S6-PSICOLOGIA",
-        "S6-EMPRENDIMIENTO"
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4659,41 +4092,6 @@
           "plantilla": "MAT",
           "dia": 4,
           "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 4,
-          "orden": 7
         }
       ],
       "preferente": [],
@@ -4703,15 +4101,16 @@
       "id": "PR043",
       "nombre": "María Zúñiga",
       "planteles": [
+        "SUR",
         "CEN"
       ],
       "materias": [
-        "S1-INGLESI",
-        "S2-INGLESII",
-        "S3-INGLESIII",
-        "S4-INGLESIV",
-        "S5-INGLESV",
-        "S6-INGLESVI"
+        "S1-HUMANIDADESI",
+        "S1-CIENCIASSOCIALESI",
+        "S2-HUMANIDADESII",
+        "S2-CIENCIASSOCIALESII",
+        "S3-HISTORIADEMEXICO",
+        "S3-FILOSOFIA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4724,15 +4123,16 @@
       "id": "PR044",
       "nombre": "Rubén Vega",
       "planteles": [
+        "SUR",
         "CEN"
       ],
       "materias": [
-        "S1-INGLESI",
-        "S2-INGLESII",
-        "S3-INGLESIII",
-        "S4-INGLESIV",
-        "S5-INGLESV",
-        "S6-INGLESVI"
+        "S4-CIUDADANIA",
+        "S4-ARTE",
+        "S5-ETICA",
+        "S5-ECONOMIA",
+        "S6-PSICOLOGIA",
+        "S6-EMPRENDIMIENTO"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4740,77 +4140,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -4821,15 +4221,15 @@
       "id": "PR045",
       "nombre": "Silvia Castro",
       "planteles": [
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-INGLESI",
-        "S2-INGLESII",
-        "S3-INGLESIII",
-        "S4-INGLESIV",
-        "S5-INGLESV",
-        "S6-INGLESVI"
+        "S4-CIUDADANIA",
+        "S4-ARTE",
+        "S5-ETICA",
+        "S5-ECONOMIA",
+        "S6-PSICOLOGIA",
+        "S6-EMPRENDIMIENTO"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4837,77 +4237,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -4918,15 +4318,12 @@
       "id": "PR046",
       "nombre": "Elena Meza",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
         "S1-INGLESI",
         "S2-INGLESII",
-        "S3-INGLESIII",
-        "S4-INGLESIV",
-        "S5-INGLESV",
-        "S6-INGLESVI"
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4939,15 +4336,12 @@
       "id": "PR047",
       "nombre": "Irene Pardo",
       "planteles": [
-        "SUR"
+        "CEN"
       ],
       "materias": [
         "S1-INGLESI",
         "S2-INGLESII",
-        "S3-INGLESIII",
-        "S4-INGLESIV",
-        "S5-INGLESV",
-        "S6-INGLESVI"
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -4987,41 +4381,6 @@
           "plantilla": "MAT",
           "dia": 0,
           "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 7
         }
       ],
       "preferente": [],
@@ -5031,12 +4390,9 @@
       "id": "PR048",
       "nombre": "Iván Nava",
       "planteles": [
-        "SUR"
+        "CEN"
       ],
       "materias": [
-        "S1-INGLESI",
-        "S2-INGLESII",
-        "S3-INGLESIII",
         "S4-INGLESIV",
         "S5-INGLESV",
         "S6-INGLESVI"
@@ -5047,77 +4403,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -5131,52 +4487,14 @@
         "CEN"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S4-INGLESIV",
+        "S5-INGLESV",
+        "S6-INGLESVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 1,
@@ -5220,15 +4538,13 @@
       "id": "PR050",
       "nombre": "Pablo Campos",
       "planteles": [
-        "CEN"
+        "NOR",
+        "SUR"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5266,41 +4582,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 2,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 2,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 2,
           "orden": 7
         }
@@ -5315,12 +4596,9 @@
         "NOR"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5358,41 +4636,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 0,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 0,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 0,
           "orden": 7
         }
@@ -5483,12 +4726,9 @@
         "NOR"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S4-INGLESIV",
+        "S5-INGLESV",
+        "S6-INGLESVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5496,77 +4736,77 @@
       "no_disponible": [],
       "preferente": [
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 0,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 1,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 2,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 3,
           "orden": 2
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 0
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 1
         },
         {
-          "plantilla": "MAT",
+          "plantilla": "VESP",
           "dia": 4,
           "orden": 2
         }
@@ -5577,55 +4817,18 @@
       "id": "PR053",
       "nombre": "Nora Nava",
       "planteles": [
+        "NOR",
         "SUR"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S4-INGLESIV",
+        "S5-INGLESV",
+        "S6-INGLESVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 1,
@@ -5669,16 +4872,12 @@
       "id": "PR054",
       "nombre": "Tomás Luna",
       "planteles": [
-        "SUR",
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-LENGUAYCOMUNICACIONI",
-        "S2-LENGUAYCOMUNICACIONII",
-        "S3-COMPRENSIONLECTORA",
-        "S4-ANALISISLITERARIO",
-        "S5-REDACCION",
-        "S6-LITERATURA"
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5718,41 +4917,6 @@
           "plantilla": "MAT",
           "dia": 3,
           "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 3,
-          "orden": 7
         }
       ],
       "preferente": [],
@@ -5762,16 +4926,12 @@
       "id": "PR055",
       "nombre": "Paula Salas",
       "planteles": [
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5860,56 +5020,17 @@
       "id": "PR056",
       "nombre": "Lucía Salas",
       "planteles": [
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S4-INGLESIV",
+        "S5-INGLESV",
+        "S6-INGLESVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 1,
@@ -5953,17 +5074,12 @@
       "id": "PR057",
       "nombre": "María Luna",
       "planteles": [
-        "CEN",
-        "NOR"
+        "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S4-INGLESIV",
+        "S5-INGLESV",
+        "S6-INGLESVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -5976,16 +5092,12 @@
       "id": "PR058",
       "nombre": "Paula Tapia",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S1-LENGUAYCOMUNICACIONI",
+        "S2-LENGUAYCOMUNICACIONII",
+        "S3-COMPRENSIONLECTORA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6023,41 +5135,6 @@
         },
         {
           "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "VESP",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "VESP",
           "dia": 1,
           "orden": 7
         }
@@ -6145,16 +5222,13 @@
       "id": "PR059",
       "nombre": "Luis Cruz",
       "planteles": [
+        "CEN",
         "NOR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S4-ANALISISLITERARIO",
+        "S5-REDACCION",
+        "S6-LITERATURA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6167,17 +5241,12 @@
       "id": "PR060",
       "nombre": "Hugo Juárez",
       "planteles": [
-        "NOR",
-        "SUR"
+        "NOR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S1-LENGUAYCOMUNICACIONI",
+        "S2-LENGUAYCOMUNICACIONII",
+        "S3-COMPRENSIONLECTORA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6266,16 +5335,13 @@
       "id": "PR061",
       "nombre": "Andrés Cruz",
       "planteles": [
+        "NOR",
         "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S4-ANALISISLITERARIO",
+        "S5-REDACCION",
+        "S6-LITERATURA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6288,17 +5354,12 @@
       "id": "PR062",
       "nombre": "Carmen Soto",
       "planteles": [
-        "SUR",
-        "CEN"
+        "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S1-LENGUAYCOMUNICACIONI",
+        "S2-LENGUAYCOMUNICACIONII",
+        "S3-COMPRENSIONLECTORA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6314,13 +5375,9 @@
         "SUR"
       ],
       "materias": [
-        "S1-PENSAMIENTOMATEMATICOI",
-        "S2-PENSAMIENTOMATEMATICOII",
-        "S3-PENSAMIENTOMATEMATICOIII",
-        "S3-EDUCACIONFINANCIERA",
-        "S4-PENSAMIENTOMATEMATICOIV",
-        "S5-PENSAMIENTOMATEMATICOV",
-        "S6-PENSAMIENTOMATEMATICOVI"
+        "S4-ANALISISLITERARIO",
+        "S5-REDACCION",
+        "S6-LITERATURA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6336,12 +5393,10 @@
         "CEN"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6354,15 +5409,14 @@
       "id": "PR065",
       "nombre": "Tomás Meza",
       "planteles": [
-        "CEN"
+        "CEN",
+        "NOR"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6451,55 +5505,17 @@
       "id": "PR066",
       "nombre": "Hugo Herrera",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 1,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 1,
@@ -6543,55 +5559,17 @@
       "id": "PR067",
       "nombre": "Paula Mora",
       "planteles": [
-        "NOR"
+        "CEN"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
       ],
       "horas_min": 0,
       "horas_max": 26,
       "max_dia": 7,
       "no_disponible": [
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 0
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 1
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 2
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 4
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 5
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 6
-        },
-        {
-          "plantilla": "MAT",
-          "dia": 2,
-          "orden": 7
-        },
         {
           "plantilla": "VESP",
           "dia": 2,
@@ -6635,15 +5613,13 @@
       "id": "PR068",
       "nombre": "Nora Esquivel",
       "planteles": [
-        "SUR"
+        "NOR"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6656,15 +5632,14 @@
       "id": "PR069",
       "nombre": "Teresa Herrera",
       "planteles": [
+        "NOR",
         "SUR"
       ],
       "materias": [
-        "S1-TUTORIAI",
-        "S2-TUTORIAII",
-        "S3-SOCIOEMOCIONALIII",
-        "S4-SOCIOEMOCIONALIV",
-        "S5-SOCIOEMOCIONALV",
-        "S6-SOCIOEMOCIONALVI"
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
       ],
       "horas_min": 0,
       "horas_max": 26,
@@ -6747,6 +5722,746 @@
           "orden": 2
         }
       ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR070",
+      "nombre": "Andrés Ríos",
+      "planteles": [
+        "NOR"
+      ],
+      "materias": [
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR071",
+      "nombre": "Nora Rangel",
+      "planteles": [
+        "NOR"
+      ],
+      "materias": [
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 4
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 5
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 6
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 7
+        }
+      ],
+      "preferente": [
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR072",
+      "nombre": "Pablo Rangel",
+      "planteles": [
+        "SUR"
+      ],
+      "materias": [
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR073",
+      "nombre": "Raúl Ochoa",
+      "planteles": [
+        "SUR"
+      ],
+      "materias": [
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR074",
+      "nombre": "Carmen Mora",
+      "planteles": [
+        "SUR"
+      ],
+      "materias": [
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR075",
+      "nombre": "Raúl Nava",
+      "planteles": [
+        "SUR",
+        "CEN"
+      ],
+      "materias": [
+        "S4-PENSAMIENTOMATEMATICOIV",
+        "S5-PENSAMIENTOMATEMATICOV",
+        "S6-PENSAMIENTOMATEMATICOVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR076",
+      "nombre": "Iván Ibarra",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-TUTORIAI",
+        "S2-TUTORIAII",
+        "S3-SOCIOEMOCIONALIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR077",
+      "nombre": "Tomás Nava",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S4-SOCIOEMOCIONALIV",
+        "S5-SOCIOEMOCIONALV",
+        "S6-SOCIOEMOCIONALVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR078",
+      "nombre": "Irene Ochoa",
+      "planteles": [
+        "NOR"
+      ],
+      "materias": [
+        "S1-TUTORIAI",
+        "S2-TUTORIAII",
+        "S3-SOCIOEMOCIONALIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR079",
+      "nombre": "Iván Juárez",
+      "planteles": [
+        "NOR"
+      ],
+      "materias": [
+        "S4-SOCIOEMOCIONALIV",
+        "S5-SOCIOEMOCIONALV",
+        "S6-SOCIOEMOCIONALVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 4
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 5
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 6
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 7
+        }
+      ],
+      "preferente": [
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR080",
+      "nombre": "Alma Soto",
+      "planteles": [
+        "SUR",
+        "CEN"
+      ],
+      "materias": [
+        "S1-TUTORIAI",
+        "S2-TUTORIAII",
+        "S3-SOCIOEMOCIONALIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR081",
+      "nombre": "Julia Pardo",
+      "planteles": [
+        "SUR"
+      ],
+      "materias": [
+        "S4-SOCIOEMOCIONALIV",
+        "S5-SOCIOEMOCIONALV",
+        "S6-SOCIOEMOCIONALVI"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 4
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 5
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 6
+        },
+        {
+          "plantilla": "VESP",
+          "dia": 3,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
       "sin_huecos": false
     }
   ],

@@ -89,7 +89,7 @@ El puntaje y el desglose siempre se calculan con `solver.scoring`, independiente
 
 `uv run python bench/run.py` corre la escuela demo ficticia "Prepa Horizonte" (`bench/generate_demo.py`):
 
-- 3 planteles, 39 grupos (BG matutino y vespertino + BIS sabatino), 69 profesores, 333 cursos y 735 bloques.
+- 3 planteles, 39 grupos (BG matutino y vespertino + BIS sabatino), 81 profesores por turno, 333 cursos y 735 bloques.
 - Inglés por nivel con 9 sincronías.
 - 15 profesores en dos planteles.
 
@@ -97,22 +97,23 @@ Resultado con 60 s y 8 workers en un Intel Core 5 120U (12 hilos):
 
 | Estado | Tiempo | Modelo | Puntaje | Validador |
 |---|---|---|---|---|
-| `ok` (CP-SAT FEASIBLE) | 50.9 s | 125 798 variables, 200 833 restricciones | 452 350 | 0 violaciones |
+| `ok` (CP-SAT FEASIBLE) | 50.3 s | 74 962 variables, 111 057 restricciones | 223 230 | 0 violaciones |
 
 | Regla | Crudo | Peso | Penalización |
 |---|---|---|---|
 | S1 | 0 | 5 | 0 |
-| S2 | 40 900 min | 7 | 286 300 |
-| S3 | 270 días-profesor | 5 | 135 000 |
-| S4 | 295 franjas | 4 | 11 800 |
-| S5 | 120 | 3 | 18 000 |
-| S6 | 5 | 5 | 1 250 |
+| S2 | 7 300 min | 7 | 51 100 |
+| S3 | 294 días-profesor | 5 | 147 000 |
+| S4 | 227 franjas | 4 | 9 080 |
+| S5 | 102 | 3 | 15 300 |
+| S6 | 3 | 5 | 750 |
 | S7 | 0 | 5 | 0 |
 
 Notas:
 
 - **Varianza:** con más de 1 worker, CP-SAT no es determinista; el puntaje cambia entre corridas.
 - **Hardware:** con menos núcleos (por ejemplo, un servicio pequeño de Render), la misma demo necesita más tiempo límite.
+- **Profesores por turno:** se probó con profesores que dan clase en matutino y vespertino (69 en total). La fase A tardó de 19 s a más de 60 s según la semilla, contra 10 a 18 s con profesores por turno. Por eso la demo usa profesores por turno.
 - **Ajuste de la demo, para que sea factible:**
   - Cada materia del BIS sabatino tiene su propio profesor, porque S7 no deja que uno dé dos materias al mismo grupo el mismo sábado.
   - Inglés tiene al menos 2 profesores por plantel, porque los dos niveles van a la misma hora.

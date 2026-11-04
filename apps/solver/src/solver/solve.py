@@ -27,7 +27,7 @@ from solver.scoring import REGLAS_S, score
 from solver.validator import validate_schedule
 
 PARTE_ESPACIOS = 0.2  # fracción del tiempo límite para la etapa de espacios
-PARTE_FASE_A = 0.6  # tope de la fase A dentro del tiempo de búsqueda
+PARTE_FASE_A = 0.8  # tope de la fase A dentro del tiempo de búsqueda (B usa lo que sobre)
 LIMITE_DIAGNOSTICO_S = 30
 
 

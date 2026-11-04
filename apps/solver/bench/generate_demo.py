@@ -94,7 +94,9 @@ HORAS_POR_PROFESOR = 22  # demanda que cubre cada profesor (horas_max es 26)
 PROB_DIA_LIBRE = 0.3  # profesores con un día de la semana que no vienen
 PROB_PREFERENTE = 0.3  # profesores que prefieren las primeras horas
 EN_DOS_PLANTELES = 15  # profesores que dan clase en dos planteles
-TURNOS_SEPARADOS = False  # True: cada profesor en un solo turno
+TURNOS_SEPARADOS = (
+    True  # cada profesor en un turno (con ambos turnos la búsqueda es mucho más lenta)
+)
 
 NOMBRES = [
     "Ana",

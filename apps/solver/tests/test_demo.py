@@ -17,7 +17,7 @@ def test_demo_es_valida_y_determinista():
     inst = build_instance(a)
     assert len(inst.planteles) == 3
     assert 36 <= len(inst.grupos) <= 40
-    assert 55 <= len(inst.profesores) <= 75
+    assert 55 <= len(inst.profesores) <= 90
     assert inst.sincronias, "Inglés por nivel debe generar sincronías"
 
 
