@@ -147,3 +147,105 @@ def problemas(draw) -> SolveRequest:
             "cursos": cursos,
         }
     )
+
+
+@st.composite
+def problemas_diminutos(draw) -> SolveRequest:
+    """Un día, un plantel, 1–3 cursos de un bloque y 1–2 espacios: tan chicos que se pueden
+    resolver por fuerza bruta."""
+    n = draw(st.integers(2, 4))
+    tipo = draw(st.sampled_from(["aula", "laboratorio"]))
+    espacios = [
+        {
+            "id": f"E{i}",
+            "plantel": "P1",
+            "nombre": f"Espacio {i}",
+            "tipo": tipo,
+            "capacidad": draw(st.sampled_from([25, 45])),
+        }
+        for i in range(draw(st.sampled_from([1, 2, 2, 2])))
+    ]
+    grupos = [
+        {
+            "id": f"G{i}",
+            "nombre": f"{i}A",
+            "plantel": "P1",
+            "plantilla": "MAT",
+            "alumnos": draw(st.sampled_from([20, 40])),
+        }
+        for i in range(draw(st.integers(1, 3)))
+    ]
+    materias = [
+        {
+            "id": f"M{h}",
+            "nombre": f"Materia {h}",
+            "horas_semana": h,
+            "patrones": [[h]],
+            "tipo_espacio": tipo,
+        }
+        for h in (1, 2)
+    ]
+    franjas = [(0, o) for o in range(n)]
+    profesores = [
+        {
+            "id": f"PR{i}",
+            "nombre": f"Profesor {i}",
+            "planteles": ["P1"],
+            "materias": ["M1", "M2"],
+            "horas_max": 8,
+            "max_dia": 8,
+            "preferente": [
+                {"plantilla": "MAT", "dia": d, "orden": o}
+                for d, o in draw(st.lists(st.sampled_from(franjas), max_size=3))
+            ],
+        }
+        for i in range(draw(st.integers(1, 3)))
+    ]
+    cursos = []
+    for i in range(draw(st.integers(2, 3))):
+        vacante = draw(st.integers(0, 4)) == 0
+        cursos.append(
+            {
+                "id": f"C{i}",
+                "materia": f"M{draw(st.integers(1, 2))}",
+                "grupos": [draw(st.sampled_from(grupos))["id"]],
+                "vacante": vacante,
+                "profesor": None if vacante else draw(st.sampled_from(profesores))["id"],
+            }
+        )
+    fijadas = []
+    if draw(st.integers(0, 3)) > 0:
+        c = draw(st.sampled_from(cursos))
+        horas = int(c["materia"][1])
+        if horas <= n:
+            fijadas.append(
+                {
+                    "curso": c["id"],
+                    "bloque": 0,
+                    "dia": 0,
+                    "orden_inicio": draw(st.integers(0, n - horas)),
+                    "espacio": draw(st.sampled_from([None, *espacios, *espacios])),
+                }
+            )
+            if fijadas[0]["espacio"] is not None:
+                fijadas[0]["espacio"] = fijadas[0]["espacio"]["id"]
+    return SolveRequest.model_validate(
+        {
+            "schema_version": "1",
+            "parametros": {
+                "tiempo_limite_s": 5,
+                "num_workers": 1,
+                "reglas": {"S1": {"modo": draw(st.sampled_from(["preferencia", "obligatoria"]))}},
+            },
+            "plantillas": [
+                {"id": "MAT", "nombre": "Matutino", "franjas": franjas_seguidas([0], "07:00", n)}
+            ],
+            "planteles": [{"id": "P1", "nombre": "Plantel"}],
+            "espacios": espacios,
+            "materias": materias,
+            "grupos": grupos,
+            "profesores": profesores,
+            "cursos": cursos,
+            "fijadas": fijadas,
+        }
+    )

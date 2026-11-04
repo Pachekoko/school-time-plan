@@ -67,7 +67,9 @@ def test_docente_n_solo_de_miercoles_a_viernes_y_sin_huecos():
 def test_fixture_sin_nombres_reales():
     texto = FIXTURE.read_text(encoding="utf-8")
     assert all(re.fullmatch(r"Docente ([0-9]{2}|[A-Z])", p.nombre) for p in caso_real().profesores)
-    assert not re.search(r"N196|GENERICO", texto)
+    req = caso_real()
+    assert all(re.fullmatch(r"G[0-9]{2}", g.id) for g in req.grupos)  # sin códigos reales
+    assert "GENERICO" not in texto
     if DOCENTES_LOCAL.exists():
         for real in json.loads(DOCENTES_LOCAL.read_text(encoding="utf-8")):
             assert real.lower() not in texto.lower()

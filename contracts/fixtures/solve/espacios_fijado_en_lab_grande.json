@@ -1,0 +1,148 @@
+{
+  "descripcion": "Re-optimizar: Química de 1A (25 alumnos) está fijada en el laboratorio grande a las 7:00 y la de 1B (40 alumnos, solo cabe en el grande) prefiere esa hora. Contar capacidad por franja no basta: 1B debe ir a las 7:50.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "tiempo_limite_s": 5,
+      "num_workers": 1
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "07:00",
+            "fin": "07:50",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "07:50",
+            "fin": "08:40",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Centro"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "LB",
+        "plantel": "P1",
+        "nombre": "Lab grande",
+        "tipo": "laboratorio",
+        "capacidad": 45
+      },
+      {
+        "id": "LS",
+        "plantel": "P1",
+        "nombre": "Lab chico",
+        "tipo": "laboratorio",
+        "capacidad": 30
+      }
+    ],
+    "materias": [
+      {
+        "id": "QUI",
+        "nombre": "Química",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 25
+      },
+      {
+        "id": "G2",
+        "nombre": "1B",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 40
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR1",
+        "nombre": "Uno",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "QUI"
+        ],
+        "horas_max": 5,
+        "max_dia": 5
+      },
+      {
+        "id": "PR2",
+        "nombre": "Dos",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "QUI"
+        ],
+        "horas_max": 5,
+        "max_dia": 5,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 0
+          }
+        ]
+      }
+    ],
+    "cursos": [
+      {
+        "id": "C1",
+        "materia": "QUI",
+        "grupos": [
+          "G1"
+        ],
+        "profesor": "PR1"
+      },
+      {
+        "id": "C2",
+        "materia": "QUI",
+        "grupos": [
+          "G2"
+        ],
+        "profesor": "PR2"
+      }
+    ],
+    "fijadas": [
+      {
+        "curso": "C1",
+        "bloque": 0,
+        "dia": 0,
+        "orden_inicio": 0,
+        "espacio": "LB",
+        "profesor": "PR1",
+        "fijada": true
+      }
+    ]
+  },
+  "esperado": {
+    "estado": "ok"
+  }
+}

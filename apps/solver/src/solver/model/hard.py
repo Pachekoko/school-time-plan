@@ -114,10 +114,13 @@ def _sin_dobles(m, ocupacion: dict[tuple, list[IntVar]], lit) -> None:
 
 def _capacidad_espacios(m, inst: Instance, v: Vars, sup: Supuestos) -> None:
     """H4: por (plantel, tipo, día, átomo), los bloques con k o más alumnos no superan a los
-    espacios con capacidad k o más (condición de Hall para capacidades anidadas). La
-    asignación concreta de espacios es la etapa 2."""
-    activos: dict[tuple[str, str], dict[tuple[int, int], list[tuple[int, IntVar]]]] = defaultdict(
-        lambda: defaultdict(list)
+    espacios con capacidad k o más (condición de Hall para capacidades anidadas).
+
+    Si todos los espacios del tipo les caben a todos sus bloques y ninguno está fijado, ese
+    conteo basta: los bloques son intervalos y siempre se pueden repartir (la etapa 2 elige
+    cuál). Si no, se agrega la asignación exacta de espacio por bloque (`v.z`)."""
+    activos: dict[tuple[str, str], dict[tuple[int, int], list[tuple[int, str, IntVar]]]] = (
+        defaultdict(lambda: defaultdict(list))
     )
     for (b_id, d, o), xv in v.x.items():
         b = v.bloque[b_id]
@@ -126,19 +129,61 @@ def _capacidad_espacios(m, inst: Instance, v: Vars, sup: Supuestos) -> None:
         alumnos = inst.curso_alumnos(b.curso)
         atomos = {a for k in range(b.duracion) for a in inst.atomos_cubiertos(plantilla, d, o + k)}
         for a in atomos:
-            activos[(plantel, tipo)][(d, a)].append((alumnos, xv))
+            activos[(plantel, tipo)][(d, a)].append((alumnos, b_id, xv))
+    fijos = {f"{f.curso}#{f.patron}.{f.bloque}": f for f in inst.req.fijadas if f.espacio}
+    x_por_bloque: dict[str, list[IntVar]] = defaultdict(list)
+    for (b_id, _, _), xv in v.x.items():
+        x_por_bloque[b_id].append(xv)
     for (plantel, tipo), por_ranura in activos.items():
-        capacidades = [
-            e.capacidad for e in inst.espacios.values() if e.plantel == plantel and e.tipo == tipo
-        ]
+        espacios = [e for e in inst.espacios.values() if e.plantel == plantel and e.tipo == tipo]
         lit = sup.lit("H4", [_e("plantel", plantel)], tipo=tipo)
-        umbrales = sorted({n for lista in por_ranura.values() for n, _ in lista})
+        umbrales = sorted({n for lista in por_ranura.values() for n, _, _ in lista})
         for lista in por_ranura.values():
             for k in umbrales:
-                grandes = [xv for n, xv in lista if n >= k]
-                cupo = sum(1 for cap in capacidades if cap >= k)
+                grandes = [xv for n, _, xv in lista if n >= k]
+                cupo = sum(1 for e in espacios if e.capacidad >= k)
                 if len(grandes) > cupo:
                     m.Add(sum(grandes) <= cupo).OnlyEnforceIf(lit)
+        alumnos = {b_id: n for lista in por_ranura.values() for n, b_id, _ in lista}
+        if any(b in fijos for b in alumnos) or any(
+            n > e.capacidad for n in alumnos.values() for e in espacios
+        ):
+            _espacios_exactos(m, v, sup, lit, espacios, alumnos, por_ranura, x_por_bloque, fijos)
+
+
+def _espacios_exactos(m, v: Vars, sup, lit, espacios, alumnos, por_ranura, x_por_bloque, fijos):
+    """Cada bloque acomodado usa un espacio que le cabe (el fijado, si lo trae) y ningún
+    espacio tiene dos bloques en el mismo átomo."""
+    for b_id, n in alumnos.items():
+        zs = []
+        for e in espacios:
+            if e.capacidad >= n:
+                v.z[(b_id, e.id)] = m.NewBoolVar(f"z[{b_id},{e.id}]")
+                zs.append(v.z[(b_id, e.id)])
+        colocado = sum(x_por_bloque[b_id])
+        m.Add(sum(zs) <= colocado)
+        m.Add(sum(zs) >= colocado).OnlyEnforceIf(lit)
+        if b_id in fijos:
+            lit_fija = sup.lit("H10", [_e("sesion", b_id)])
+            z_fijo = v.z.get((b_id, fijos[b_id].espacio))
+            if z_fijo is None:
+                m.AddBoolOr([lit_fija.Not()])
+            else:
+                m.Add(z_fijo == 1).OnlyEnforceIf(lit_fija)
+    for lista in por_ranura.values():
+        for e in espacios:
+            por_bloque: dict[str, list[IntVar]] = defaultdict(list)
+            for _, b_id, xv in lista:
+                if (b_id, e.id) in v.z:
+                    por_bloque[b_id].append(xv)
+            if len(por_bloque) < 2:
+                continue
+            ocupa = []
+            for b_id, xs in por_bloque.items():
+                y = m.NewBoolVar("")
+                m.Add(y >= v.z[(b_id, e.id)] + sum(xs) - 1)
+                ocupa.append(y)
+            m.Add(sum(ocupa) <= 1).OnlyEnforceIf(lit)
 
 
 def _disponibilidad(m, inst: Instance, v: Vars, sup: Supuestos) -> None:

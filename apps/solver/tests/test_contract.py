@@ -67,3 +67,10 @@ def test_s3_no_puede_ser_obligatoria():
     p["parametros"] = {"reglas": {"S3": {"modo": "obligatoria"}}}
     with pytest.raises(ValidationError, match="S3"):
         SolveRequest.model_validate(p)
+
+
+def test_fijada_sin_hora_es_invalida():
+    p = minimo_dict()
+    p["fijadas"] = [{"curso": "C1", "bloque": 0, "sin_acomodar": True}]
+    with pytest.raises(ValidationError, match="fijada"):
+        SolveRequest.model_validate(p)

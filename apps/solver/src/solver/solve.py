@@ -7,6 +7,7 @@ from ortools.sat.python import cp_model
 
 from solver.contract import (
     Diagnostico,
+    Entidad,
     Estadisticas,
     ReglasConfig,
     SesionIn,
@@ -19,35 +20,38 @@ from solver.diagnosis import explain_core
 from solver.instance import Instance, build_instance
 from solver.messages import nombre
 from solver.model.hard import Supuestos, add_hard
-from solver.model.rooms import assign_rooms
+from solver.model.rooms import EspaciosError, assign_rooms
 from solver.model.soft import add_soft, build_objective
 from solver.model.variables import Vars, build_vars
 from solver.prechecks import run_prechecks
 from solver.scoring import REGLAS_S, score
 from solver.validator import validate_schedule
 
-PARTE_ESPACIOS = 0.2  # fracción del tiempo límite para la etapa de espacios
-PARTE_FASE_A = 0.8  # tope de la fase A dentro del tiempo de búsqueda (B usa lo que sobre)
+PARTE_ESPACIOS = 0.05  # reserva del tiempo límite para la etapa de espacios (modelo pequeño)
+MINIMO_ESPACIOS_S = 1.0
+MARGEN_RELOJ = 3  # con 1 worker manda el tiempo determinista; el reloj es solo un tope
 LIMITE_DIAGNOSTICO_S = 30
+BLOQUEANTES = {"PRE_SINCRONIA"}  # vuelven incoherente el modelo, aun en modo parcial
 
 
 def solve(req: SolveRequest) -> SolveResponse:
     """Dos fases: A busca un horario que cumpla las reglas duras y las obligatorias (sin
-    preferencias, que es lo que más tarda); B optimiza las preferencias partiendo de A."""
+    preferencias, que es lo que más tarda) con toda la ventana de búsqueda; B optimiza las
+    preferencias partiendo de A con el tiempo que sobre, y se usa solo si mejora."""
     inicio = time.perf_counter()
     inst = build_instance(req)  # InstanceError: la API responde 422
     p = req.parametros
     diagnostico = run_prechecks(inst)
-    if diagnostico and not p.permitir_parcial:
+    bloquea = any(d.codigo in BLOQUEANTES for d in diagnostico)
+    if diagnostico and (bloquea or not p.permitir_parcial):
         return _respuesta(inst, "sin_solucion", [], diagnostico, inicio, "NO_EJECUTADO", None)
 
-    tiempo_espacios = max(1.0, p.tiempo_limite_s * PARTE_ESPACIOS)
-    fin_busqueda = inicio + max(1.0, p.tiempo_limite_s - tiempo_espacios)
+    tiempo_espacios = max(MINIMO_ESPACIOS_S, p.tiempo_limite_s * PARTE_ESPACIOS)
+    ventana = max(1.0, p.tiempo_limite_s - tiempo_espacios)
 
-    m, v, _ = _modelo(inst, con_supuestos=False, solo_factibilidad=True)
-    solver = _solver(
-        max(1.0, (fin_busqueda - time.perf_counter()) * PARTE_FASE_A), p.num_workers, p.semilla
-    )
+    m, v, _, _ = _modelo(inst, con_supuestos=False, solo_factibilidad=True)
+    solver = _solver(ventana, p.num_workers, p.semilla)
+    inicio_a = time.perf_counter()
     status = solver.Solve(m)
     if status == cp_model.INFEASIBLE:
         diagnostico += _diagnosticar(inst, p.tiempo_limite_s)
@@ -69,33 +73,52 @@ def solve(req: SolveRequest) -> SolveResponse:
         )
     sesiones = extract_sesiones(inst, v, solver)
 
-    restante = fin_busqueda - time.perf_counter()
+    restante = ventana - _consumido(solver, p.num_workers, inicio_a)
     if _hay_preferencias(p.reglas) and restante >= 1:
-        mb, vb, _ = _modelo(inst, con_supuestos=False)
+        mb, vb, _, _ = _modelo(inst, con_supuestos=False)
         _sugerir(mb, vb, v, solver)
         solver_b = _solver(restante, p.num_workers, p.semilla)
         status_b = solver_b.Solve(mb)
         if status_b in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-            m, solver, status = mb, solver_b, status_b
-            sesiones = extract_sesiones(inst, vb, solver_b)
+            sesiones_b = extract_sesiones(inst, vb, solver_b)
+            if mejor_de(inst, sesiones, sesiones_b) is sesiones_b:
+                m, solver, status, sesiones = mb, solver_b, status_b, sesiones_b
 
-    con_espacio = assign_rooms(inst, sesiones, tiempo_espacios)
-    if con_espacio is None:
-        planteles = ", ".join(nombre(inst, "plantel", pl) for pl in sorted(inst.planteles))
+    try:
+        con_espacio = assign_rooms(inst, sesiones, tiempo_espacios)
+    except EspaciosError as e:
         diagnostico.append(
             Diagnostico(
                 codigo="ESPACIOS",
                 regla="H4",
-                entidades=[],
-                mensaje=f"No se pudieron asignar espacios sin choques; revisa la capacidad de "
-                f"{planteles}",
+                entidades=[Entidad(tipo="plantel", id=e.plantel)],
+                mensaje=f"No se encontró a tiempo un reparto de espacios de tipo {e.tipo} sin "
+                f"choques en {nombre(inst, 'plantel', e.plantel)}; vuelve a intentar con más "
+                "tiempo",
             )
         )
         return _respuesta(
-            inst, "sin_solucion", [], diagnostico, inicio, solver.StatusName(status), m
+            inst, "tiempo_agotado", [], diagnostico, inicio, solver.StatusName(status), m
         )
     estado = map_status(status, any(s.sin_acomodar for s in con_espacio))
     return _respuesta(inst, estado, con_espacio, diagnostico, inicio, solver.StatusName(status), m)
+
+
+def mejor_de(inst: Instance, a: list[SesionIn], b: list[SesionIn]) -> list[SesionIn]:
+    """El mejor de dos horarios: el que deja menos bloques sin acomodar y, luego, el de menor
+    puntaje. En empate, `a`."""
+
+    def clave(sesiones: list[SesionIn]) -> tuple[int, int]:
+        return sum(s.sin_acomodar for s in sesiones), score(inst, sesiones)[0]
+
+    return b if clave(b) < clave(a) else a
+
+
+def _consumido(solver: cp_model.CpSolver, workers: int, inicio: float) -> float:
+    """Tiempo que gastó la fase: determinista con 1 worker (reproducible), de reloj si no."""
+    if workers == 1:
+        return solver.ResponseProto().deterministic_time
+    return time.perf_counter() - inicio
 
 
 def reglas_de_factibilidad(reglas: ReglasConfig) -> ReglasConfig:
@@ -114,7 +137,7 @@ def _hay_preferencias(reglas: ReglasConfig) -> bool:
 def _sugerir(m: cp_model.CpModel, v: Vars, previo: Vars, solver: cp_model.CpSolver) -> None:
     """Sugiere a la fase B la solución de la fase A (mismas llaves de variables)."""
     vistos: set[int] = set()
-    for nombre_var in ("x", "t", "sel", "y", "acomodado"):
+    for nombre_var in ("x", "t", "sel", "y", "acomodado", "z"):
         actuales, anteriores = getattr(v, nombre_var), getattr(previo, nombre_var)
         for clave, var in actuales.items():
             if var.Index() in vistos or clave not in anteriores:
@@ -144,6 +167,7 @@ def map_status(status: int, hay_sin_acomodar: bool) -> str:
 def extract_sesiones(inst: Instance, v: Vars, solver: cp_model.CpSolver) -> list[SesionIn]:
     """Sesiones de la solución; los cursos sin acomodar salen como `sin_acomodar` (patrón 0)."""
     fijadas = {(f.curso, f.patron, f.bloque): f for f in inst.req.fijadas}
+    espacio_de = {b_id: e for (b_id, e), zv in v.z.items() if solver.Value(zv)}
     quien: dict[tuple[str, int, int], str] = {}
     for (b_id, p, d, o), tv in v.t.items():
         if solver.Value(tv):
@@ -161,7 +185,7 @@ def extract_sesiones(inst: Instance, v: Vars, solver: cp_model.CpSolver) -> list
                 bloque=b.indice,
                 dia=d,
                 orden_inicio=o,
-                espacio=f.espacio if f is not None else None,
+                espacio=espacio_de.get(b_id, f.espacio if f is not None else None),
                 profesor=quien.get((b_id, d, o)),
                 fijada=f is not None,
             )
@@ -186,19 +210,25 @@ def _modelo(inst: Instance, con_supuestos: bool, solo_factibilidad: bool = False
     crudos = add_soft(m, inst, v, sup, reglas)
     if con_supuestos:
         sup.como_supuestos()
-        return m, v, sup
+        return m, v, sup, crudos
     sup.fijar()
     if solo_factibilidad:
         if inst.req.parametros.permitir_parcial:
             m.Minimize(sum(1 - a for a in v.acomodado.values()))
     else:
         m.Minimize(build_objective(v, crudos, reglas))
-    return m, v, sup
+    return m, v, sup, crudos
 
 
 def _solver(tiempo_s: float, workers: int, semilla: int) -> cp_model.CpSolver:
+    """Con 1 worker el límite es de tiempo determinista, para que la misma entrada dé siempre
+    el mismo horario; con más workers CP-SAT no es determinista y el límite es de reloj."""
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = tiempo_s
+    if workers == 1:
+        solver.parameters.max_deterministic_time = tiempo_s
+        solver.parameters.max_time_in_seconds = tiempo_s * MARGEN_RELOJ
+    else:
+        solver.parameters.max_time_in_seconds = tiempo_s
     solver.parameters.num_workers = workers
     solver.parameters.random_seed = semilla
     return solver
@@ -206,7 +236,7 @@ def _solver(tiempo_s: float, workers: int, semilla: int) -> cp_model.CpSolver:
 
 def _diagnosticar(inst: Instance, tiempo_limite_s: float) -> list[Diagnostico]:
     """Segunda pasada con los supuestos activos y 1 worker para leer el núcleo."""
-    m, _, sup = _modelo(inst, con_supuestos=True)
+    m, _, sup, _ = _modelo(inst, con_supuestos=True)
     solver = _solver(min(LIMITE_DIAGNOSTICO_S, tiempo_limite_s), 1, inst.req.parametros.semilla)
     if solver.Solve(m) != cp_model.INFEASIBLE:
         return [

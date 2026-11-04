@@ -78,12 +78,22 @@ Estados posibles de `/solve`:
 ## Cómo resuelve
 
 1. **Prechecks** de milisegundos: horas contra disponibilidad, carga del grupo, espacios, bloques que no caben y sincronías sin profesores distintos. Si fallan, la respuesta es `sin_solucion` con un mensaje concreto y el modelo ni se construye.
-2. **Fase A:** CP-SAT busca un horario que cumpla las reglas duras y las obligatorias, sin preferencias.
-3. **Fase B:** optimiza las preferencias partiendo del horario de la fase A. Si no mejora a tiempo, se queda el de la fase A.
-4. **Espacios:** con el horario fijo, un modelo pequeño por plantel y tipo elige el salón.
+2. **Fase A:** CP-SAT busca, con toda la ventana de búsqueda, un horario que cumpla las reglas duras y las obligatorias, sin preferencias.
+3. **Fase B:** optimiza las preferencias partiendo del horario de A, con el tiempo que sobre. Solo reemplaza a A si deja menos bloques sin acomodar o tiene mejor puntaje.
+4. **Espacios:**
+   - Con espacios intercambiables (a todos los bloques del tipo les caben todos) y sin espacios fijados, la fase 1 solo cuenta cuántos se usan a la vez. Ese conteo basta, porque los bloques son intervalos. Después, un modelo pequeño por plantel y tipo elige el salón.
+   - Si las capacidades importan o hay espacios fijados, el espacio de cada bloque se decide dentro del modelo principal.
+   - La etapa de espacios nunca responde `sin_solucion`. Si se acaba el tiempo, responde `tiempo_agotado` y nombra el plantel y el tipo.
 5. **Si no hay solución:** se repite el modelo con cada familia de reglas como *supuesto* de CP-SAT. Su núcleo (`SufficientAssumptionsForInfeasibility`) dice qué reglas chocan, en español.
 
-El puntaje y el desglose siempre se calculan con `solver.scoring`, independiente del modelo. Las pruebas de propiedades comprueban que todo horario `ok` pase el validador independiente.
+El puntaje y el desglose siempre se calculan con `solver.scoring`, independiente del modelo.
+
+**Lo que comprueban las pruebas de propiedades:**
+- Todo horario `ok` pasa el validador independiente.
+- Las penalizaciones del modelo coinciden con `scoring`.
+- En problemas diminutos, un `sin_solucion` se confirma por fuerza bruta.
+
+**Reproducibilidad:** con `num_workers = 1`, cada fase se limita por tiempo determinista de CP-SAT, no de reloj, así que la misma entrada da el mismo horario. El reloj queda solo como tope de seguridad, a 3 veces el límite.
 
 ## Benchmark
 

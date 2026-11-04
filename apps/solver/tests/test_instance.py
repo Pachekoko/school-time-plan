@@ -167,3 +167,14 @@ def test_franjas_clase_y_dias(plantilla_con_receso):
     inst = build_instance(plantilla_con_receso)
     assert [f.orden for f in inst.franjas_clase("MAT", 2)] == [0, 1, 2, 4, 5, 6]
     assert inst.dias("MAT") == [0, 1, 2, 3, 4]
+
+
+def test_grupo_repetido_en_un_curso(minimo):
+    minimo.cursos[0].grupos = ["G1", "G1"]
+    assert any("grupo G1 repetido" in m for m in _errores(minimo))
+
+
+def test_fijada_repetida(minimo):
+    f = SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=0)
+    minimo.fijadas = [f, f.model_copy()]
+    assert any("fijada repetida: C1#0.0" in m for m in _errores(minimo))

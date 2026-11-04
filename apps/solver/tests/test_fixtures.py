@@ -34,3 +34,6 @@ def test_fixture_solve(path):
     assert resp.estado == esperado["estado"], [d.mensaje for d in resp.diagnostico]
     if "codigos_diagnostico" in esperado:
         assert sorted({d.regla for d in resp.diagnostico}) == esperado["codigos_diagnostico"]
+    if resp.estado == "ok":
+        req = SolveRequest.model_validate(caso["problema"])
+        assert validate_schedule(build_instance(req), resp.sesiones) == []

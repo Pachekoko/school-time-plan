@@ -195,6 +195,16 @@ class SolveRequest(_Modelo):
     cursos: list[CursoIn]
     fijadas: list[SesionIn] = []
 
+    @model_validator(mode="after")
+    def _fijadas_con_hora(self) -> "SolveRequest":
+        for f in self.fijadas:
+            if f.sin_acomodar:
+                raise ValueError(
+                    f"la fijada {f.curso}#{f.patron}.{f.bloque} debe tener día y hora "
+                    "(no puede estar sin_acomodar)"
+                )
+        return self
+
 
 # --- Salida ----------------------------------------------------------------
 

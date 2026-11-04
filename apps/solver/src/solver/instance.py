@@ -244,6 +244,8 @@ def build_instance(req: SolveRequest) -> Instance:
         falta(f"curso {c.id}", "el profesor", c.profesor, profesores)
         for g in c.grupos:
             falta(f"curso {c.id}", "el grupo", g, grupos)
+        for g in sorted({g for g in c.grupos if c.grupos.count(g) > 1}):
+            errores.append(f"curso {c.id}: grupo {g} repetido")
         suyos = [grupos[g] for g in c.grupos if g in grupos]
         if len({g.plantel for g in suyos}) > 1:
             errores.append(f"curso {c.id}: sus grupos tienen planteles distintos")
@@ -254,8 +256,13 @@ def build_instance(req: SolveRequest) -> Instance:
             falta("regla S6", "la materia", m, materias)
         for ref in r.franjas:
             falta_franja("regla S6", ref)
+    vistas = set()
     for s in req.fijadas:
         _revisar_fijada(s, cursos, materias, espacios, profesores, errores)
+        clave = f"{s.curso}#{s.patron}.{s.bloque}"
+        if clave in vistas:
+            errores.append(f"fijada repetida: {clave}")
+        vistas.add(clave)
 
     if errores:
         raise InstanceError(errores)

@@ -1,7 +1,8 @@
 """Etapa 2: con día, hora y profesor ya fijos, asigna un espacio a cada sesión.
 
-Un modelo CP-SAT pequeño por (plantel, tipo de espacio). La etapa 1 ya garantizó, por conteo,
-que en cada átomo alcanzan los espacios; aquí se elige cuál, sin cambiarlo dentro de un bloque.
+Un modelo CP-SAT pequeño por (plantel, tipo de espacio). La etapa 1 ya garantizó que el reparto
+existe: por conteo cuando los espacios son intercambiables, o con la asignación exacta (y entonces
+las sesiones llegan con `espacio`). Aquí se elige cuál, sin cambiarlo dentro de un bloque.
 """
 
 from collections import defaultdict
@@ -13,10 +14,19 @@ from solver.contract import SesionIn
 from solver.instance import Instance
 
 
+class EspaciosError(Exception):
+    """No se encontró a tiempo un reparto de espacios para un (plantel, tipo)."""
+
+    def __init__(self, plantel: str, tipo: str):
+        super().__init__(f"sin reparto de espacios de tipo {tipo} en {plantel}")
+        self.plantel, self.tipo = plantel, tipo
+
+
 def assign_rooms(
     inst: Instance, sesiones: list[SesionIn], tiempo_limite_s: float
-) -> list[SesionIn] | None:
-    """Las sesiones con `espacio` asignado, o `None` si no hay asignación posible."""
+) -> list[SesionIn]:
+    """Las sesiones con `espacio` asignado (las que ya lo traen lo conservan). Lanza
+    `EspaciosError` si algún (plantel, tipo) no tiene reparto."""
     colocadas, _ = colocar(inst, sesiones)
     grupos: dict[tuple[str, str], list[Colocada]] = defaultdict(list)
     for c in colocadas:
@@ -28,7 +38,7 @@ def assign_rooms(
         espacios = [e for e in inst.espacios.values() if e.plantel == plantel and e.tipo == tipo]
         resultado = _resolver(inst, lista, espacios, tiempo)
         if resultado is None:
-            return None
+            raise EspaciosError(plantel, tipo)
         asignado.update(resultado)
     return [
         s.model_copy(update={"espacio": asignado[id(s)]}) if id(s) in asignado else s

@@ -12,7 +12,7 @@ from solver.contract import (
 )
 from solver.instance import InstanceError, build_instance
 from solver.scoring import score
-from solver.solve import map_status, reglas_de_factibilidad, solve, validate
+from solver.solve import map_status, mejor_de, reglas_de_factibilidad, solve, validate
 from solver.validator import validate_schedule
 
 from helpers import FIXTURES
@@ -167,3 +167,76 @@ def test_dos_fases_optimizan_preferencias(minimo):
     resp = solve(minimo)
     assert resp.estado == "ok" and resp.desglose["S2"].crudo == 0
     assert {s.curso: s.orden_inicio for s in resp.sesiones} == {"C1": 0, "C2": 1}
+
+
+def test_parcial_no_ignora_sincronias_mal_formadas(minimo):
+    minimo.parametros.permitir_parcial = True
+    minimo.materias.append(
+        minimo.materias[0].model_copy(update={"id": "M2", "patrones": [[1, 1, 2]]})
+    )
+    minimo.profesores[0].materias = ["M1", "M2"]
+    minimo.profesores.append(minimo.profesores[0].model_copy(update={"id": "PR2", "nombre": "B"}))
+    minimo.espacios.append(minimo.espacios[0].model_copy(update={"id": "A2"}))
+    minimo.cursos = [
+        CursoIn(id="C1", materia="M1", grupos=["G1"], sincronia="ING", alumnos=15),
+        CursoIn(id="C2", materia="M2", grupos=["G1"], sincronia="ING", alumnos=15),
+    ]
+    resp = solve(minimo)
+    assert resp.estado == "sin_solucion"
+    assert "PRE_SINCRONIA" in [d.codigo for d in resp.diagnostico]
+
+
+def test_se_queda_con_el_mejor_horario(minimo):
+    inst = build_instance(minimo)
+    bueno = [
+        SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=0, profesor="PR1"),
+        SesionIn(curso="C1", bloque=1, dia=2, orden_inicio=0, profesor="PR1"),
+    ]
+    malo = [
+        SesionIn(curso="C1", bloque=0, dia=0, orden_inicio=0, profesor="PR1"),
+        SesionIn(curso="C1", bloque=1, dia=1, orden_inicio=0, profesor="PR1"),
+    ]  # S5
+    assert mejor_de(inst, bueno, malo) == bueno
+    assert mejor_de(inst, malo, bueno) == bueno
+    parcial = [
+        SesionIn(curso="C1", bloque=0, sin_acomodar=True),
+        SesionIn(curso="C1", bloque=1, sin_acomodar=True),
+    ]
+    assert mejor_de(inst, parcial, malo) == malo
+
+
+def test_fase_a_usa_toda_la_ventana_de_busqueda(minimo, monkeypatch):
+    import solver.solve as S
+
+    pedidos = []
+    original = S._solver
+    monkeypatch.setattr(S, "_solver", lambda t, w, s: pedidos.append(t) or original(t, w, s))
+    minimo.parametros.tiempo_limite_s = 40
+    solve(minimo)
+    assert pedidos[0] >= 0.9 * 40
+
+
+def test_un_worker_usa_tiempo_determinista():
+    import solver.solve as S
+
+    uno = S._solver(7, 1, 3)
+    assert uno.parameters.max_deterministic_time == 7
+    assert uno.parameters.max_time_in_seconds > 7
+    varios = S._solver(7, 8, 3)
+    assert varios.parameters.max_time_in_seconds == 7
+
+
+def test_espacios_sin_reparto_no_es_sin_solucion(minimo, monkeypatch):
+    import solver.solve as S
+    from solver.model.rooms import EspaciosError
+
+    def falla(*_):
+        raise EspaciosError("P1", "aula")
+
+    monkeypatch.setattr(S, "assign_rooms", falla)
+    minimo.parametros.num_workers = 1
+    resp = solve(minimo)
+    assert resp.estado == "tiempo_agotado"
+    (d,) = resp.diagnostico
+    assert (d.codigo, d.regla) == ("ESPACIOS", "H4")
+    assert d.entidades[0].id == "P1" and "aula" in d.mensaje

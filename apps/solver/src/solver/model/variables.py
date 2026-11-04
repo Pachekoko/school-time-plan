@@ -5,7 +5,7 @@ Si el curso tiene profesor fijo o un solo candidato, `t` es la misma variable qu
 """
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ortools.sat.python import cp_model
 
@@ -25,6 +25,7 @@ class Vars:
     bloque: dict[str, Bloque]
     ocupa_grupo: dict[tuple[str, int, int], list[IntVar]]  # (grupo, día, orden) -> x
     ocupa_prof: dict[tuple[str, int, int], list[IntVar]]  # (profesor, día, átomo) -> t
+    z: dict[tuple[str, str], IntVar] = field(default_factory=dict)  # (bloque, espacio), si exacto
 
     def x_de(self, bloque_id: str) -> list[tuple[int, int, IntVar]]:
         return [(d, o, xv) for (b, d, o), xv in self.x.items() if b == bloque_id]
