@@ -1,0 +1,280 @@
+{
+  "descripcion": "Una escuela sin cursos todavía.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "tiempo_limite_s": 10,
+      "num_workers": 1
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "08:00",
+            "fin": "09:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "09:00",
+            "fin": "10:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 2,
+            "inicio": "10:00",
+            "fin": "11:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 3,
+            "inicio": "11:00",
+            "fin": "12:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 1,
+            "orden": 0,
+            "inicio": "08:00",
+            "fin": "09:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 1,
+            "orden": 1,
+            "inicio": "09:00",
+            "fin": "10:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 1,
+            "orden": 2,
+            "inicio": "10:00",
+            "fin": "11:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 1,
+            "orden": 3,
+            "inicio": "11:00",
+            "fin": "12:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 2,
+            "orden": 0,
+            "inicio": "08:00",
+            "fin": "09:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 2,
+            "orden": 1,
+            "inicio": "09:00",
+            "fin": "10:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 2,
+            "orden": 2,
+            "inicio": "10:00",
+            "fin": "11:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 2,
+            "orden": 3,
+            "inicio": "11:00",
+            "fin": "12:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 3,
+            "orden": 0,
+            "inicio": "08:00",
+            "fin": "09:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 3,
+            "orden": 1,
+            "inicio": "09:00",
+            "fin": "10:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 3,
+            "orden": 2,
+            "inicio": "10:00",
+            "fin": "11:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 3,
+            "orden": 3,
+            "inicio": "11:00",
+            "fin": "12:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 4,
+            "orden": 0,
+            "inicio": "08:00",
+            "fin": "09:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 4,
+            "orden": 1,
+            "inicio": "09:00",
+            "fin": "10:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 4,
+            "orden": 2,
+            "inicio": "10:00",
+            "fin": "11:00",
+            "tipo": "clase"
+          },
+          {
+            "dia": 4,
+            "orden": 3,
+            "inicio": "11:00",
+            "fin": "12:00",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Plantel Centro"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "A1",
+        "plantel": "P1",
+        "nombre": "Aula 1",
+        "tipo": "aula",
+        "capacidad": 40
+      },
+      {
+        "id": "A2",
+        "plantel": "P1",
+        "nombre": "Aula 2",
+        "tipo": "aula",
+        "capacidad": 40
+      },
+      {
+        "id": "L1",
+        "plantel": "P1",
+        "nombre": "Laboratorio",
+        "tipo": "laboratorio",
+        "capacidad": 40
+      }
+    ],
+    "materias": [
+      {
+        "id": "M1",
+        "nombre": "Matemáticas",
+        "horas_semana": 4,
+        "patrones": [
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      {
+        "id": "M2",
+        "nombre": "Química",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      },
+      {
+        "id": "M3",
+        "nombre": "Inglés",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "id": "M4",
+        "nombre": "Historia",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "id": "M5",
+        "nombre": "Lengua",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ]
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      },
+      {
+        "id": "G2",
+        "nombre": "1B",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR1",
+        "nombre": "A. López",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M1"
+        ],
+        "horas_max": 20,
+        "max_dia": 6
+      }
+    ],
+    "cursos": []
+  },
+  "esperado": {
+    "estado": "ok"
+  }
+}

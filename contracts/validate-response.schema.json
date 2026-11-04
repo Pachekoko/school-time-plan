@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "Entidad": {
+      "additionalProperties": false,
+      "properties": {
+        "tipo": {
+          "enum": [
+            "grupo",
+            "profesor",
+            "curso",
+            "plantel",
+            "espacio",
+            "sincronia",
+            "sesion",
+            "materia",
+            "plantilla"
+          ],
+          "title": "Tipo",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tipo",
+        "id"
+      ],
+      "title": "Entidad",
+      "type": "object"
+    },
+    "PenalizacionRegla": {
+      "additionalProperties": false,
+      "properties": {
+        "crudo": {
+          "title": "Crudo",
+          "type": "integer"
+        },
+        "peso": {
+          "title": "Peso",
+          "type": "integer"
+        },
+        "penalizacion": {
+          "title": "Penalizacion",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "crudo",
+        "peso",
+        "penalizacion"
+      ],
+      "title": "PenalizacionRegla",
+      "type": "object"
+    },
+    "Violacion": {
+      "additionalProperties": false,
+      "properties": {
+        "regla": {
+          "title": "Regla",
+          "type": "string"
+        },
+        "entidades": {
+          "items": {
+            "$ref": "#/$defs/Entidad"
+          },
+          "title": "Entidades",
+          "type": "array"
+        },
+        "mensaje": {
+          "title": "Mensaje",
+          "type": "string"
+        }
+      },
+      "required": [
+        "regla",
+        "entidades",
+        "mensaje"
+      ],
+      "title": "Violacion",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1",
+      "default": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "violaciones": {
+      "items": {
+        "$ref": "#/$defs/Violacion"
+      },
+      "title": "Violaciones",
+      "type": "array"
+    },
+    "desglose": {
+      "additionalProperties": {
+        "$ref": "#/$defs/PenalizacionRegla"
+      },
+      "title": "Desglose",
+      "type": "object"
+    },
+    "puntaje": {
+      "title": "Puntaje",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "violaciones",
+    "desglose",
+    "puntaje"
+  ],
+  "title": "ValidateResponse",
+  "type": "object"
+}

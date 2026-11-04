@@ -1,0 +1,252 @@
+{
+  "descripcion": "Sin fijadas: laboratorios de 45 y 30 lugares, dos grupos de 40 y dos de 25 con bloques de 2 h escalonados por sus preferencias. Contar por franja deja pasar acomodos que ningún reparto de laboratorios puede cumplir.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "tiempo_limite_s": 10,
+      "num_workers": 1
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "07:00",
+            "fin": "07:50",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "07:50",
+            "fin": "08:40",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 2,
+            "inicio": "08:40",
+            "fin": "09:30",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 3,
+            "inicio": "09:30",
+            "fin": "10:20",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Centro"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "LB",
+        "plantel": "P1",
+        "nombre": "Lab grande",
+        "tipo": "laboratorio",
+        "capacidad": 45
+      },
+      {
+        "id": "LS",
+        "plantel": "P1",
+        "nombre": "Lab chico",
+        "tipo": "laboratorio",
+        "capacidad": 30
+      }
+    ],
+    "materias": [
+      {
+        "id": "M2",
+        "nombre": "Química",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            2
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      },
+      {
+        "id": "M1",
+        "nombre": "Física",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 40
+      },
+      {
+        "id": "G2",
+        "nombre": "1B",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 25
+      },
+      {
+        "id": "G3",
+        "nombre": "1C",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 25
+      },
+      {
+        "id": "G4",
+        "nombre": "1D",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 40
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR1",
+        "nombre": "Uno",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M2"
+        ],
+        "horas_max": 10,
+        "max_dia": 6,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 0
+          },
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 1
+          }
+        ]
+      },
+      {
+        "id": "PR2",
+        "nombre": "Dos",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M2"
+        ],
+        "horas_max": 10,
+        "max_dia": 6,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 1
+          },
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 2
+          }
+        ]
+      },
+      {
+        "id": "PR3",
+        "nombre": "Tres",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M2"
+        ],
+        "horas_max": 10,
+        "max_dia": 6,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 2
+          },
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 3
+          }
+        ]
+      },
+      {
+        "id": "PR4",
+        "nombre": "Cuatro",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M1"
+        ],
+        "horas_max": 10,
+        "max_dia": 6,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 3
+          }
+        ]
+      }
+    ],
+    "cursos": [
+      {
+        "id": "CX1",
+        "materia": "M2",
+        "grupos": [
+          "G1"
+        ],
+        "profesor": "PR1"
+      },
+      {
+        "id": "CS1",
+        "materia": "M2",
+        "grupos": [
+          "G2"
+        ],
+        "profesor": "PR2"
+      },
+      {
+        "id": "CS2",
+        "materia": "M2",
+        "grupos": [
+          "G3"
+        ],
+        "profesor": "PR3"
+      },
+      {
+        "id": "CX2",
+        "materia": "M1",
+        "grupos": [
+          "G4"
+        ],
+        "profesor": "PR4"
+      }
+    ]
+  },
+  "esperado": {
+    "estado": "ok"
+  }
+}

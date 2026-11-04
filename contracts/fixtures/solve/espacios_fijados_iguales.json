@@ -1,0 +1,198 @@
+{
+  "descripcion": "Dos aulas iguales: Historia de 1A fijada a las 7:00 en el Aula 1 y la de 1B a las 8:40 en el Aula 2; la de 1C (2 h) prefiere 7:50–9:30, que no cabe en ninguna aula sin choque, así que debe ir a las 7:00 en el Aula 2.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "tiempo_limite_s": 5,
+      "num_workers": 1
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "07:00",
+            "fin": "07:50",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "07:50",
+            "fin": "08:40",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 2,
+            "inicio": "08:40",
+            "fin": "09:30",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 3,
+            "inicio": "09:30",
+            "fin": "10:20",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Centro"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "A1",
+        "plantel": "P1",
+        "nombre": "Aula 1",
+        "tipo": "aula",
+        "capacidad": 40
+      },
+      {
+        "id": "A2",
+        "plantel": "P1",
+        "nombre": "Aula 2",
+        "tipo": "aula",
+        "capacidad": 40
+      }
+    ],
+    "materias": [
+      {
+        "id": "M",
+        "nombre": "Historia",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            2
+          ]
+        ]
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      },
+      {
+        "id": "G2",
+        "nombre": "1B",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      },
+      {
+        "id": "G3",
+        "nombre": "1C",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR1",
+        "nombre": "Prof 1",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M"
+        ],
+        "horas_max": 5,
+        "max_dia": 5
+      },
+      {
+        "id": "PR2",
+        "nombre": "Prof 2",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M"
+        ],
+        "horas_max": 5,
+        "max_dia": 5
+      },
+      {
+        "id": "PR3",
+        "nombre": "Prof 3",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M"
+        ],
+        "horas_max": 5,
+        "max_dia": 5,
+        "preferente": [
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 1
+          },
+          {
+            "plantilla": "MAT",
+            "dia": 0,
+            "orden": 2
+          }
+        ]
+      }
+    ],
+    "cursos": [
+      {
+        "id": "C1",
+        "materia": "M",
+        "grupos": [
+          "G1"
+        ],
+        "profesor": "PR1"
+      },
+      {
+        "id": "C2",
+        "materia": "M",
+        "grupos": [
+          "G2"
+        ],
+        "profesor": "PR2"
+      },
+      {
+        "id": "C3",
+        "materia": "M",
+        "grupos": [
+          "G3"
+        ],
+        "profesor": "PR3"
+      }
+    ],
+    "fijadas": [
+      {
+        "curso": "C1",
+        "bloque": 0,
+        "dia": 0,
+        "orden_inicio": 0,
+        "espacio": "A1"
+      },
+      {
+        "curso": "C2",
+        "bloque": 0,
+        "dia": 0,
+        "orden_inicio": 2,
+        "espacio": "A2"
+      }
+    ]
+  },
+  "esperado": {
+    "estado": "ok"
+  }
+}

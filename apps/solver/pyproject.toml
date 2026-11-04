@@ -1,0 +1,50 @@
+[project]
+name = "solver"
+version = "0.1.0"
+description = "Motor de horarios escolares con OR-Tools CP-SAT"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "ortools>=9.12",
+    "pydantic>=2.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "hypothesis>=6.120",
+    "httpx>=0.27",
+    "ruff>=0.8",
+    "openpyxl>=3.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/solver"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "bench"]
+testpaths = ["tests"]
+markers = ["slow: corridas largas del motor (benchmark); en CI van en su propio job"]
+filterwarnings = [
+    # Lo emite la importación de OR-Tools (no es código del motor).
+    "ignore:Bitwise inversion '~' on bool is deprecated:DeprecationWarning",
+    # TestClient de Starlette con httpx: aviso de la librería, no afecta a las pruebas.
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["solver"]
+known-local-folder = ["helpers", "strategies", "generate_demo", "from_carga_xlsx"]

@@ -1,0 +1,3192 @@
+{
+  "schema_version": "1",
+  "parametros": {
+    "tiempo_limite_s": 60.0,
+    "semilla": 0,
+    "num_workers": 8,
+    "permitir_parcial": false,
+    "minutos_traslado": 50,
+    "reglas": {
+      "S1": {
+        "modo": "obligatoria",
+        "peso": 5
+      },
+      "S2": {
+        "modo": "preferencia",
+        "peso": 8
+      },
+      "S3": {
+        "modo": "preferencia",
+        "peso": 5
+      },
+      "S4": {
+        "modo": "preferencia",
+        "peso": 4
+      },
+      "S5": {
+        "modo": "preferencia",
+        "peso": 3
+      },
+      "S6": {
+        "modo": "preferencia",
+        "peso": 5
+      },
+      "S6_restricciones": [],
+      "S7": {
+        "modo": "obligatoria",
+        "peso": 5
+      }
+    }
+  },
+  "plantillas": [
+    {
+      "id": "1y2",
+      "nombre": "1.º y 2.º semestre",
+      "franjas": [
+        {
+          "dia": 0,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        }
+      ]
+    },
+    {
+      "id": "3a6",
+      "nombre": "3.º a 6.º semestre",
+      "franjas": [
+        {
+          "dia": 0,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 6,
+          "inicio": "14:00",
+          "fin": "15:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 6,
+          "inicio": "14:00",
+          "fin": "15:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 6,
+          "inicio": "14:00",
+          "fin": "15:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 6,
+          "inicio": "14:00",
+          "fin": "15:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 6,
+          "inicio": "14:00",
+          "fin": "15:00",
+          "tipo": "clase"
+        }
+      ]
+    }
+  ],
+  "planteles": [
+    {
+      "id": "P1",
+      "nombre": "Plantel"
+    }
+  ],
+  "espacios": [
+    {
+      "id": "A01",
+      "plantel": "P1",
+      "nombre": "Aula 1",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A02",
+      "plantel": "P1",
+      "nombre": "Aula 2",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A03",
+      "plantel": "P1",
+      "nombre": "Aula 3",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A04",
+      "plantel": "P1",
+      "nombre": "Aula 4",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A05",
+      "plantel": "P1",
+      "nombre": "Aula 5",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A06",
+      "plantel": "P1",
+      "nombre": "Aula 6",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A07",
+      "plantel": "P1",
+      "nombre": "Aula 7",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A08",
+      "plantel": "P1",
+      "nombre": "Aula 8",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A09",
+      "plantel": "P1",
+      "nombre": "Aula 9",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A10",
+      "plantel": "P1",
+      "nombre": "Aula 10",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A11",
+      "plantel": "P1",
+      "nombre": "Aula 11",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A12",
+      "plantel": "P1",
+      "nombre": "Aula 12",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "A13",
+      "plantel": "P1",
+      "nombre": "Aula 13",
+      "tipo": "aula",
+      "capacidad": 45
+    }
+  ],
+  "materias": [
+    {
+      "id": "M01",
+      "nombre": "Analisis Economico",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M02",
+      "nombre": "Analisis filosofico",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M03",
+      "nombre": "Analisis literario I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M04",
+      "nombre": "Analisis literario II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M05",
+      "nombre": "Analisis matematico I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M06",
+      "nombre": "Comprension Lectora I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M07",
+      "nombre": "Comprension Lectora II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M08",
+      "nombre": "Comunicación digital",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M09",
+      "nombre": "Conocimiento matematico",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M10",
+      "nombre": "Conocimiento matematico II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M11",
+      "nombre": "Conocimiento y Ciencia",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M12",
+      "nombre": "Consumo y Produccion Digital",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M13",
+      "nombre": "Deporte y recreacion",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M14",
+      "nombre": "Desarrollo personal y Actividad fisica",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M15",
+      "nombre": "ESPAÑOL (EXTRA)",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M16",
+      "nombre": "Educacion Socioemocional y cultura de paz",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M17",
+      "nombre": "El mundo a traves del arte",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M18",
+      "nombre": "Elaboración de menús y platillos especiales",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M19",
+      "nombre": "EmoLab-Sociomocional",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M20",
+      "nombre": "Estilos de vida saludable",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M21",
+      "nombre": "Estudio del movimiento",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M22",
+      "nombre": "Evolucion y biodiversidad",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M23",
+      "nombre": "Fenomenos termicos y electromagneticos",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M24",
+      "nombre": "Fisiologia celular",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M25",
+      "nombre": "Geografía y cuidado del entorno",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M26",
+      "nombre": "Habilidad verbal",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M27",
+      "nombre": "Historia e Identidad Universitaria",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M28",
+      "nombre": "Historia sociocultural de mexico y el mundo",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M29",
+      "nombre": "Historia y arte regional",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M30",
+      "nombre": "INGLES (EXTRA)",
+      "horas_semana": 1,
+      "patrones": [
+        [
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M31",
+      "nombre": "Impulso académico-Club de tareas",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M32",
+      "nombre": "Ingles Nivel 1",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M33",
+      "nombre": "Ingles Nivel II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M34",
+      "nombre": "Ingles nivel 3",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M35",
+      "nombre": "Ingles nivel 4",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M36",
+      "nombre": "Ingles nivel 5",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M37",
+      "nombre": "Innovacion tecnologica y pensamiento computacional",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M38",
+      "nombre": "Lengua Extranjera VI",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M39",
+      "nombre": "Lengua y comunicación",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M40",
+      "nombre": "LogicLab-Mate",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M41",
+      "nombre": "Matematicas avanzadas",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M42",
+      "nombre": "Pensamiento matematico I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M43",
+      "nombre": "Pensamiento matematico II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M44",
+      "nombre": "Problemas eticos contemporaneos",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M45",
+      "nombre": "Quimica del carbono",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M46",
+      "nombre": "Quimica en mi Entorno",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M47",
+      "nombre": "Reflexión Etica",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M48",
+      "nombre": "Sexualidad y Genero",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M49",
+      "nombre": "TAEV Trayectoria de aprendizaje especializantes",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M50",
+      "nombre": "Trayectoria de aprendizaje especializantes TAEV",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M51",
+      "nombre": "Tutoria de egreso I",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M52",
+      "nombre": "Tutoria de ingreso I",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M53",
+      "nombre": "Tutoria de ingreso II",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M54",
+      "nombre": "Tutoria de trayectoria I",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M55",
+      "nombre": "Tutoria de trayectoria II",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "M56",
+      "nombre": "Vivencia emprendedora",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    }
+  ],
+  "grupos": [
+    {
+      "id": "G01",
+      "nombre": "G01 (1.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G02",
+      "nombre": "G02 (1.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G03",
+      "nombre": "G03 (2.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G04",
+      "nombre": "G04 (2.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G05",
+      "nombre": "G05 (2.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G06",
+      "nombre": "G06 (2.º)",
+      "plantel": "P1",
+      "plantilla": "1y2",
+      "alumnos": 30
+    },
+    {
+      "id": "G07",
+      "nombre": "G07 (3.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G08",
+      "nombre": "G08 (4.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G09",
+      "nombre": "G09 (4.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G10",
+      "nombre": "G10 (5.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G11",
+      "nombre": "G11 (6.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G12",
+      "nombre": "G12 (6.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    },
+    {
+      "id": "G13",
+      "nombre": "G13 (6.º)",
+      "plantel": "P1",
+      "plantilla": "3a6",
+      "alumnos": 30
+    }
+  ],
+  "profesores": [
+    {
+      "id": "P01",
+      "nombre": "Docente F",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M09",
+        "M11",
+        "M32",
+        "M33",
+        "M35",
+        "M36",
+        "M38",
+        "M42"
+      ],
+      "horas_min": 30,
+      "horas_max": 30,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 6
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 2,
+          "orden": 6
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 3,
+          "orden": 6
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 4,
+          "orden": 6
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P02",
+      "nombre": "Docente 01",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M15",
+        "M16",
+        "M19",
+        "M44",
+        "M48",
+        "M52",
+        "M53",
+        "M54"
+      ],
+      "horas_min": 31,
+      "horas_max": 31,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P03",
+      "nombre": "Docente 02",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M01",
+        "M10",
+        "M41",
+        "M43",
+        "M49",
+        "M50",
+        "M56"
+      ],
+      "horas_min": 33,
+      "horas_max": 33,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P04",
+      "nombre": "Docente 03",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M10",
+        "M11",
+        "M21",
+        "M22",
+        "M41",
+        "M45",
+        "M46"
+      ],
+      "horas_min": 31,
+      "horas_max": 31,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P05",
+      "nombre": "Docente 04",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M16",
+        "M27",
+        "M28",
+        "M29",
+        "M39",
+        "M47"
+      ],
+      "horas_min": 32,
+      "horas_max": 32,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P06",
+      "nombre": "Docente 05",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M18"
+      ],
+      "horas_min": 4,
+      "horas_max": 4,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P07",
+      "nombre": "Docente 06",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M11",
+        "M23",
+        "M24",
+        "M25",
+        "M46"
+      ],
+      "horas_min": 32,
+      "horas_max": 32,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P08",
+      "nombre": "Docente 07",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M02",
+        "M16",
+        "M26",
+        "M48",
+        "M51",
+        "M52",
+        "M53",
+        "M55"
+      ],
+      "horas_min": 32,
+      "horas_max": 32,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P09",
+      "nombre": "Docente N",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M13",
+        "M14",
+        "M20"
+      ],
+      "horas_min": 16,
+      "horas_max": 16,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 3
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 3
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 4
+        },
+        {
+          "plantilla": "1y2",
+          "dia": 1,
+          "orden": 5
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 3
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 3
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 4
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 5
+        },
+        {
+          "plantilla": "3a6",
+          "dia": 1,
+          "orden": 6
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": true
+    },
+    {
+      "id": "P10",
+      "nombre": "Docente 08",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M08",
+        "M12",
+        "M17",
+        "M19",
+        "M31",
+        "M37"
+      ],
+      "horas_min": 31,
+      "horas_max": 31,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P11",
+      "nombre": "Docente 09",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M01",
+        "M05",
+        "M09",
+        "M10",
+        "M40",
+        "M41",
+        "M43"
+      ],
+      "horas_min": 28,
+      "horas_max": 28,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "P12",
+      "nombre": "Docente 10",
+      "planteles": [
+        "P1"
+      ],
+      "materias": [
+        "M03",
+        "M04",
+        "M06",
+        "M07",
+        "M26",
+        "M39"
+      ],
+      "horas_min": 30,
+      "horas_max": 30,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    }
+  ],
+  "cursos": [
+    {
+      "id": "C001",
+      "materia": "M32",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C002",
+      "materia": "M27",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C003",
+      "materia": "M52",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C004",
+      "materia": "M48",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C005",
+      "materia": "M20",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C006",
+      "materia": "M08",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C007",
+      "materia": "M09",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C008",
+      "materia": "M40",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C009",
+      "materia": "M19",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C010",
+      "materia": "M31",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C011",
+      "materia": "M39",
+      "grupos": [
+        "G01"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C012",
+      "materia": "M32",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C013",
+      "materia": "M27",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C014",
+      "materia": "M52",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C015",
+      "materia": "M48",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C016",
+      "materia": "M20",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C017",
+      "materia": "M08",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C018",
+      "materia": "M09",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C019",
+      "materia": "M40",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C020",
+      "materia": "M19",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C021",
+      "materia": "M31",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C022",
+      "materia": "M39",
+      "grupos": [
+        "G02"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C023",
+      "materia": "M33",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C024",
+      "materia": "M46",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C025",
+      "materia": "M16",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C026",
+      "materia": "M11",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C027",
+      "materia": "M53",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C028",
+      "materia": "M14",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C029",
+      "materia": "M12",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C030",
+      "materia": "M10",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C031",
+      "materia": "M06",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C032",
+      "materia": "M30",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C033",
+      "materia": "M15",
+      "grupos": [
+        "G03"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C034",
+      "materia": "M33",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C035",
+      "materia": "M46",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C036",
+      "materia": "M16",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C037",
+      "materia": "M11",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C038",
+      "materia": "M53",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C039",
+      "materia": "M14",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C040",
+      "materia": "M12",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C041",
+      "materia": "M10",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C042",
+      "materia": "M06",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C043",
+      "materia": "M30",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C044",
+      "materia": "M15",
+      "grupos": [
+        "G04"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C045",
+      "materia": "M33",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C046",
+      "materia": "M46",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C047",
+      "materia": "M16",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C048",
+      "materia": "M11",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C049",
+      "materia": "M53",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C050",
+      "materia": "M14",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C051",
+      "materia": "M12",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C052",
+      "materia": "M10",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C053",
+      "materia": "M06",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C054",
+      "materia": "M30",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C055",
+      "materia": "M15",
+      "grupos": [
+        "G05"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C056",
+      "materia": "M33",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C057",
+      "materia": "M46",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C058",
+      "materia": "M16",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C059",
+      "materia": "M11",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C060",
+      "materia": "M53",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C061",
+      "materia": "M14",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C062",
+      "materia": "M12",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C063",
+      "materia": "M10",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C064",
+      "materia": "M06",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C065",
+      "materia": "M30",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C066",
+      "materia": "M15",
+      "grupos": [
+        "G06"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C067",
+      "materia": "M34",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C068",
+      "materia": "M49",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C069",
+      "materia": "M45",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C070",
+      "materia": "M54",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C071",
+      "materia": "M13",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P09",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C072",
+      "materia": "M37",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C073",
+      "materia": "M17",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P10",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C074",
+      "materia": "M42",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C075",
+      "materia": "M07",
+      "grupos": [
+        "G07"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C076",
+      "materia": "M35",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C077",
+      "materia": "M43",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C078",
+      "materia": "M49",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C079",
+      "materia": "M29",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C080",
+      "materia": "M24",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C081",
+      "materia": "M55",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C082",
+      "materia": "M02",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C083",
+      "materia": "M21",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C084",
+      "materia": "M03",
+      "grupos": [
+        "G08"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C085",
+      "materia": "M35",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C086",
+      "materia": "M43",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C087",
+      "materia": "M49",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C088",
+      "materia": "M29",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C089",
+      "materia": "M24",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C090",
+      "materia": "M55",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C091",
+      "materia": "M02",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C092",
+      "materia": "M21",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C093",
+      "materia": "M03",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C094",
+      "materia": "M18",
+      "grupos": [
+        "G09"
+      ],
+      "profesor": "P06",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C095",
+      "materia": "M50",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C096",
+      "materia": "M05",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C097",
+      "materia": "M04",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C098",
+      "materia": "M36",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C099",
+      "materia": "M23",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C100",
+      "materia": "M22",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C101",
+      "materia": "M28",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C102",
+      "materia": "M44",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P02",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C103",
+      "materia": "M51",
+      "grupos": [
+        "G10"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C104",
+      "materia": "M38",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C105",
+      "materia": "M41",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C106",
+      "materia": "M56",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C107",
+      "materia": "M01",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C108",
+      "materia": "M47",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C109",
+      "materia": "M25",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C110",
+      "materia": "M26",
+      "grupos": [
+        "G11"
+      ],
+      "profesor": "P12",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C111",
+      "materia": "M38",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P01",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C112",
+      "materia": "M41",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P04",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C113",
+      "materia": "M56",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C114",
+      "materia": "M01",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C115",
+      "materia": "M47",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C116",
+      "materia": "M25",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C117",
+      "materia": "M26",
+      "grupos": [
+        "G12"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C118",
+      "materia": "M38",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": true
+    },
+    {
+      "id": "C119",
+      "materia": "M41",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C120",
+      "materia": "M56",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P03",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C121",
+      "materia": "M01",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P11",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C122",
+      "materia": "M47",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P05",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C123",
+      "materia": "M25",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P07",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "C124",
+      "materia": "M26",
+      "grupos": [
+        "G13"
+      ],
+      "profesor": "P08",
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    }
+  ],
+  "fijadas": []
+}

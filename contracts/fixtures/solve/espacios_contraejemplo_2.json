@@ -1,0 +1,159 @@
+{
+  "descripcion": "Contraejemplo encontrado por la propiedad de fuerza bruta: el conteo por franja aceptaba un acomodo sin reparto de espacios posible.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "tiempo_limite_s": 5.0,
+      "num_workers": 1,
+      "reglas": {
+        "S1": {
+          "modo": "preferencia"
+        }
+      }
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "07:00",
+            "fin": "07:50",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "07:50",
+            "fin": "08:40",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Plantel"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "E0",
+        "plantel": "P1",
+        "nombre": "Espacio 0",
+        "tipo": "laboratorio",
+        "capacidad": 25
+      },
+      {
+        "id": "E1",
+        "plantel": "P1",
+        "nombre": "Espacio 1",
+        "tipo": "laboratorio",
+        "capacidad": 45
+      }
+    ],
+    "materias": [
+      {
+        "id": "M1",
+        "nombre": "Materia 1",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      },
+      {
+        "id": "M2",
+        "nombre": "Materia 2",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            2
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G0",
+        "nombre": "0A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 20
+      },
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 40
+      },
+      {
+        "id": "G2",
+        "nombre": "2A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 40
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR0",
+        "nombre": "Profesor 0",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M1",
+          "M2"
+        ],
+        "horas_max": 8,
+        "max_dia": 8
+      }
+    ],
+    "cursos": [
+      {
+        "id": "C0",
+        "materia": "M1",
+        "grupos": [
+          "G2"
+        ],
+        "profesor": "PR0"
+      },
+      {
+        "id": "C1",
+        "materia": "M1",
+        "grupos": [
+          "G0"
+        ],
+        "vacante": true
+      },
+      {
+        "id": "C2",
+        "materia": "M1",
+        "grupos": [
+          "G0"
+        ],
+        "vacante": true
+      }
+    ],
+    "fijadas": [
+      {
+        "curso": "C2",
+        "bloque": 0,
+        "dia": 0,
+        "orden_inicio": 1,
+        "espacio": "E1"
+      }
+    ]
+  },
+  "esperado": {
+    "estado": "ok"
+  }
+}

@@ -1,0 +1,14 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# Datos reales: nunca se versionan
+*.xlsx
+docentes.local.json
+
+# Espacio de trabajo de los agentes
+.superpowers/
