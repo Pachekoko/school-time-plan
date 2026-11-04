@@ -124,11 +124,13 @@
         },
         "patron": {
           "default": 0,
+          "maximum": 200,
           "minimum": 0,
           "title": "Patron",
           "type": "integer"
         },
         "bloque": {
+          "maximum": 200,
           "minimum": 0,
           "title": "Bloque",
           "type": "integer"
@@ -150,6 +152,7 @@
         "orden_inicio": {
           "anyOf": [
             {
+              "maximum": 200,
               "minimum": 0,
               "type": "integer"
             },

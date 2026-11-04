@@ -21,17 +21,30 @@ from solver.solve import solve, validate
 
 
 def create_app(token: str | None = None) -> FastAPI:
-    """La app exige `SOLVER_TOKEN` (o `token`): sin él no arranca, no hay modo sin token."""
+    """La app exige `SOLVER_TOKEN` (o `token`): sin él no arranca, no hay modo sin token.
+
+    La documentación interactiva (`/docs`, `/redoc`, `/openapi.json`) solo se publica con
+    `SOLVER_DOCS=1`, pensado para desarrollo local."""
     token = token if token is not None else os.environ.get("SOLVER_TOKEN")
     if not token:
         raise RuntimeError("Define SOLVER_TOKEN para arrancar el motor")
-    esperado = f"Bearer {token}"
+    esperado = token.encode("utf-8")
 
     def autorizar(authorization: str | None = Header(default=None)) -> None:
-        if authorization is None or not secrets.compare_digest(authorization, esperado):
+        esquema, _, valor = (authorization or "").partition(" ")
+        # Starlette decodifica los encabezados como latin-1: así se recuperan los bytes enviados.
+        recibido = valor.strip().encode("latin-1")
+        if esquema.lower() != "bearer" or not secrets.compare_digest(recibido, esperado):
             raise HTTPException(status_code=401, detail="Token inválido")
 
-    app = FastAPI(title="Motor de horarios", version=SCHEMA_VERSION)
+    docs = os.environ.get("SOLVER_DOCS") == "1"
+    app = FastAPI(
+        title="Motor de horarios",
+        version=SCHEMA_VERSION,
+        docs_url="/docs" if docs else None,
+        redoc_url="/redoc" if docs else None,
+        openapi_url="/openapi.json" if docs else None,
+    )
 
     @app.exception_handler(InstanceError)
     def _instancia_incoherente(_: Request, exc: InstanceError) -> JSONResponse:

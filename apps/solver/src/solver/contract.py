@@ -14,7 +14,10 @@ TipoEspacio = Literal["aula", "laboratorio", "computo", "cancha", "cocina", "tal
 ModoRegla = Literal["apagada", "preferencia", "obligatoria"]
 Dia = Annotated[int, Field(ge=0, le=6)]
 Hora = Annotated[str, Field(pattern=r"^([01]\d|2[0-3]):[0-5]\d$")]
-Positivo = Annotated[int, Field(ge=1)]
+# Cotas generosas: solo frenan valores absurdos, que de otro modo rompen a OR-Tools (500).
+MAX_PERSONAS = 10_000
+MAX_HORAS_SEMANA = 168
+MAX_ORDEN = 200
 
 
 def minutos(hora: str) -> int:
@@ -31,7 +34,7 @@ class _Modelo(BaseModel):
 
 class FranjaIn(_Modelo):
     dia: Dia
-    orden: int = Field(ge=0)
+    orden: int = Field(ge=0, le=MAX_ORDEN)
     inicio: Hora
     fin: Hora
     tipo: Literal["clase", "receso"]
@@ -62,14 +65,16 @@ class EspacioIn(_Modelo):
     plantel: str
     nombre: str
     tipo: TipoEspacio
-    capacidad: Positivo
+    capacidad: int = Field(ge=1, le=MAX_PERSONAS)
 
 
 class MateriaIn(_Modelo):
     id: str
     nombre: str
-    horas_semana: Positivo
-    patrones: list[Annotated[list[Positivo], Field(min_length=1)]] = Field(min_length=1)
+    horas_semana: int = Field(ge=1, le=MAX_HORAS_SEMANA)
+    patrones: list[Annotated[list[Annotated[int, Field(ge=1, le=24)]], Field(min_length=1)]] = (
+        Field(min_length=1)
+    )
     tipo_espacio: TipoEspacio = "aula"
 
 
@@ -78,13 +83,13 @@ class GrupoIn(_Modelo):
     nombre: str
     plantel: str
     plantilla: str
-    alumnos: Positivo
+    alumnos: int = Field(ge=1, le=MAX_PERSONAS)
 
 
 class RefFranja(_Modelo):
     plantilla: str
     dia: Dia
-    orden: int = Field(ge=0)
+    orden: int = Field(ge=0, le=MAX_ORDEN)
 
 
 class ProfesorIn(_Modelo):
@@ -92,9 +97,9 @@ class ProfesorIn(_Modelo):
     nombre: str
     planteles: list[str]
     materias: list[str]
-    horas_min: int = Field(default=0, ge=0)
-    horas_max: int = Field(ge=0)
-    max_dia: Positivo
+    horas_min: int = Field(default=0, ge=0, le=MAX_HORAS_SEMANA)
+    horas_max: int = Field(ge=0, le=MAX_HORAS_SEMANA)
+    max_dia: int = Field(ge=1, le=24)
     no_disponible: list[RefFranja] = []
     preferente: list[RefFranja] = []
     sin_huecos: bool = False
@@ -114,7 +119,7 @@ class CursoIn(_Modelo):
     grupos: list[str] = Field(min_length=1)
     profesor: str | None = None
     sincronia: str | None = None
-    alumnos: Positivo | None = None
+    alumnos: int | None = Field(default=None, ge=1, le=MAX_PERSONAS)
     vacante: bool = False
 
     @model_validator(mode="after")
@@ -126,10 +131,10 @@ class CursoIn(_Modelo):
 
 class SesionIn(_Modelo):
     curso: str
-    patron: int = Field(default=0, ge=0)
-    bloque: int = Field(ge=0)
+    patron: int = Field(default=0, ge=0, le=MAX_ORDEN)
+    bloque: int = Field(ge=0, le=MAX_ORDEN)
     dia: Dia | None = None
-    orden_inicio: int | None = Field(default=None, ge=0)
+    orden_inicio: int | None = Field(default=None, ge=0, le=MAX_ORDEN)
     espacio: str | None = None
     profesor: str | None = None
     fijada: bool = False
@@ -179,7 +184,7 @@ class Parametros(_Modelo):
     semilla: int = Field(default=0, ge=0, le=2**31 - 1)
     num_workers: int = Field(default=8, ge=1, le=16)
     permitir_parcial: bool = False
-    minutos_traslado: int = Field(default=50, ge=0)
+    minutos_traslado: int = Field(default=50, ge=0, le=24 * 60)
     reglas: ReglasConfig = Field(default_factory=ReglasConfig)
 
 

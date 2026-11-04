@@ -24,6 +24,8 @@ docker run --rm -e SOLVER_TOKEN=dev -p 8000:8000 horarios-solver
 
 Sin `SOLVER_TOKEN` el servicio no arranca: no existe un modo sin token.
 
+La documentación interactiva (`/docs`, `/redoc`, `/openapi.json`) está apagada por defecto. Para desarrollo local, arráncalo con `SOLVER_DOCS=1`.
+
 ## Endpoints
 
 | Método | Ruta | Cuerpo | Respuesta |

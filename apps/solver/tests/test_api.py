@@ -108,3 +108,32 @@ def test_sin_token_no_arranca(monkeypatch):
     monkeypatch.delenv("SOLVER_TOKEN", raising=False)
     with pytest.raises(RuntimeError, match="SOLVER_TOKEN"):
         create_app()
+
+
+def test_authorization_no_ascii_es_401(cliente):
+    r = cliente.post("/solve", json=_problema(), headers={"Authorization": "Bearer señor".encode()})
+    assert r.status_code == 401
+
+
+def test_esquema_bearer_sin_importar_mayusculas(cliente):
+    r = cliente.post("/solve", json=_problema(), headers={"Authorization": "bearer secreto"})
+    assert r.status_code == 200
+
+
+def test_token_con_acentos():
+    c = TestClient(create_app(token="contraseña"))
+    r = c.post("/solve", json=_problema(), headers={"Authorization": "Bearer contraseña".encode()})
+    assert r.status_code == 200
+
+
+def test_docs_ocultos_por_defecto(cliente, monkeypatch):
+    monkeypatch.delenv("SOLVER_DOCS", raising=False)
+    c = TestClient(create_app(token="secreto"))
+    for ruta in ("/docs", "/redoc", "/openapi.json"):
+        assert c.get(ruta).status_code == 404, ruta
+
+
+def test_docs_se_activan_con_variable(monkeypatch):
+    monkeypatch.setenv("SOLVER_DOCS", "1")
+    c = TestClient(create_app(token="secreto"))
+    assert c.get("/docs").status_code == 200 and c.get("/openapi.json").status_code == 200

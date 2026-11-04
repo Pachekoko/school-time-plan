@@ -60,7 +60,7 @@ def _mensaje(inst: Instance, s: Supuesto) -> str:
 
 def _fijada(inst: Instance, sesion_id: str) -> str:
     """`"Matemáticas (1A, Mar 08:40)"` para el id `"C1#0.0"` de una sesión fijada."""
-    curso_id, _, resto = sesion_id.partition("#")
+    curso_id, _, resto = sesion_id.rpartition("#")  # el id del curso puede traer "#"
     patron, _, bloque = resto.partition(".")
     f = next(
         f
