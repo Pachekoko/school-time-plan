@@ -1,0 +1,263 @@
+{
+  "$defs": {
+    "Diagnostico": {
+      "additionalProperties": false,
+      "properties": {
+        "codigo": {
+          "title": "Codigo",
+          "type": "string"
+        },
+        "regla": {
+          "title": "Regla",
+          "type": "string"
+        },
+        "entidades": {
+          "items": {
+            "$ref": "#/$defs/Entidad"
+          },
+          "title": "Entidades",
+          "type": "array"
+        },
+        "mensaje": {
+          "title": "Mensaje",
+          "type": "string"
+        }
+      },
+      "required": [
+        "codigo",
+        "regla",
+        "entidades",
+        "mensaje"
+      ],
+      "title": "Diagnostico",
+      "type": "object"
+    },
+    "Entidad": {
+      "additionalProperties": false,
+      "properties": {
+        "tipo": {
+          "enum": [
+            "grupo",
+            "profesor",
+            "curso",
+            "plantel",
+            "espacio",
+            "sincronia",
+            "sesion",
+            "materia",
+            "plantilla"
+          ],
+          "title": "Tipo",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tipo",
+        "id"
+      ],
+      "title": "Entidad",
+      "type": "object"
+    },
+    "Estadisticas": {
+      "additionalProperties": false,
+      "properties": {
+        "tiempo_s": {
+          "title": "Tiempo S",
+          "type": "number"
+        },
+        "estado_cp_sat": {
+          "title": "Estado Cp Sat",
+          "type": "string"
+        },
+        "variables": {
+          "title": "Variables",
+          "type": "integer"
+        },
+        "restricciones": {
+          "title": "Restricciones",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tiempo_s",
+        "estado_cp_sat",
+        "variables",
+        "restricciones"
+      ],
+      "title": "Estadisticas",
+      "type": "object"
+    },
+    "PenalizacionRegla": {
+      "additionalProperties": false,
+      "properties": {
+        "crudo": {
+          "title": "Crudo",
+          "type": "integer"
+        },
+        "peso": {
+          "title": "Peso",
+          "type": "integer"
+        },
+        "penalizacion": {
+          "title": "Penalizacion",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "crudo",
+        "peso",
+        "penalizacion"
+      ],
+      "title": "PenalizacionRegla",
+      "type": "object"
+    },
+    "SesionIn": {
+      "additionalProperties": false,
+      "properties": {
+        "curso": {
+          "title": "Curso",
+          "type": "string"
+        },
+        "patron": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Patron",
+          "type": "integer"
+        },
+        "bloque": {
+          "minimum": 0,
+          "title": "Bloque",
+          "type": "integer"
+        },
+        "dia": {
+          "anyOf": [
+            {
+              "maximum": 6,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dia"
+        },
+        "orden_inicio": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orden Inicio"
+        },
+        "espacio": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Espacio"
+        },
+        "profesor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profesor"
+        },
+        "fijada": {
+          "default": false,
+          "title": "Fijada",
+          "type": "boolean"
+        },
+        "sin_acomodar": {
+          "default": false,
+          "title": "Sin Acomodar",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "curso",
+        "bloque"
+      ],
+      "title": "SesionIn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1",
+      "default": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "estado": {
+      "enum": [
+        "ok",
+        "factible_parcial",
+        "sin_solucion",
+        "tiempo_agotado"
+      ],
+      "title": "Estado",
+      "type": "string"
+    },
+    "sesiones": {
+      "items": {
+        "$ref": "#/$defs/SesionIn"
+      },
+      "title": "Sesiones",
+      "type": "array"
+    },
+    "puntaje": {
+      "title": "Puntaje",
+      "type": "integer"
+    },
+    "desglose": {
+      "additionalProperties": {
+        "$ref": "#/$defs/PenalizacionRegla"
+      },
+      "title": "Desglose",
+      "type": "object"
+    },
+    "diagnostico": {
+      "items": {
+        "$ref": "#/$defs/Diagnostico"
+      },
+      "title": "Diagnostico",
+      "type": "array"
+    },
+    "estadisticas": {
+      "$ref": "#/$defs/Estadisticas"
+    }
+  },
+  "required": [
+    "estado",
+    "sesiones",
+    "puntaje",
+    "desglose",
+    "diagnostico",
+    "estadisticas"
+  ],
+  "title": "SolveResponse",
+  "type": "object"
+}

@@ -1,0 +1,733 @@
+{
+  "$defs": {
+    "CursoIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "materia": {
+          "title": "Materia",
+          "type": "string"
+        },
+        "grupos": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Grupos",
+          "type": "array"
+        },
+        "profesor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profesor"
+        },
+        "sincronia": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sincronia"
+        },
+        "alumnos": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alumnos"
+        },
+        "vacante": {
+          "default": false,
+          "title": "Vacante",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "materia",
+        "grupos"
+      ],
+      "title": "CursoIn",
+      "type": "object"
+    },
+    "EspacioIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "plantel": {
+          "title": "Plantel",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "tipo": {
+          "enum": [
+            "aula",
+            "laboratorio",
+            "computo",
+            "cancha",
+            "cocina",
+            "taller"
+          ],
+          "title": "Tipo",
+          "type": "string"
+        },
+        "capacidad": {
+          "minimum": 1,
+          "title": "Capacidad",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "plantel",
+        "nombre",
+        "tipo",
+        "capacidad"
+      ],
+      "title": "EspacioIn",
+      "type": "object"
+    },
+    "FranjaIn": {
+      "additionalProperties": false,
+      "properties": {
+        "dia": {
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Dia",
+          "type": "integer"
+        },
+        "orden": {
+          "minimum": 0,
+          "title": "Orden",
+          "type": "integer"
+        },
+        "inicio": {
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+          "title": "Inicio",
+          "type": "string"
+        },
+        "fin": {
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+          "title": "Fin",
+          "type": "string"
+        },
+        "tipo": {
+          "enum": [
+            "clase",
+            "receso"
+          ],
+          "title": "Tipo",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dia",
+        "orden",
+        "inicio",
+        "fin",
+        "tipo"
+      ],
+      "title": "FranjaIn",
+      "type": "object"
+    },
+    "GrupoIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "plantel": {
+          "title": "Plantel",
+          "type": "string"
+        },
+        "plantilla": {
+          "title": "Plantilla",
+          "type": "string"
+        },
+        "alumnos": {
+          "minimum": 1,
+          "title": "Alumnos",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "plantel",
+        "plantilla",
+        "alumnos"
+      ],
+      "title": "GrupoIn",
+      "type": "object"
+    },
+    "MateriaIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "horas_semana": {
+          "minimum": 1,
+          "title": "Horas Semana",
+          "type": "integer"
+        },
+        "patrones": {
+          "items": {
+            "items": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Patrones",
+          "type": "array"
+        },
+        "tipo_espacio": {
+          "default": "aula",
+          "enum": [
+            "aula",
+            "laboratorio",
+            "computo",
+            "cancha",
+            "cocina",
+            "taller"
+          ],
+          "title": "Tipo Espacio",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "horas_semana",
+        "patrones"
+      ],
+      "title": "MateriaIn",
+      "type": "object"
+    },
+    "Parametros": {
+      "additionalProperties": false,
+      "properties": {
+        "tiempo_limite_s": {
+          "default": 60,
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Tiempo Limite S",
+          "type": "number"
+        },
+        "semilla": {
+          "default": 0,
+          "maximum": 2147483647,
+          "minimum": 0,
+          "title": "Semilla",
+          "type": "integer"
+        },
+        "num_workers": {
+          "default": 8,
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Num Workers",
+          "type": "integer"
+        },
+        "permitir_parcial": {
+          "default": false,
+          "title": "Permitir Parcial",
+          "type": "boolean"
+        },
+        "minutos_traslado": {
+          "default": 50,
+          "minimum": 0,
+          "title": "Minutos Traslado",
+          "type": "integer"
+        },
+        "reglas": {
+          "$ref": "#/$defs/ReglasConfig"
+        }
+      },
+      "title": "Parametros",
+      "type": "object"
+    },
+    "PlantelIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nombre"
+      ],
+      "title": "PlantelIn",
+      "type": "object"
+    },
+    "PlantillaIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "franjas": {
+          "items": {
+            "$ref": "#/$defs/FranjaIn"
+          },
+          "title": "Franjas",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "franjas"
+      ],
+      "title": "PlantillaIn",
+      "type": "object"
+    },
+    "ProfesorIn": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "planteles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Planteles",
+          "type": "array"
+        },
+        "materias": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Materias",
+          "type": "array"
+        },
+        "horas_min": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Horas Min",
+          "type": "integer"
+        },
+        "horas_max": {
+          "minimum": 0,
+          "title": "Horas Max",
+          "type": "integer"
+        },
+        "max_dia": {
+          "minimum": 1,
+          "title": "Max Dia",
+          "type": "integer"
+        },
+        "no_disponible": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RefFranja"
+          },
+          "title": "No Disponible",
+          "type": "array"
+        },
+        "preferente": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RefFranja"
+          },
+          "title": "Preferente",
+          "type": "array"
+        },
+        "sin_huecos": {
+          "default": false,
+          "title": "Sin Huecos",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "planteles",
+        "materias",
+        "horas_max",
+        "max_dia"
+      ],
+      "title": "ProfesorIn",
+      "type": "object"
+    },
+    "RefFranja": {
+      "additionalProperties": false,
+      "properties": {
+        "plantilla": {
+          "title": "Plantilla",
+          "type": "string"
+        },
+        "dia": {
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Dia",
+          "type": "integer"
+        },
+        "orden": {
+          "minimum": 0,
+          "title": "Orden",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "plantilla",
+        "dia",
+        "orden"
+      ],
+      "title": "RefFranja",
+      "type": "object"
+    },
+    "ReglaConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "modo": {
+          "enum": [
+            "apagada",
+            "preferencia",
+            "obligatoria"
+          ],
+          "title": "Modo",
+          "type": "string"
+        },
+        "peso": {
+          "default": 5,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Peso",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "modo"
+      ],
+      "title": "ReglaConfig",
+      "type": "object"
+    },
+    "ReglasConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "S1": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S2": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S3": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S4": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S5": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S6": {
+          "$ref": "#/$defs/ReglaConfig"
+        },
+        "S6_restricciones": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RestriccionFranja"
+          },
+          "title": "S6 Restricciones",
+          "type": "array"
+        },
+        "S7": {
+          "$ref": "#/$defs/ReglaConfig"
+        }
+      },
+      "title": "ReglasConfig",
+      "type": "object"
+    },
+    "RestriccionFranja": {
+      "additionalProperties": false,
+      "properties": {
+        "materias": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Materias",
+          "type": "array"
+        },
+        "tipos_espacio": {
+          "default": [],
+          "items": {
+            "enum": [
+              "aula",
+              "laboratorio",
+              "computo",
+              "cancha",
+              "cocina",
+              "taller"
+            ],
+            "type": "string"
+          },
+          "title": "Tipos Espacio",
+          "type": "array"
+        },
+        "franjas": {
+          "items": {
+            "$ref": "#/$defs/RefFranja"
+          },
+          "title": "Franjas",
+          "type": "array"
+        }
+      },
+      "required": [
+        "franjas"
+      ],
+      "title": "RestriccionFranja",
+      "type": "object"
+    },
+    "SesionIn": {
+      "additionalProperties": false,
+      "properties": {
+        "curso": {
+          "title": "Curso",
+          "type": "string"
+        },
+        "patron": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Patron",
+          "type": "integer"
+        },
+        "bloque": {
+          "minimum": 0,
+          "title": "Bloque",
+          "type": "integer"
+        },
+        "dia": {
+          "anyOf": [
+            {
+              "maximum": 6,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dia"
+        },
+        "orden_inicio": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orden Inicio"
+        },
+        "espacio": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Espacio"
+        },
+        "profesor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profesor"
+        },
+        "fijada": {
+          "default": false,
+          "title": "Fijada",
+          "type": "boolean"
+        },
+        "sin_acomodar": {
+          "default": false,
+          "title": "Sin Acomodar",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "curso",
+        "bloque"
+      ],
+      "title": "SesionIn",
+      "type": "object"
+    },
+    "SolveRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "parametros": {
+          "$ref": "#/$defs/Parametros"
+        },
+        "plantillas": {
+          "items": {
+            "$ref": "#/$defs/PlantillaIn"
+          },
+          "title": "Plantillas",
+          "type": "array"
+        },
+        "planteles": {
+          "items": {
+            "$ref": "#/$defs/PlantelIn"
+          },
+          "title": "Planteles",
+          "type": "array"
+        },
+        "espacios": {
+          "items": {
+            "$ref": "#/$defs/EspacioIn"
+          },
+          "title": "Espacios",
+          "type": "array"
+        },
+        "materias": {
+          "items": {
+            "$ref": "#/$defs/MateriaIn"
+          },
+          "title": "Materias",
+          "type": "array"
+        },
+        "grupos": {
+          "items": {
+            "$ref": "#/$defs/GrupoIn"
+          },
+          "title": "Grupos",
+          "type": "array"
+        },
+        "profesores": {
+          "items": {
+            "$ref": "#/$defs/ProfesorIn"
+          },
+          "title": "Profesores",
+          "type": "array"
+        },
+        "cursos": {
+          "items": {
+            "$ref": "#/$defs/CursoIn"
+          },
+          "title": "Cursos",
+          "type": "array"
+        },
+        "fijadas": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SesionIn"
+          },
+          "title": "Fijadas",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "plantillas",
+        "planteles",
+        "espacios",
+        "materias",
+        "grupos",
+        "profesores",
+        "cursos"
+      ],
+      "title": "SolveRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "problema": {
+      "$ref": "#/$defs/SolveRequest"
+    },
+    "sesiones": {
+      "items": {
+        "$ref": "#/$defs/SesionIn"
+      },
+      "title": "Sesiones",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "problema",
+    "sesiones"
+  ],
+  "title": "ValidateRequest",
+  "type": "object"
+}

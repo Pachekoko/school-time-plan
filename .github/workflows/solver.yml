@@ -1,0 +1,29 @@
+name: solver
+
+on:
+  pull_request:
+    paths:
+      - "apps/solver/**"
+      - "contracts/**"
+      - ".github/workflows/solver.yml"
+  push:
+    paths:
+      - "apps/solver/**"
+      - "contracts/**"
+      - ".github/workflows/solver.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/solver
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run ruff check
+      - run: uv run ruff format --check
+      - run: uv run pytest -q -m "not slow"
+      - name: Esquemas de contracts/ al día
+        run: uv run python -m solver.export_schema && git diff --exit-code ../../contracts/
