@@ -32,6 +32,8 @@ testpaths = ["tests"]
 filterwarnings = [
     # Lo emite la importación de OR-Tools (no es código del motor).
     "ignore:Bitwise inversion '~' on bool is deprecated:DeprecationWarning",
+    # TestClient de Starlette con httpx: aviso de la librería, no afecta a las pruebas.
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
 ]
 
 [tool.ruff]
