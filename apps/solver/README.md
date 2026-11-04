@@ -117,3 +117,33 @@ Notas:
   - Cada materia del BIS sabatino tiene su propio profesor, porque S7 no deja que uno dé dos materias al mismo grupo el mismo sábado.
   - Inglés tiene al menos 2 profesores por plantel, porque los dos niveles van a la misma hora.
   - Ambos casos los detectan los prechecks.
+
+## Caso real: carga horaria de UTEG, ciclo 27-A (anonimizado)
+
+`bench/from_carga_xlsx.py` convierte la hoja `HORARIOS` de la carga horaria (columnas `GRUPO`, `MATERIA`, `HORAS`, `Docente`) en un problema del motor.
+
+**Lo que hace la conversión:**
+
+- `GENERICO` se vuelve curso vacante.
+- Los repartos se derivan de las horas, con un máximo de 2 h por día: 2 h = 2 seguidas o 1 + 1; 3 h = 2 + 1; 4 h = 2 + 2.
+- `|` final se lee como número romano (`Tutoria||` → `Tutoria II`).
+- 1.º y 2.º semestre van de 8:00 a 14:00; 3.º a 6.º, de 8:00 a 15:00. Clases de 60 min.
+- Las disponibilidades particulares vienen de `docentes.local.json`, que no se versiona.
+
+En el repo solo está la versión anonimizada: [`contracts/fixtures/real/uteg-27a-anon.json`](../../contracts/fixtures/real/uteg-27a-anon.json).
+
+```bash
+uv run python bench/run.py --archivo ../../contracts/fixtures/real/uteg-27a-anon.json
+```
+
+**Datos:** 13 grupos, 12 docentes (11 cursos vacantes) y 124 cursos. Es un caso sin margen:
+
+- Los 6 grupos de 1.º y 2.º tienen 30 h en 30 franjas.
+- La docente F tiene 30 h y solo puede de 8:00 a 14:00.
+- La docente N solo va de miércoles a viernes y sin huecos.
+
+Resultado con 60 s y 8 workers:
+
+| Estado | Tiempo | Validador | Huecos de grupos (S1) | Mismo docente, mismo día (S7) | Huecos de docentes (S2) |
+|---|---|---|---|---|---|
+| `ok` | 48.5 s | 0 violaciones | 0 | 0 | 60 min en total |
