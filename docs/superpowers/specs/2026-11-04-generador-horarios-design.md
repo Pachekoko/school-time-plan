@@ -45,6 +45,8 @@ Resumen de lo que dio forma al diseño (investigación web del 2026-11-04).
   - filas sin número de docente;
   - dos columnas `GRUPO` que no coinciden (un código con una letra de más);
   - espacios dobles o finales en los nombres;
+  - `|` usado como número romano y con espaciado inconsistente (`Comprension Lectora ||`, `Tutoria de trayectoria||`), lo que puede duplicar materias;
+  - notas libres en la hoja `DOCENTES` (`10 DE GESTORIA`, `PP`) que no son horas de clase;
   - una fórmula con `#REF!`.
 - Reglas que pidió la coordinación:
   - clases de 60 min;
@@ -250,7 +252,7 @@ Se descarga desde la app, con encabezados, validaciones de datos (listas despleg
 ### Flujo de importación
 
 1. Subir el archivo (máx. 5 MB). Además de la plantilla propia, se acepta el **formato de carga horaria de UTEG** (columnas `GRUPO`, `MATERIA`, `HORAS`, `N° docente`, `Docente`): `GENERICO` → curso `vacante`, y los patrones se derivan de las horas.
-2. **Vista previa:** por hoja, cuántos registros se crean y cuántos se actualizan, más la lista de errores con hoja, fila, columna y mensaje (ej. "Profesores, fila 14: la materia MAT-3 no existe"). Los nombres se normalizan (espacios dobles y finales). Hay advertencias para: un número de docente con dos nombres distintos, filas sin número de docente y columnas de grupo que no coinciden.
+2. **Vista previa:** por hoja, cuántos registros se crean y cuántos se actualizan, más la lista de errores con hoja, fila, columna y mensaje (ej. "Profesores, fila 14: la materia MAT-3 no existe"). Los nombres se normalizan: espacios dobles y finales, y `|` final → `I` (`||` → `II`), separado por un espacio. La vista previa avisa cuando dos materias solo difieren en mayúsculas o acentos. Hay advertencias para: un número de docente con dos nombres distintos, filas sin número de docente y columnas de grupo que no coinciden.
 3. Si no hay errores, se confirma y se aplica todo en **una sola transacción**. Con errores no se aplica nada.
 4. Los registros se identifican por `clave`, así que reimportar el mismo archivo no duplica nada.
 5. La hoja `Horario` crea una corrida borrador (fase 3).
