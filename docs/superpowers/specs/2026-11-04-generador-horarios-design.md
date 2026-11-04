@@ -36,6 +36,26 @@ Resumen de lo que dio forma al diseño (investigación web del 2026-11-04).
 - Cada profesor debe tener perfil afín a la asignatura (Profesiograma DGB).
 - Jornadas típicas de 7:00–7:30 a 14:00, con módulos de 50–60 min y 1 o 2 recesos.
 
+**Caso real UTEG, ciclo 27-A (archivo de carga horaria con datos de prueba; no se versiona):**
+
+- La hoja `HORARIOS` es la **carga académica**: una fila por (grupo, materia) con `GRUPO`, `MATERIA`, `HORAS`, `N° docente` y `Docente`. Son 13 grupos y 124 filas; las materias tienen de 1 a 4 h. La hoja `DOCENTES` lista las cargas por profesor, pero en esta muestra no coincide con los nombres de `HORARIOS`.
+- Las vacantes se capturan con el docente `GENERICO` (25 h en 8 grupos): son materias con profesor por contratar.
+- Problemas de calidad que el importador debe detectar:
+  - el mismo `N° docente` usado por dos personas;
+  - filas sin número de docente;
+  - dos columnas `GRUPO` que no coinciden (un código con una letra de más);
+  - espacios dobles o finales en los nombres;
+  - una fórmula con `#REF!`.
+- Reglas que pidió la coordinación:
+  - clases de 60 min;
+  - 1.º y 2.º semestre de 8:00 a 14:00; 3.º a 6.º de 8:00 a 15:00, pudiendo entrar más tarde o salir antes, pero sin huecos;
+  - respetar la carga de cada docente y no empalmar maestros;
+  - **un docente no da dos materias distintas al mismo grupo el mismo día**;
+  - clases seguidas para los docentes;
+  - **cada materia, como máximo 2 h por día** (3 h = 2 + 1).
+- Disponibilidades particulares: una docente solo de 8:00 a 14:00; otra solo de miércoles a viernes y **sin huecos**.
+- Holgura: los grupos de 1.º y 2.º tienen 30 h en 30 franjas, y la docente de 8:00 a 14:00 tiene 30 h en 30 franjas. Ninguno tiene margen. El motor debe explicar con precisión si no cabe.
+
 **Software existente:** FET (open source, potente pero difícil de usar), aSc Horarios (interfaz anticuada), Peñalara GHC (el más usado en México, barato), Untis, Prime Timetable (solo en inglés), UniTime (orientado a universidades). Huecos detectados: ninguno es web en español y fácil de usar, explica bien las infactibilidades e integra los planes SEP/DGB/UdeG; en la práctica el puente con los procesos de las escuelas es Excel. Los mejores motores son híbridos: restricciones duras garantizadas más optimización de preferencias.
 
 ## 3. Arquitectura
@@ -94,14 +114,14 @@ Todas las entidades importables tienen una `clave` única por escuela (ej. `MAT-
 ### Lo académico
 
 - `PlanEstudios` — escuela, clave, nombre (ej. "BG UdeG 2025", "BIS SEJ").
-- `Materia` — plan, clave, nombre, semestre, `horas_semana`, `patron_bloques` (ej. `[2,2]`), `tipo_espacio`.
+- `Materia` — plan, clave, nombre, semestre, `horas_semana`, `patrones` (uno o varios repartos permitidos, ej. `[[2],[1,1]]`; el motor elige uno), `tipo_espacio`. Si no se capturan, se derivan de las horas con un máximo de 2 h por día: 1 → `[[1]]`, 2 → `[[2],[1,1]]`, 3 → `[[2,1]]`, 4 → `[[2,2]]`, 5 → `[[2,2,1]]`, 6 → `[[2,2,2]]`.
 - `Grupo` — plantel, ciclo, plantilla, plan, semestre, clave (ej. `3B-ZAP`), número de alumnos.
-- `Curso` — ciclo, materia, `profesor_id` (nulo = el motor elige), grupos (pivote `curso_grupo`: los grupos que quedan ocupados durante el curso), `sincronia_id` nulo.
+- `Curso` — ciclo, materia, `profesor_id` (nulo = el motor elige), `vacante` (bool: profesor por contratar, el `GENERICO` de UTEG; no se le aplican reglas de profesor), grupos (pivote `curso_grupo`: los grupos que quedan ocupados durante el curso), `sincronia_id` nulo.
 - `Sincronia` — ciclo, nombre. Los cursos que comparten sincronía ocurren el mismo día a la misma hora. Caso típico: Inglés por nivel, donde 1A, 1B y 3A tienen Inglés a la vez y cada nivel tiene su profesor y su salón.
 
 ### Personas
 
-- `Profesor` — escuela, clave, nombre, contrato (`asignatura` | `medio_tiempo` | `tiempo_completo`), horas mínimas y máximas por semana, máximo por día, `user_id` nulo.
+- `Profesor` — escuela, clave, nombre, contrato (`asignatura` | `medio_tiempo` | `tiempo_completo`), horas mínimas y máximas por semana, máximo por día, `sin_huecos` (bool: para este profesor, S2 es obligatoria), `user_id` nulo.
   - `profesor_plantel` — planteles donde puede dar clase.
   - `profesor_materia` — materias habilitadas (perfil).
   - `Disponibilidad` — profesor, plantilla, franja, estado (`disponible` | `preferente` | `no_disponible`). La editan el admin y el propio profesor.
@@ -118,7 +138,7 @@ Alcance de una corrida: **toda la escuela en un ciclo**, porque hay profesores q
 
 ### Formulación
 
-- Cada `Curso` se parte en **bloques** según `patron_bloques` (4 h con `[2,2]` = dos bloques de 2 franjas).
+- Cada `Curso` se parte en **bloques** según cada patrón permitido de su materia (4 h con `[2,2]` = dos bloques de 2 franjas). Un selector booleano por (curso, patrón) elige exactamente un patrón, y solo se acomodan los bloques de ese patrón.
 - Variables booleanas `x[b, d, f]`: el bloque `b` empieza el día `d` en la franja `f`. Solo se crean para inicios válidos: dentro de franjas de clase seguidas, sin cruzar recesos, en la plantilla del grupo.
 - Si el curso no trae profesor: variables `y[c, p]` para cada profesor habilitado, con exactamente uno elegido; todos los bloques del curso usan ese profesor.
 - Espacio: variables `z[b, e]` para los espacios del tipo requerido, en el plantel del grupo y con capacidad ≥ alumnos.
@@ -128,9 +148,9 @@ Alcance de una corrida: **toda la escuela en un ciclo**, porque hay profesores q
 
 | ID | Regla |
 |---|---|
-| H1 | Cada bloque se acomoda exactamente una vez, en franjas de clase seguidas, sin cruzar recesos |
+| H1 | Se elige un patrón por curso y cada bloque de ese patrón se acomoda exactamente una vez, en franjas de clase seguidas, sin cruzar recesos |
 | H2 | Un grupo no tiene dos sesiones en la misma franja |
-| H3 | Un profesor no tiene dos sesiones en la misma franja |
+| H3 | Un profesor no tiene dos sesiones en la misma franja (no aplica a cursos `vacante`) |
 | H4 | Un espacio no tiene dos sesiones en la misma franja; tipo correcto y capacidad suficiente |
 | H5 | El profesor solo da materias habilitadas y solo en planteles asignados |
 | H6 | El profesor solo da clase en franjas `disponible` o `preferente` |
@@ -152,6 +172,9 @@ Cada una se configura por corrida como `apagada`, `preferencia` con peso de 1 a 
 | S4 | Usar franjas `preferente` del profesor | preferencia 4 |
 | S5 | Repartir cada materia en la semana (no días seguidos) | preferencia 3 |
 | S6 | Reglas de franja genéricas: "materia/tipo X no en franjas Y" (ej. Ed. Física no en la primera hora) | lista vacía |
+| S7 | Un profesor no da dos materias distintas al mismo grupo el mismo día | obligatoria |
+
+Además, un profesor con `sin_huecos` tiene S2 como obligatoria solo para él, sin importar el modo global.
 
 La función objetivo es la suma ponderada de las penalizaciones. La respuesta incluye el desglose por regla (ej. `S2: 12 → 3`).
 
@@ -217,7 +240,7 @@ Se descarga desde la app, con encabezados, validaciones de datos (listas despleg
 | `Planteles` | clave, nombre, dirección |
 | `Espacios` | clave, plantel, nombre, tipo, capacidad |
 | `Plantillas` | plantilla, día, orden, inicio, fin, tipo |
-| `Materias` | clave, plan, nombre, semestre, horas_semana, patron_bloques, tipo_espacio |
+| `Materias` | clave, plan, nombre, semestre, horas_semana, patrones (opcional; ej. `2 | 1+1`, vacío = derivar de las horas), tipo_espacio |
 | `Grupos` | clave, plantel, plantilla, plan, semestre, alumnos |
 | `Profesores` | clave, nombre, contrato, horas_min, horas_max, max_dia, planteles (claves separadas por coma), materias (claves separadas por coma) |
 | `Disponibilidad` | clave_profesor, plantilla, y una columna por franja (`Lun 07:00`…) con `D` / `P` / `N` (vacío = `D`) |
@@ -226,8 +249,8 @@ Se descarga desde la app, con encabezados, validaciones de datos (listas despleg
 
 ### Flujo de importación
 
-1. Subir el archivo (máx. 5 MB).
-2. **Vista previa:** por hoja, cuántos registros se crean y cuántos se actualizan, más la lista de errores con hoja, fila, columna y mensaje (ej. "Profesores, fila 14: la materia MAT-3 no existe").
+1. Subir el archivo (máx. 5 MB). Además de la plantilla propia, se acepta el **formato de carga horaria de UTEG** (columnas `GRUPO`, `MATERIA`, `HORAS`, `N° docente`, `Docente`): `GENERICO` → curso `vacante`, y los patrones se derivan de las horas.
+2. **Vista previa:** por hoja, cuántos registros se crean y cuántos se actualizan, más la lista de errores con hoja, fila, columna y mensaje (ej. "Profesores, fila 14: la materia MAT-3 no existe"). Los nombres se normalizan (espacios dobles y finales). Hay advertencias para: un número de docente con dos nombres distintos, filas sin número de docente y columnas de grupo que no coinciden.
 3. Si no hay errores, se confirma y se aplica todo en **una sola transacción**. Con errores no se aplica nada.
 4. Los registros se identifican por `clave`, así que reimportar el mismo archivo no duplica nada.
 5. La hoja `Horario` crea una corrida borrador (fase 3).
@@ -281,7 +304,7 @@ Cada fase tiene su propio plan de implementación.
 
 | Fase | Entrega | Se puede demostrar |
 |---|---|---|
-| 1. Motor | `apps/solver`, contrato, fixtures, prechecks, diagnóstico, benchmark con la escuela demo en JSON | `curl` a `/solve` con la escuela demo devuelve un horario o un diagnóstico |
+| 1. Motor | `apps/solver`, contrato, fixtures, prechecks, diagnóstico, benchmark con la escuela demo y con el caso real 27-A anonimizado, ambos en JSON | `curl` a `/solve` con la escuela demo devuelve un horario o un diagnóstico |
 | 2. Web base | Laravel multi-escuela, roles, CRUD de catálogos, profesores y disponibilidad, carga académica, import/export Excel de datos, generar y ver el resultado en cuadrícula de solo lectura | Importar plantilla → generar → ver horario |
 | 3. Editor | Arrastrar y soltar, validador TS, intercambio, bandeja, fijar, re-optimizar, versiones, importar hoja `Horario` | Ajustar un borrador y re-optimizar |
 | 4. Publicar y deploy | Publicación, vistas de profesor y alumno, PDF, Excel en cuadrícula, `.ics`, Docker de producción, Render + Neon, demo pública | URL pública funcionando |
