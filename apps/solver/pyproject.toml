@@ -29,6 +29,10 @@ packages = ["src/solver"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+filterwarnings = [
+    # Lo emite la importación de OR-Tools (no es código del motor).
+    "ignore:Bitwise inversion '~' on bool is deprecated:DeprecationWarning",
+]
 
 [tool.ruff]
 line-length = 100
