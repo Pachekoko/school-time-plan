@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\Rol;
+use App\Models\Escuela;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +27,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'escuela_id' => Escuela::factory(),
+            'rol' => Rol::Admin,
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -34,6 +38,21 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => ['rol' => Rol::Admin]);
+    }
+
+    public function profesor(): static
+    {
+        return $this->state(fn (array $attributes) => ['rol' => Rol::Profesor]);
+    }
+
+    public function alumno(): static
+    {
+        return $this->state(fn (array $attributes) => ['rol' => Rol::Alumno]);
     }
 
     /**

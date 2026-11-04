@@ -10,6 +10,13 @@ export type User = {
     [key: string]: unknown;
 };
 
+export type Rol = 'admin' | 'profesor' | 'alumno';
+
+export type EscuelaCompartida = {
+    id: number;
+    nombre: string;
+};
+
 export type Auth = {
     user: User;
 };

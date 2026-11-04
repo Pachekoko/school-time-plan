@@ -1,5 +1,5 @@
 import type { Directive } from 'vue';
-import type { Auth } from '@/types/auth';
+import type { Auth, EscuelaCompartida, Rol } from '@/types/auth';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -19,6 +19,8 @@ declare module '@inertiajs/core' {
         sharedPageProps: {
             name: string;
             auth: Auth;
+            escuela: EscuelaCompartida | null;
+            rol: Rol | null;
             sidebarOpen: boolean;
             [key: string]: unknown;
         };

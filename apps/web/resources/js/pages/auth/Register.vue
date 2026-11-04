@@ -16,8 +16,8 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: 'Crea una cuenta',
-        description: 'Ingresa tus datos para crear tu cuenta',
+        title: 'Registra tu escuela',
+        description: 'Crea la escuela y tu cuenta de administrador',
     },
 });
 </script>
@@ -33,13 +33,28 @@ defineOptions({
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="name">Nombre</Label>
+                <Label for="escuela">Nombre de la escuela</Label>
+                <Input
+                    id="escuela"
+                    type="text"
+                    required
+                    v-focus
+                    maxlength="120"
+                    :tabindex="1"
+                    autocomplete="organization"
+                    name="escuela"
+                    placeholder="Prepa Horizonte"
+                />
+                <InputError :message="errors.escuela" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="name">Tu nombre</Label>
                 <Input
                     id="name"
                     type="text"
                     required
-                    v-focus
-                    :tabindex="1"
+                    :tabindex="2"
                     autocomplete="name"
                     name="name"
                     placeholder="Nombre completo"
@@ -53,7 +68,7 @@ defineOptions({
                     id="email"
                     type="email"
                     required
-                    :tabindex="2"
+                    :tabindex="3"
                     autocomplete="email"
                     name="email"
                     placeholder="email@example.com"
@@ -66,7 +81,7 @@ defineOptions({
                 <PasswordInput
                     id="password"
                     required
-                    :tabindex="3"
+                    :tabindex="4"
                     autocomplete="new-password"
                     name="password"
                     placeholder="Contraseña"
@@ -80,7 +95,7 @@ defineOptions({
                 <PasswordInput
                     id="password_confirmation"
                     required
-                    :tabindex="4"
+                    :tabindex="5"
                     autocomplete="new-password"
                     name="password_confirmation"
                     placeholder="Confirmar contraseña"
@@ -92,7 +107,7 @@ defineOptions({
             <Button
                 type="submit"
                 class="mt-2 w-full"
-                tabindex="5"
+                tabindex="6"
                 :disabled="processing"
                 data-test="register-user-button"
             >
@@ -106,7 +121,7 @@ defineOptions({
             <TextLink
                 :href="login()"
                 class="underline underline-offset-4"
-                :tabindex="6"
+                :tabindex="7"
                 >Entrar</TextLink
             >
         </div>
