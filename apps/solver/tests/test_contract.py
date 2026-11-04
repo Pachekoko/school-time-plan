@@ -60,3 +60,10 @@ def test_schemas_en_contracts_estan_al_dia(tmp_path):
     for f in tmp_path.glob("*.schema.json"):
         assert f.read_bytes() == (CONTRACTS / f.name).read_bytes(), f.name
     assert len(list(tmp_path.glob("*.schema.json"))) == 4
+
+
+def test_s3_no_puede_ser_obligatoria():
+    p = minimo_dict()
+    p["parametros"] = {"reglas": {"S3": {"modo": "obligatoria"}}}
+    with pytest.raises(ValidationError, match="S3"):
+        SolveRequest.model_validate(p)

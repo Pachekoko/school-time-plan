@@ -72,10 +72,51 @@ class Instance:
     profesores: dict[str, ProfesorIn]
     cursos: dict[str, CursoIn]
     bloques_por_curso: dict[str, list[list[Bloque]]]  # [patron][indice]
+    sincronias: dict[str, list[str]]  # sincronía -> cursos (ordenados; el primero es el líder)
     _no_disponible: dict[str, set[tuple[str, int, int]]] = field(repr=False)
     _preferente: dict[str, set[tuple[str, int, int]]] = field(repr=False)
     _cache_inicios: dict[tuple[str, int], list[Inicio]] = field(default_factory=dict, repr=False)
     _cache_atomos: dict[tuple[str, int, int], list[int]] = field(default_factory=dict, repr=False)
+    _cache_profesor: dict[str, list[str]] = field(default_factory=dict, repr=False)
+
+    def dias(self, plantilla: str) -> list[int]:
+        return sorted({f.dia for f in self.franjas.values() if f.plantilla == plantilla})
+
+    def franjas_clase(self, plantilla: str, dia: int) -> list[Franja]:
+        """Franjas de clase del día, ordenadas por `orden` (sin recesos)."""
+        return sorted(
+            (
+                f
+                for f in self.franjas.values()
+                if f.plantilla == plantilla and f.dia == dia and f.es_clase
+            ),
+            key=lambda f: f.orden,
+        )
+
+    def atomos_de_plantilla(self, plantilla: str, dia: int) -> list[int]:
+        """Átomos del día cubiertos por alguna franja de clase de la plantilla."""
+        return sorted(
+            {
+                a
+                for f in self.franjas_clase(plantilla, dia)
+                for a in self.atomos_cubiertos(plantilla, dia, f.orden)
+            }
+        )
+
+    def grupos_ocupados(self, curso_id: str) -> list[str]:
+        """Grupos que el curso deja ocupados: en una sincronía, los de todos sus cursos."""
+        curso = self.cursos[curso_id]
+        if curso.sincronia is None:
+            return list(curso.grupos)
+        return sorted({g for c in self.sincronias[curso.sincronia] for g in self.cursos[c].grupos})
+
+    def cursos_de_profesor(self, profesor_id: str) -> list[str]:
+        """Cursos que el profesor podría dar (está entre sus candidatos)."""
+        if profesor_id not in self._cache_profesor:
+            self._cache_profesor[profesor_id] = [
+                c.id for c in self.req.cursos if profesor_id in self.candidatos(c.id)
+            ]
+        return self._cache_profesor[profesor_id]
 
     def curso_plantilla(self, curso_id: str) -> str:
         return self.grupos[self.cursos[curso_id].grupos[0]].plantilla
@@ -219,6 +260,10 @@ def build_instance(req: SolveRequest) -> Instance:
     if errores:
         raise InstanceError(errores)
 
+    sincronias: dict[str, list[str]] = {}
+    for c in sorted(req.cursos, key=lambda c: c.id):
+        if c.sincronia is not None:
+            sincronias.setdefault(c.sincronia, []).append(c.id)
     bloques_por_curso = {
         c.id: [
             [Bloque(f"{c.id}#{k}.{i}", c.id, k, i, dur) for i, dur in enumerate(patron)]
@@ -239,6 +284,7 @@ def build_instance(req: SolveRequest) -> Instance:
         profesores=profesores,
         cursos=cursos,
         bloques_por_curso=bloques_por_curso,
+        sincronias=sincronias,
         _no_disponible={
             p.id: {(r.plantilla, r.dia, r.orden) for r in p.no_disponible} for p in req.profesores
         },

@@ -7,6 +7,16 @@ if TYPE_CHECKING:
 
 DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
 
+NOMBRES_REGLAS = {
+    "S1": "Sin huecos para los grupos",
+    "S2": "Pocos huecos para profesores",
+    "S3": "Menos días por profesor",
+    "S4": "Usar franjas preferentes",
+    "S5": "Repartir materias en la semana",
+    "S6": "Reglas de franja",
+    "S7": "Un docente, una materia por día en cada grupo",
+}
+
 
 def hhmm(minutos: int) -> str:
     return f"{minutos // 60:02d}:{minutos % 60:02d}"

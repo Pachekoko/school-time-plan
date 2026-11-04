@@ -167,6 +167,12 @@ class ReglasConfig(_Modelo):
     S6_restricciones: list[RestriccionFranja] = []
     S7: ReglaConfig = _regla("obligatoria")
 
+    @model_validator(mode="after")
+    def _s3_no_obligatoria(self) -> "ReglasConfig":
+        if self.S3.modo == "obligatoria":
+            raise ValueError("S3 (menos días por profesor) no puede ser obligatoria")
+        return self
+
 
 class Parametros(_Modelo):
     tiempo_limite_s: float = Field(default=60, ge=1, le=300)

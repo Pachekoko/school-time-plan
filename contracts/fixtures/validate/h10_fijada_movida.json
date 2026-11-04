@@ -1,0 +1,239 @@
+{
+  "descripcion": "La sesión fijada a las 7:00 aparece a las 7:50.",
+  "problema": {
+    "schema_version": "1",
+    "parametros": {
+      "minutos_traslado": 50
+    },
+    "plantillas": [
+      {
+        "id": "MAT",
+        "nombre": "Matutino",
+        "franjas": [
+          {
+            "dia": 0,
+            "orden": 0,
+            "inicio": "07:00",
+            "fin": "07:50",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 1,
+            "inicio": "07:50",
+            "fin": "08:40",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 2,
+            "inicio": "08:40",
+            "fin": "09:30",
+            "tipo": "clase"
+          },
+          {
+            "dia": 0,
+            "orden": 3,
+            "inicio": "09:30",
+            "fin": "10:00",
+            "tipo": "receso"
+          },
+          {
+            "dia": 0,
+            "orden": 4,
+            "inicio": "10:00",
+            "fin": "10:50",
+            "tipo": "clase"
+          }
+        ]
+      }
+    ],
+    "planteles": [
+      {
+        "id": "P1",
+        "nombre": "Plantel Centro"
+      },
+      {
+        "id": "P2",
+        "nombre": "Plantel Norte"
+      }
+    ],
+    "espacios": [
+      {
+        "id": "A1",
+        "plantel": "P1",
+        "nombre": "Aula 1",
+        "tipo": "aula",
+        "capacidad": 40
+      },
+      {
+        "id": "A2",
+        "plantel": "P1",
+        "nombre": "Aula 2",
+        "tipo": "aula",
+        "capacidad": 40
+      },
+      {
+        "id": "L1",
+        "plantel": "P1",
+        "nombre": "Laboratorio 1",
+        "tipo": "laboratorio",
+        "capacidad": 30
+      },
+      {
+        "id": "B1",
+        "plantel": "P2",
+        "nombre": "Aula Norte",
+        "tipo": "aula",
+        "capacidad": 40
+      }
+    ],
+    "materias": [
+      {
+        "id": "M1",
+        "nombre": "Matemáticas",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "id": "M2",
+        "nombre": "Química",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ],
+        "tipo_espacio": "laboratorio"
+      },
+      {
+        "id": "M3",
+        "nombre": "Historia",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "id": "M4",
+        "nombre": "Inglés",
+        "horas_semana": 1,
+        "patrones": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "id": "M5",
+        "nombre": "Lengua",
+        "horas_semana": 2,
+        "patrones": [
+          [
+            2
+          ]
+        ]
+      }
+    ],
+    "grupos": [
+      {
+        "id": "G1",
+        "nombre": "1A",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      },
+      {
+        "id": "G2",
+        "nombre": "1B",
+        "plantel": "P1",
+        "plantilla": "MAT",
+        "alumnos": 30
+      },
+      {
+        "id": "G3",
+        "nombre": "1N",
+        "plantel": "P2",
+        "plantilla": "MAT",
+        "alumnos": 30
+      }
+    ],
+    "profesores": [
+      {
+        "id": "PR1",
+        "nombre": "A. López",
+        "planteles": [
+          "P1",
+          "P2"
+        ],
+        "materias": [
+          "M1",
+          "M3",
+          "M4",
+          "M5"
+        ],
+        "horas_max": 10,
+        "max_dia": 6
+      },
+      {
+        "id": "PR2",
+        "nombre": "B. Ruiz",
+        "planteles": [
+          "P1"
+        ],
+        "materias": [
+          "M1",
+          "M2",
+          "M4"
+        ],
+        "horas_max": 10,
+        "max_dia": 6
+      }
+    ],
+    "cursos": [
+      {
+        "id": "C1",
+        "materia": "M1",
+        "grupos": [
+          "G1"
+        ],
+        "profesor": "PR1"
+      }
+    ],
+    "fijadas": [
+      {
+        "curso": "C1",
+        "patron": 0,
+        "bloque": 0,
+        "dia": 0,
+        "orden_inicio": 0,
+        "espacio": "A1",
+        "profesor": "PR1",
+        "fijada": true
+      }
+    ]
+  },
+  "sesiones": [
+    {
+      "curso": "C1",
+      "patron": 0,
+      "bloque": 0,
+      "dia": 0,
+      "orden_inicio": 1,
+      "espacio": "A1",
+      "profesor": "PR1"
+    }
+  ],
+  "esperado": {
+    "reglas_violadas": [
+      "H10"
+    ]
+  }
+}

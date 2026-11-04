@@ -1,6 +1,6 @@
 import pytest
 
-from solver.contract import ProfesorIn, RefFranja, SesionIn, SolveRequest
+from solver.contract import CursoIn, ProfesorIn, RefFranja, SesionIn, SolveRequest
 from solver.instance import Inicio, InstanceError, build_instance
 from solver.messages import DIAS, hora, nombre
 
@@ -138,3 +138,32 @@ def test_mensajes(minimo):
     assert nombre(inst, "grupo", "G1") == "1A"
     assert nombre(inst, "curso", "C1") == "Matemáticas (1A)"
     assert nombre(inst, "grupo", "NOEXISTE") == "NOEXISTE"
+
+
+def test_grupos_ocupados_por_sincronia(minimo):
+    minimo.grupos.append(minimo.grupos[0].model_copy(update={"id": "G2", "nombre": "1B"}))
+    minimo.cursos = [
+        CursoIn(id="C1", materia="M1", grupos=["G1"], sincronia="ING"),
+        CursoIn(id="C2", materia="M1", grupos=["G2"], sincronia="ING"),
+        CursoIn(id="C3", materia="M1", grupos=["G2"]),
+    ]
+    inst = build_instance(minimo)
+    assert inst.sincronias == {"ING": ["C1", "C2"]}
+    assert inst.grupos_ocupados("C1") == ["G1", "G2"]
+    assert inst.grupos_ocupados("C3") == ["G2"]
+
+
+def test_cursos_de_profesor(minimo):
+    minimo.cursos.append(CursoIn(id="C2", materia="M1", grupos=["G1"], vacante=True))
+    assert build_instance(minimo).cursos_de_profesor("PR1") == ["C1"]
+
+
+def test_atomos_de_plantilla(plantilla_con_receso):
+    inst = build_instance(plantilla_con_receso)
+    assert inst.atomos_de_plantilla("MAT", 0) == [0, 1, 2, 3, 4, 5]
+
+
+def test_franjas_clase_y_dias(plantilla_con_receso):
+    inst = build_instance(plantilla_con_receso)
+    assert [f.orden for f in inst.franjas_clase("MAT", 2)] == [0, 1, 2, 4, 5, 6]
+    assert inst.dias("MAT") == [0, 1, 2, 3, 4]
