@@ -25,6 +25,43 @@ final class ParametrosCorrida
         'S7' => ['modo' => 'obligatoria', 'peso' => 5],
     ];
 
+    /** Los nombres que usa el motor (apps/solver/src/solver/messages.py: NOMBRES_REGLAS). */
+    public const array NOMBRES = [
+        'S1' => 'Sin huecos para los grupos',
+        'S2' => 'Pocos huecos para profesores',
+        'S3' => 'Menos días por profesor',
+        'S4' => 'Usar franjas preferentes',
+        'S5' => 'Repartir materias en la semana',
+        'S6' => 'Reglas de franja',
+        'S7' => 'Un docente, una materia por día en cada grupo',
+    ];
+
+    /**
+     * Las reglas para el formulario de generar, con sus modos permitidos (S3 no puede ser
+     * obligatoria).
+     *
+     * @param  array<string, mixed>  $reglas  las de normalizar()
+     * @return list<array{clave: string, nombre: string, modo: string, peso: int, modos: list<string>}>
+     */
+    public static function paraFormulario(array $reglas): array
+    {
+        $formulario = [];
+
+        foreach (self::NOMBRES as $clave => $nombre) {
+            $modos = array_map(fn (ModoRegla $modo) => $modo->value, ModoRegla::cases());
+
+            $formulario[] = [
+                'clave' => $clave,
+                'nombre' => $nombre,
+                'modo' => (string) $reglas[$clave]['modo'],
+                'peso' => (int) $reglas[$clave]['peso'],
+                'modos' => $clave === 'S3' ? array_values(array_diff($modos, [ModoRegla::Obligatoria->value])) : $modos,
+            ];
+        }
+
+        return $formulario;
+    }
+
     /**
      * @param  array<string, mixed>  $entrada  `tiempo_limite_s`, `permitir_parcial` y `reglas.{S1..S7}.{modo,peso}`
      * @return array{tiempo_limite_s: int, semilla: int, num_workers: int, permitir_parcial: bool, minutos_traslado: int, reglas: array<string, mixed>}

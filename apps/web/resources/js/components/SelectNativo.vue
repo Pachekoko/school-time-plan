@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 
 // Un <select> nativo con el estilo de Input: viaja solo en los formularios de Inertia.
+// No admite v-model: marca la opción con :selected y escucha @change.
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{

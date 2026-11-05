@@ -11,7 +11,9 @@ type Corrida = {
     id: number;
     estado: string;
     estado_etiqueta: string;
+    activa: boolean;
     puntaje: number | null;
+    sesiones: number;
     creada: string | null;
 };
 
@@ -64,7 +66,10 @@ const formato = new Intl.DateTimeFormat('es-MX', {
                         <th class="px-4 py-2 font-medium">Fecha</th>
                         <th class="px-4 py-2 font-medium">Estado</th>
                         <th class="px-4 py-2 text-right font-medium">
-                            Puntaje
+                            Sesiones
+                        </th>
+                        <th class="px-4 py-2 text-right font-medium">
+                            Penalización
                         </th>
                     </tr>
                 </thead>
@@ -93,6 +98,12 @@ const formato = new Intl.DateTimeFormat('es-MX', {
                             <Badge variant="secondary">{{
                                 corrida.estado_etiqueta
                             }}</Badge>
+                        </td>
+                        <td class="px-4 py-2 text-right tabular-nums">
+                            {{ corrida.sesiones }}
+                        </td>
+                        <td class="px-4 py-2 text-right tabular-nums">
+                            {{ corrida.sesiones }}
                         </td>
                         <td class="px-4 py-2 text-right tabular-nums">
                             {{ corrida.puntaje ?? '—' }}

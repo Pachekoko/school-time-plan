@@ -9,6 +9,7 @@ use App\Http\Requests\CorridaRequest;
 use App\Models\Corrida;
 use App\Models\Escuela;
 use App\Solver\ParametrosCorrida;
+use App\Solver\PresentadorCorrida;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -26,13 +27,16 @@ class CorridaController extends Controller
         return Inertia::render('escuela/corridas/Index', [
             'ciclo' => $ciclo->clave,
             'corridas' => $ciclo->corridas()
+                ->withCount('sesiones')
                 ->latest('id')
                 ->get()
                 ->map(fn (Corrida $corrida) => [
                     'id' => $corrida->id,
                     'estado' => $corrida->estado->value,
                     'estado_etiqueta' => $corrida->estado->etiqueta(),
+                    'activa' => $corrida->estado->activa(),
                     'puntaje' => $corrida->puntaje,
+                    'sesiones' => $corrida->sesiones_count,
                     'creada' => $corrida->created_at?->toIso8601String(),
                 ]),
         ]);
@@ -42,9 +46,12 @@ class CorridaController extends Controller
     {
         $ciclo = $this->cicloActual($request);
 
+        $parametros = ParametrosCorrida::normalizar([], Escuela::query()->findOrFail($ciclo->escuela_id));
+
         return Inertia::render('escuela/corridas/Create', [
             'ciclo' => $ciclo->clave,
-            'parametros' => ParametrosCorrida::normalizar([], Escuela::query()->findOrFail($ciclo->escuela_id)),
+            'parametros' => ['tiempo_limite_s' => $parametros['tiempo_limite_s'], 'permitir_parcial' => $parametros['permitir_parcial']],
+            'reglas' => ParametrosCorrida::paraFormulario($parametros['reglas']),
             'hayActiva' => $ciclo->corridas()->activas()->exists(),
         ]);
     }
@@ -58,18 +65,9 @@ class CorridaController extends Controller
         return to_route('corridas.show', $corrida);
     }
 
-    public function show(Corrida $corrida): Response
+    public function show(Corrida $corrida, PresentadorCorrida $presentador): Response
     {
-        return Inertia::render('escuela/corridas/Show', [
-            'corrida' => [
-                'id' => $corrida->id,
-                'estado' => $corrida->estado->value,
-                'estado_etiqueta' => $corrida->estado->etiqueta(),
-                'activa' => $corrida->estado->activa(),
-                'mensaje_error' => $corrida->mensaje_error,
-                'puntaje' => $corrida->puntaje,
-            ],
-        ]);
+        return Inertia::render('escuela/corridas/Show', $presentador->props($corrida));
     }
 
     public function reintentar(Corrida $corrida, GenerarCorrida $generar): RedirectResponse
