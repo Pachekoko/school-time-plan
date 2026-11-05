@@ -62,12 +62,13 @@ Corre esto desde la raíz del repo, con el Postgres de `docker compose`:
 
 ```bash
 docker build -f apps/web/Dockerfile -t horarios-web .
-docker run --rm -p 10080:10000 --network timeplan_default \
-  -e APP_KEY=cualquier-texto -e APP_URL=http://localhost:10080 \
+docker run --rm -p 80:10000 --network timeplan_default \
+  -e APP_KEY=cualquier-texto -e APP_URL=http://localhost \
   -e DB_CONNECTION=pgsql -e DB_URL=postgresql://horarios:horarios@postgres:5432/horarios \
   -e SESSION_DRIVER=database -e CACHE_STORE=database -e QUEUE_CONNECTION=database \
   -e SOLVER_URL=http://solver:8000 -e SOLVER_TOKEN=dev -e SOLVER_WORKERS=1 \
-  -e DEMO_PASSWORD=una-contraseña-local horarios-web
+  -e DEMO_PASSWORD=demo-local horarios-web
 ```
 
-Para imitar el plan free, agrega `--cpus=0.1 --memory=512m`.
+- **Usa el puerto 80 del host.** El nginx de Debian le pasa a PHP el host sin puerto (`HTTP_HOST $host`, por seguridad). En otro puerto, los assets apuntarían al 80. En Render no pasa, porque el proxy usa el 443.
+- **Para imitar el plan free,** agrega `--cpus=0.1 --memory=512m`.
