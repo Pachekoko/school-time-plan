@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
+import { FileDown, FileSpreadsheet } from '@lucide/vue';
 import Heading from '@/components/Heading.vue';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { index as ciclos } from '@/routes/ciclos';
 import { inicio } from '@/routes/escuela';
+import { datos, plantilla } from '@/routes/exportar';
 
 defineOptions({
     layout: {
@@ -67,5 +70,29 @@ const page = usePage();
                 Crea el primero
             </Link>
         </p>
+
+        <section class="flex flex-col gap-3 rounded-lg border p-4">
+            <div>
+                <h3 class="font-medium">Excel</h3>
+                <p class="text-sm text-muted-foreground">
+                    Captura en la plantilla o baja tus datos para editarlos en
+                    Excel y volver a importarlos.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <Button variant="outline" as-child>
+                    <a :href="plantilla.url()" download>
+                        <FileSpreadsheet />
+                        Plantilla vacía
+                    </a>
+                </Button>
+                <Button variant="outline" as-child>
+                    <a :href="datos.url()" download>
+                        <FileDown />
+                        Mis datos en Excel
+                    </a>
+                </Button>
+            </div>
+        </section>
     </div>
 </template>

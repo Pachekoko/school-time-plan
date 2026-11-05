@@ -6,6 +6,7 @@ use App\Http\Controllers\Escuela\CorridaController;
 use App\Http\Controllers\Escuela\CursoController;
 use App\Http\Controllers\Escuela\DisponibilidadController;
 use App\Http\Controllers\Escuela\EspacioController;
+use App\Http\Controllers\Escuela\ExportacionController;
 use App\Http\Controllers\Escuela\FranjaController;
 use App\Http\Controllers\Escuela\GrupoController;
 use App\Http\Controllers\Escuela\MateriaController;
@@ -48,6 +49,9 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
         Route::resource('profesores', ProfesorController::class)->except('show')->parameters(['profesores' => 'profesor']);
         Route::get('profesores/{profesor}/disponibilidad', [DisponibilidadController::class, 'edit'])->name('profesores.disponibilidad');
         Route::put('profesores/{profesor}/disponibilidad', [DisponibilidadController::class, 'update'])->name('profesores.guardar-disponibilidad');
+
+        Route::get('exportar/plantilla', [ExportacionController::class, 'plantilla'])->name('exportar.plantilla');
+        Route::get('exportar/datos', [ExportacionController::class, 'datos'])->name('exportar.datos');
 
         Route::middleware('ciclo')->group(function () {
             Route::resource('grupos', GrupoController::class)->except('show')->parameters(['grupos' => 'grupo']);
