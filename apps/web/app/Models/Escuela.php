@@ -27,6 +27,17 @@ class Escuela extends Model
     use HasFactory;
 
     /**
+     * Los mismos defaults que la tabla, para que una escuela recién creada los tenga sin
+     * volver a leerla.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'minutos_traslado' => 50,
+        'tiempo_limite_s' => 60,
+    ];
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
