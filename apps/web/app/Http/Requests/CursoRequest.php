@@ -25,12 +25,12 @@ class CursoRequest extends FormRequest
         $ciclo = $this->cicloActual()->id;
 
         return [
-            'materia_id' => ['required', 'integer', $this->existe('materias')],
+            'materia_id' => ['bail', 'required', 'integer', $this->existe('materias')],
             'grupos' => ['required', 'array', 'min:1'],
-            'grupos.*' => ['integer', 'distinct', $this->existe('grupos')->where('ciclo_id', $ciclo)],
-            'profesor_id' => ['nullable', 'integer', $this->existe('profesores')],
+            'grupos.*' => ['bail', 'integer', 'distinct', $this->existe('grupos')->where('ciclo_id', $ciclo)],
+            'profesor_id' => ['bail', 'nullable', 'integer', $this->existe('profesores')],
             'vacante' => ['nullable', 'boolean'],
-            'sincronia_id' => ['nullable', 'integer', $this->existe('sincronias')->where('ciclo_id', $ciclo)],
+            'sincronia_id' => ['bail', 'nullable', 'integer', $this->existe('sincronias')->where('ciclo_id', $ciclo)],
             'alumnos' => ['nullable', 'integer', 'between:1,10000'],
             'clave' => ['nullable', 'string', 'max:120', $this->unica('cursos', $this->idEnRuta('curso'), donde: ['ciclo_id' => $ciclo])],
         ];

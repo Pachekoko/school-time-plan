@@ -23,7 +23,7 @@ class EspacioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plantel_id' => ['required', 'integer', $this->existe('planteles')],
+            'plantel_id' => ['bail', 'required', 'integer', $this->existe('planteles')],
             'clave' => ['required', 'string', 'max:30', $this->unica('espacios', $this->idEnRuta('espacio'))],
             'nombre' => ['required', 'string', 'max:120'],
             'tipo' => ['required', Rule::enum(TipoEspacio::class)],

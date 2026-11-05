@@ -26,7 +26,7 @@ class DisponibilidadRequest extends FormRequest
     {
         return [
             'celdas' => ['present', 'array'],
-            'celdas.*.franja_id' => ['required', 'integer', 'distinct', $this->existe('franjas')],
+            'celdas.*.franja_id' => ['bail', 'required', 'integer', 'distinct', $this->existe('franjas')],
             'celdas.*.estado' => ['required', Rule::in(['D', 'P', 'N'])],
         ];
     }

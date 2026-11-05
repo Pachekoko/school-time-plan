@@ -37,3 +37,49 @@ jobs:
       - run: npm run build
       - run: composer ci:check
       - run: npm run test
+
+  # Las mismas pruebas sobre PostgreSQL, la base de producción (Neon).
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: horarios
+          POSTGRES_PASSWORD: horarios
+          POSTGRES_DB: horarios_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U horarios"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: "5432"
+      DB_DATABASE: horarios_test
+      DB_USERNAME: horarios
+      DB_PASSWORD: horarios
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: pdo_pgsql, intl, zip, gd
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: composer install --no-interaction --prefer-dist
+      - run: cp .env.example .env && php artisan key:generate
+      - run: npm ci
+      - run: npm run build
+      - run: php artisan test --compact

@@ -36,9 +36,9 @@ class ProfesorRequest extends FormRequest
             'max_dia' => ['required', 'integer', 'between:1,24'],
             'sin_huecos' => ['nullable', 'boolean'],
             'planteles' => ['nullable', 'array'],
-            'planteles.*' => ['integer', 'distinct', $this->existe('planteles')],
+            'planteles.*' => ['bail', 'integer', 'distinct', $this->existe('planteles')],
             'materias' => ['nullable', 'array'],
-            'materias.*' => ['integer', 'distinct', $this->existe('materias')],
+            'materias.*' => ['bail', 'integer', 'distinct', $this->existe('materias')],
             'correo' => ['nullable', 'email', 'max:255'],
         ];
     }

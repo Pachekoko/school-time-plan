@@ -25,9 +25,9 @@ class GrupoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plantel_id' => ['required', 'integer', $this->existe('planteles')],
-            'plantilla_id' => ['required', 'integer', $this->existe('plantillas')],
-            'plan_id' => ['required', 'integer', $this->existe('planes')],
+            'plantel_id' => ['bail', 'required', 'integer', $this->existe('planteles')],
+            'plantilla_id' => ['bail', 'required', 'integer', $this->existe('plantillas')],
+            'plan_id' => ['bail', 'required', 'integer', $this->existe('planes')],
             'semestre' => ['required', 'integer', 'between:1,12'],
             'clave' => [
                 'required', 'string', 'max:30',

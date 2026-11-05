@@ -35,10 +35,10 @@ class ImportacionRequest extends FormRequest
     {
         return [
             'formato' => ['required', 'in:plantilla,uteg'],
-            'plantel_id' => ['nullable', 'required_if:formato,uteg', 'integer', $this->existe('planteles')],
-            'plantilla_1y2_id' => ['nullable', 'required_if:formato,uteg', 'integer', $this->existe('plantillas')],
-            'plantilla_3a6_id' => ['nullable', 'required_if:formato,uteg', 'integer', $this->existe('plantillas')],
-            'plan_id' => ['nullable', 'required_if:formato,uteg', 'integer', $this->existe('planes')],
+            'plantel_id' => ['bail', 'nullable', 'required_if:formato,uteg', 'integer', $this->existe('planteles')],
+            'plantilla_1y2_id' => ['bail', 'nullable', 'required_if:formato,uteg', 'integer', $this->existe('plantillas')],
+            'plantilla_3a6_id' => ['bail', 'nullable', 'required_if:formato,uteg', 'integer', $this->existe('plantillas')],
+            'plan_id' => ['bail', 'nullable', 'required_if:formato,uteg', 'integer', $this->existe('planes')],
         ];
     }
 

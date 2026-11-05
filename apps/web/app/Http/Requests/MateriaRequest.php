@@ -26,7 +26,7 @@ class MateriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plan_id' => ['required', 'integer', $this->existe('planes')],
+            'plan_id' => ['bail', 'required', 'integer', $this->existe('planes')],
             'clave' => ['required', 'string', 'max:30', $this->unica('materias', $this->idEnRuta('materia'))],
             'nombre' => ['required', 'string', 'max:120'],
             'semestre' => ['required', 'integer', 'between:1,12'],

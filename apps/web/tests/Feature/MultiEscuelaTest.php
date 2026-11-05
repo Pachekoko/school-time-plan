@@ -115,6 +115,23 @@ class MultiEscuelaTest extends TestCase
         $this->actingAs($ana)->get("/_prueba/planteles/{$ajeno->id}")->assertNotFound();
     }
 
+    /**
+     * En PostgreSQL, comparar un id con «abc» o con un número fuera de bigint es un error de la
+     * base; tiene que verse como un 404 o un error del campo, nunca como un 500.
+     */
+    public function test_un_id_que_no_es_numero_da_404_o_error_del_campo(): void
+    {
+        $this->actingAs(User::factory()->admin()->create());
+        $espacio = ['clave' => 'A1', 'nombre' => 'Aula 1', 'tipo' => 'aula', 'capacidad' => 30];
+        $profesor = ['clave' => 'P1', 'nombre' => 'Ana', 'contrato' => 'asignatura', 'horas_min' => 0, 'horas_max' => 20, 'max_dia' => 6];
+
+        foreach (['abc', '99999999999999999999'] as $id) {
+            $this->get("/planteles/{$id}/edit")->assertNotFound();
+            $this->post(route('espacios.store'), [...$espacio, 'plantel_id' => $id])->assertSessionHasErrors('plantel_id');
+            $this->post(route('profesores.store'), [...$profesor, 'planteles' => [$id]])->assertSessionHasErrors('planteles.0');
+        }
+    }
+
     public function test_existe_solo_acepta_registros_de_la_escuela_actual(): void
     {
         [$a, $b] = Escuela::factory()->count(2)->create();

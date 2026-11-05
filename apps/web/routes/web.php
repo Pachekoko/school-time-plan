@@ -20,6 +20,12 @@ use App\Http\Controllers\MiDisponibilidadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Ids de modelos solo con dígitos (y dentro de bigint): «abc» es un 404, no un error de PostgreSQL.
+Route::patterns(array_fill_keys(
+    ['plantel', 'espacio', 'ciclo', 'plantilla', 'franja', 'plan', 'materia', 'profesor', 'grupo', 'curso', 'sincronia', 'corrida'],
+    '[0-9]{1,18}',
+));
+
 Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
