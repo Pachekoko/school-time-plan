@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -71,5 +72,13 @@ class Materia extends Model
     public function profesores(): BelongsToMany
     {
         return $this->belongsToMany(Profesor::class, 'profesor_materia');
+    }
+
+    /**
+     * @return HasMany<Curso, $this>
+     */
+    public function cursos(): HasMany
+    {
+        return $this->hasMany(Curso::class);
     }
 }

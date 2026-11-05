@@ -5,11 +5,13 @@ import {
     Building2,
     CalendarCheck,
     CalendarRange,
+    ClipboardList,
     Clock,
     DoorOpen,
     FolderGit2,
     GraduationCap,
     LayoutGrid,
+    Link2,
     UserRound,
     Users,
 } from '@lucide/vue';
@@ -29,6 +31,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard, miDisponibilidad } from '@/routes';
 import { index as ciclos } from '@/routes/ciclos';
+import { index as cursos } from '@/routes/cursos';
 import { index as espacios } from '@/routes/espacios';
 import { inicio } from '@/routes/escuela';
 import { index as grupos } from '@/routes/grupos';
@@ -37,6 +40,7 @@ import { index as planes } from '@/routes/planes';
 import { index as planteles } from '@/routes/planteles';
 import { index as plantillas } from '@/routes/plantillas';
 import { index as profesores } from '@/routes/profesores';
+import { index as sincronias } from '@/routes/sincronias';
 import type { NavItem } from '@/types';
 
 const page = usePage();
@@ -63,12 +67,23 @@ const secciones = computed<{ label: string; items: NavItem[] }[]>(() =>
                   items: [
                       { title: 'Planes', href: planes(), icon: GraduationCap },
                       { title: 'Materias', href: materias(), icon: BookOpen },
-                      { title: 'Grupos', href: grupos(), icon: Users },
                       {
                           title: 'Profesores',
                           href: profesores(),
                           icon: UserRound,
                       },
+                  ],
+              },
+              {
+                  label: 'Ciclo actual',
+                  items: [
+                      { title: 'Grupos', href: grupos(), icon: Users },
+                      {
+                          title: 'Carga académica',
+                          href: cursos(),
+                          icon: ClipboardList,
+                      },
+                      { title: 'Sincronías', href: sincronias(), icon: Link2 },
                   ],
               },
           ]

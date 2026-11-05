@@ -10,6 +10,7 @@ use App\Models\Materia;
 use App\Models\Plantel;
 use App\Models\Profesor;
 use App\Models\User;
+use App\Support\Borrado;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
@@ -94,6 +95,8 @@ class ProfesorController extends Controller
 
     public function destroy(Profesor $profesor): RedirectResponse
     {
+        Borrado::impedirSiSeUsa($profesor->nombre, ['curso|cursos' => $profesor->cursos()]);
+
         $profesor->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Profesor borrado.']);

@@ -70,7 +70,11 @@ class CicloController extends Controller
 
     public function destroy(Ciclo $ciclo): RedirectResponse
     {
-        Borrado::impedirSiSeUsa($ciclo->clave, ['grupo|grupos' => $ciclo->grupos()]);
+        Borrado::impedirSiSeUsa($ciclo->clave, [
+            'grupo|grupos' => $ciclo->grupos(),
+            'curso|cursos' => $ciclo->cursos(),
+            'sincronía|sincronías' => $ciclo->sincronias(),
+        ]);
 
         $ciclo->delete();
 

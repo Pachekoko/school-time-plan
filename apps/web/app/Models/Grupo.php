@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -72,5 +73,13 @@ class Grupo extends Model
     public function plan(): BelongsTo
     {
         return $this->belongsTo(PlanEstudios::class, 'plan_id');
+    }
+
+    /**
+     * @return BelongsToMany<Curso, $this>
+     */
+    public function cursos(): BelongsToMany
+    {
+        return $this->belongsToMany(Curso::class, 'curso_grupo');
     }
 }

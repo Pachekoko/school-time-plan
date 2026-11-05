@@ -73,7 +73,10 @@ class MateriaController extends Controller
 
     public function destroy(Materia $materia): RedirectResponse
     {
-        Borrado::impedirSiSeUsa($materia->nombre, ['profesor|profesores' => $materia->profesores()]);
+        Borrado::impedirSiSeUsa($materia->nombre, [
+            'curso|cursos' => $materia->cursos(),
+            'profesor|profesores' => $materia->profesores(),
+        ]);
 
         $materia->delete();
 

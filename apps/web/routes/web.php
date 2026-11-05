@@ -2,6 +2,7 @@
 
 use App\Enums\Rol;
 use App\Http\Controllers\Escuela\CicloController;
+use App\Http\Controllers\Escuela\CursoController;
 use App\Http\Controllers\Escuela\DisponibilidadController;
 use App\Http\Controllers\Escuela\EspacioController;
 use App\Http\Controllers\Escuela\FranjaController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Escuela\PlanController;
 use App\Http\Controllers\Escuela\PlantelController;
 use App\Http\Controllers\Escuela\PlantillaController;
 use App\Http\Controllers\Escuela\ProfesorController;
+use App\Http\Controllers\Escuela\SincroniaController;
 use App\Http\Controllers\MiDisponibilidadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,8 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
 
         Route::middleware('ciclo')->group(function () {
             Route::resource('grupos', GrupoController::class)->except('show')->parameters(['grupos' => 'grupo']);
+            Route::resource('cursos', CursoController::class)->except('show')->parameters(['cursos' => 'curso']);
+            Route::resource('sincronias', SincroniaController::class)->except('show')->parameters(['sincronias' => 'sincronia']);
         });
     });
 

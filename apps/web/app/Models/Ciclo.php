@@ -48,4 +48,20 @@ class Ciclo extends Model
     {
         return $this->hasMany(Grupo::class);
     }
+
+    /**
+     * @return HasMany<Curso, $this>
+     */
+    public function cursos(): HasMany
+    {
+        return $this->hasMany(Curso::class);
+    }
+
+    /**
+     * @return HasMany<Sincronia, $this>
+     */
+    public function sincronias(): HasMany
+    {
+        return $this->hasMany(Sincronia::class);
+    }
 }

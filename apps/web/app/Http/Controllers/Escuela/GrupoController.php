@@ -8,6 +8,7 @@ use App\Models\Grupo;
 use App\Models\PlanEstudios;
 use App\Models\Plantel;
 use App\Models\PlantillaHoraria;
+use App\Support\Borrado;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -79,6 +80,8 @@ class GrupoController extends Controller
     public function destroy(Request $request, Grupo $grupo): RedirectResponse
     {
         $this->delCicloActual($request, $grupo);
+
+        Borrado::impedirSiSeUsa($grupo->clave, ['curso|cursos' => $grupo->cursos()]);
 
         $grupo->delete();
 

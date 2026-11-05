@@ -84,4 +84,12 @@ class Profesor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return HasMany<Curso, $this>
+     */
+    public function cursos(): HasMany
+    {
+        return $this->hasMany(Curso::class);
+    }
 }
