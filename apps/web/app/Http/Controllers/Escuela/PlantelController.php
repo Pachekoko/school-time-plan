@@ -58,6 +58,7 @@ class PlantelController extends Controller
         Borrado::impedirSiSeUsa($plantel->nombre, [
             'espacio|espacios' => $plantel->espacios(),
             'grupo|grupos' => $plantel->grupos(),
+            'profesor|profesores' => $plantel->profesores(),
         ]);
 
         $plantel->delete();

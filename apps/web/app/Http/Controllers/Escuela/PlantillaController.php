@@ -6,6 +6,7 @@ use App\Enums\TipoFranja;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlantillaRequest;
 use App\Models\PlantillaHoraria;
+use App\Models\Profesor;
 use App\Support\Borrado;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -62,7 +63,13 @@ class PlantillaController extends Controller
 
     public function destroy(PlantillaHoraria $plantilla): RedirectResponse
     {
-        Borrado::impedirSiSeUsa($plantilla->nombre, ['grupo|grupos' => $plantilla->grupos()]);
+        Borrado::impedirSiSeUsa($plantilla->nombre, [
+            'grupo|grupos' => $plantilla->grupos(),
+            'profesor con disponibilidad|profesores con disponibilidad' => Profesor::query()->whereHas(
+                'disponibilidades',
+                fn ($consulta) => $consulta->whereIn('franja_id', $plantilla->franjas()->select('id')),
+            ),
+        ]);
 
         $plantilla->delete();
 

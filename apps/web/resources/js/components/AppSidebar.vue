@@ -10,6 +10,7 @@ import {
     FolderGit2,
     GraduationCap,
     LayoutGrid,
+    UserRound,
     Users,
 } from '@lucide/vue';
 import { computed } from 'vue';
@@ -35,6 +36,7 @@ import { index as materias } from '@/routes/materias';
 import { index as planes } from '@/routes/planes';
 import { index as planteles } from '@/routes/planteles';
 import { index as plantillas } from '@/routes/plantillas';
+import { index as profesores } from '@/routes/profesores';
 import type { NavItem } from '@/types';
 
 const page = usePage();
@@ -62,6 +64,11 @@ const secciones = computed<{ label: string; items: NavItem[] }[]>(() =>
                       { title: 'Planes', href: planes(), icon: GraduationCap },
                       { title: 'Materias', href: materias(), icon: BookOpen },
                       { title: 'Grupos', href: grupos(), icon: Users },
+                      {
+                          title: 'Profesores',
+                          href: profesores(),
+                          icon: UserRound,
+                      },
                   ],
               },
           ]

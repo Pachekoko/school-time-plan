@@ -2,6 +2,7 @@
 
 use App\Enums\Rol;
 use App\Http\Controllers\Escuela\CicloController;
+use App\Http\Controllers\Escuela\DisponibilidadController;
 use App\Http\Controllers\Escuela\EspacioController;
 use App\Http\Controllers\Escuela\FranjaController;
 use App\Http\Controllers\Escuela\GrupoController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Escuela\MateriaController;
 use App\Http\Controllers\Escuela\PlanController;
 use App\Http\Controllers\Escuela\PlantelController;
 use App\Http\Controllers\Escuela\PlantillaController;
+use App\Http\Controllers\Escuela\ProfesorController;
+use App\Http\Controllers\MiDisponibilidadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,13 +42,18 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
         Route::resource('planes', PlanController::class)->except('show')->parameters(['planes' => 'plan']);
         Route::resource('materias', MateriaController::class)->except('show')->parameters(['materias' => 'materia']);
 
+        Route::resource('profesores', ProfesorController::class)->except('show')->parameters(['profesores' => 'profesor']);
+        Route::get('profesores/{profesor}/disponibilidad', [DisponibilidadController::class, 'edit'])->name('profesores.disponibilidad');
+        Route::put('profesores/{profesor}/disponibilidad', [DisponibilidadController::class, 'update'])->name('profesores.guardar-disponibilidad');
+
         Route::middleware('ciclo')->group(function () {
             Route::resource('grupos', GrupoController::class)->except('show')->parameters(['grupos' => 'grupo']);
         });
     });
 
     Route::middleware('rol:profesor')->group(function () {
-        Route::inertia('mi-disponibilidad', 'MiDisponibilidad')->name('mi-disponibilidad');
+        Route::get('mi-disponibilidad', [MiDisponibilidadController::class, 'edit'])->name('mi-disponibilidad');
+        Route::put('mi-disponibilidad', [MiDisponibilidadController::class, 'update'])->name('guardar-mi-disponibilidad');
     });
 });
 

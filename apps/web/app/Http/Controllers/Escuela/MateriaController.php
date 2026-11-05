@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MateriaRequest;
 use App\Models\Materia;
 use App\Models\PlanEstudios;
+use App\Support\Borrado;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -72,6 +73,8 @@ class MateriaController extends Controller
 
     public function destroy(Materia $materia): RedirectResponse
     {
+        Borrado::impedirSiSeUsa($materia->nombre, ['profesor|profesores' => $materia->profesores()]);
+
         $materia->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Materia borrada.']);

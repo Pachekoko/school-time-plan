@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -62,5 +63,13 @@ class Materia extends Model
     public function patronesEfectivos(): array
     {
         return $this->patrones ?? Patrones::derivar($this->horas_semana);
+    }
+
+    /**
+     * @return BelongsToMany<Profesor, $this>
+     */
+    public function profesores(): BelongsToMany
+    {
+        return $this->belongsToMany(Profesor::class, 'profesor_materia');
     }
 }

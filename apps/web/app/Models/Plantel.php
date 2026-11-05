@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
@@ -41,5 +42,13 @@ class Plantel extends Model
     public function grupos(): HasMany
     {
         return $this->hasMany(Grupo::class);
+    }
+
+    /**
+     * @return BelongsToMany<Profesor, $this>
+     */
+    public function profesores(): BelongsToMany
+    {
+        return $this->belongsToMany(Profesor::class, 'profesor_plantel');
     }
 }
