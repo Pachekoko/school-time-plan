@@ -1,0 +1,34 @@
+# Contexto de apps/web/Dockerfile (la raíz del repo): solo la web y los contratos. La imagen
+# del motor no lo usa: su contexto es apps/solver (docker-compose.yml y Render).
+*
+!apps/web
+!contracts
+
+apps/web/.env
+apps/web/.env.*
+!apps/web/.env.example
+apps/web/node_modules
+apps/web/vendor
+apps/web/public/build
+apps/web/public/hot
+apps/web/public/storage
+apps/web/public/fonts-manifest.dev.json
+apps/web/bootstrap/cache/*.php
+apps/web/bootstrap/ssr
+apps/web/database/*.sqlite*
+apps/web/resources/js/actions
+apps/web/resources/js/routes
+apps/web/resources/js/wayfinder
+apps/web/storage/app/private/*
+apps/web/storage/framework/cache/data/*
+apps/web/storage/framework/sessions/*
+apps/web/storage/framework/testing
+apps/web/storage/framework/views/*
+apps/web/storage/logs/*
+apps/web/storage/pail
+apps/web/.phpunit.cache
+apps/web/docs
+
+# Datos reales: nunca entran a una imagen.
+**/*.xlsx
+**/docentes.local.json

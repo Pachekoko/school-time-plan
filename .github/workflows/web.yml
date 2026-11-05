@@ -33,6 +33,8 @@ jobs:
           cache-dependency-path: apps/web/package-lock.json
       - run: composer install --no-interaction --prefer-dist
       - run: cp .env.example .env && php artisan key:generate
+      # El mismo npm que generó el lock: desde 11.19 `npm ci` pide react (peer de ink, opcional).
+      - run: npm install -g npm@11.6.2
       - run: npm ci
       - run: npm run build
       - run: composer ci:check
@@ -80,6 +82,8 @@ jobs:
           cache-dependency-path: apps/web/package-lock.json
       - run: composer install --no-interaction --prefer-dist
       - run: cp .env.example .env && php artisan key:generate
+      # El mismo npm que generó el lock: desde 11.19 `npm ci` pide react (peer de ink, opcional).
+      - run: npm install -g npm@11.6.2
       - run: npm ci
       - run: npm run build
       - run: php artisan test --compact

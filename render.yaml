@@ -1,0 +1,62 @@
+# Blueprint de Render para la web (apps/web), en el plan free con base en Neon.
+# El motor (apps/solver) es otro servicio, ya publicado en https://school-time-planner.onrender.com.
+# Pasos: docs/despliegue.md
+services:
+  - type: web
+    name: school-time-planner-web
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./apps/web/Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    buildFilter:
+      paths:
+        - apps/web/**
+        - contracts/**
+    envVars:
+      # Se llenan en el Dashboard al aplicar el Blueprint.
+      - key: DB_URL
+        sync: false # la cadena de Neon, sin «-pooler»
+      - key: SOLVER_TOKEN
+        sync: false # el mismo SOLVER_TOKEN del motor
+      - key: DEMO_PASSWORD
+        sync: false # la contraseña de admin@prepa-horizonte.test
+
+      # Render la genera; arrancar.sh la convierte al formato de Laravel.
+      - key: APP_KEY
+        generateValue: true
+
+      - key: APP_NAME
+        value: Horarios
+      - key: APP_LOCALE
+        value: es
+      - key: APP_FALLBACK_LOCALE
+        value: es
+      - key: LOG_LEVEL
+        value: info
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+
+      # El motor en el plan free: 0.1 CPU, así que 1 worker y más tiempo de espera.
+      - key: SOLVER_URL
+        value: https://school-time-planner.onrender.com
+      - key: SOLVER_WORKERS
+        value: "1"
+      - key: SOLVER_ESPERA_S
+        value: "150"
+      - key: SOLVER_HOLGURA_S
+        value: "120"
+
+      # Sin proveedor de correo, los correos salen en los logs del servicio.
+      - key: MAIL_MAILER
+        value: log

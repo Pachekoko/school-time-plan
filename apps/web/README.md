@@ -27,7 +27,11 @@ composer ci:check   # oxlint/oxfmt (vp check), vue-tsc, Pint, PHPStan y PHPUnit
 npm run test        # Vitest (vp test)
 ```
 
-Las pruebas de PHP usan SQLite en memoria (`phpunit.xml`).
+Las pruebas de PHP usan SQLite en memoria (`phpunit.xml`); CI también las corre sobre PostgreSQL. Para correrlas en local contra el Postgres de Docker:
+
+```bash
+DB_CONNECTION=pgsql DB_HOST=127.0.0.1 DB_PORT=5433 DB_DATABASE=horarios_test DB_USERNAME=horarios DB_PASSWORD=horarios php artisan test
+```
 
 ## Escuela demo
 
@@ -36,6 +40,12 @@ php artisan demo:cargar --password=demo-local
 ```
 
 Crea «Prepa Horizonte» a partir del problema de demostración del motor (`contracts/fixtures/demo/prepa-horizonte.json`): 3 planteles, 27 espacios, 3 plantillas, 57 materias, 39 grupos, 81 profesores con su disponibilidad y 333 cursos, en el ciclo actual `2026B`. Entra con `admin@prepa-horizonte.test`. Sin `--password`, genera una contraseña y la muestra una sola vez. Si ese correo ya existe, no toca nada; usa `--correo` para otra copia.
+
+Con `--archivo=../../contracts/fixtures/demo/prepa-horizonte-chica.json` carga la demo chica: 1 plantel, 4 grupos y 32 cursos, con un tiempo límite de 30 s. Es la que usa la demo pública, porque cabe en el plan free de Render.
+
+## Publicar
+
+Los pasos para Render y Neon están en [docs/despliegue.md](../../docs/despliegue.md). La imagen es `apps/web/Dockerfile` y el Blueprint, `render.yaml`.
 
 ## Excel
 
