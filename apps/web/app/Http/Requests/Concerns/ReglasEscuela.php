@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Concerns;
 
 use App\Support\EscuelaActual;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Rules\Unique;
@@ -31,6 +32,16 @@ trait ReglasEscuela
         }
 
         return $ignorar === null ? $regla : $regla->ignore($ignorar);
+    }
+
+    /**
+     * El id del modelo enlazado en la ruta (al editar), o null (al crear).
+     */
+    protected function idEnRuta(string $parametro): ?int
+    {
+        $modelo = $this->route($parametro);
+
+        return $modelo instanceof Model ? (int) $modelo->getKey() : null;
     }
 
     private function escuelaActualId(): int

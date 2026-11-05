@@ -11,9 +11,3 @@ parameters:
         - routes/
 
     level: 7
-
-    ignoreErrors:
-        # Lo usan los FormRequest desde la Tarea 3; al usarse, este ignore deja de coincidir y PHPStan pide quitarlo.
-        -
-            identifier: trait.unused
-            path: app/Http/Requests/Concerns/ReglasEscuela.php

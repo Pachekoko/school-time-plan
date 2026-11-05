@@ -92,7 +92,7 @@ const handleCancel = () => {
 
         <div class="flex gap-2">
             <Button type="submit" :disabled="isLoading || !name.trim()">
-                {{ isLoading ? 'Registering...' : 'Register passkey' }}
+                {{ isLoading ? 'Registrando…' : 'Registrar llave de acceso' }}
             </Button>
             <Button type="button" variant="ghost" @click="handleCancel">
                 Cancelar

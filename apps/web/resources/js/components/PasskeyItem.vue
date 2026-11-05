@@ -74,8 +74,8 @@ const handleDelete = () => {
             <DialogContent>
                 <DialogTitle>Quitar llave de acceso</DialogTitle>
                 <DialogDescription>
-                    Are you sure you want to remove the "{{ passkey.name }}"
-                    passkey? You will no longer be able to use it to sign in.
+                    ¿Quitar la llave de acceso «{{ passkey.name }}»? Ya no
+                    podrás usarla para entrar.
                 </DialogDescription>
                 <DialogFooter class="gap-2">
                     <DialogClose as-child>
@@ -87,9 +87,7 @@ const handleDelete = () => {
                         @click="handleDelete"
                     >
                         {{
-                            isDeleting
-                                ? 'Removing...'
-                                : 'Quitar llave de acceso'
+                            isDeleting ? 'Quitando…' : 'Quitar llave de acceso'
                         }}
                     </Button>
                 </DialogFooter>
