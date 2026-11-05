@@ -2,9 +2,11 @@
 
 Bachillerato general de 6 semestres (horas por materia según el plan UdeG 2025: 2, 3 o 4 h por
 semana) más un Bachillerato Intensivo Semiescolarizado sabatino, en 3 planteles. Todos los
-nombres son ficticios.
+nombres son ficticios. `CHICA` es la versión para el plan gratis de Render (0.1 CPU): un
+plantel, el turno matutino y un grupo por semestre.
 
-Uso: `uv run python bench/generate_demo.py` → contracts/fixtures/demo/prepa-horizonte.json
+Uso: `uv run python bench/generate_demo.py` → contracts/fixtures/demo/prepa-horizonte.json y
+prepa-horizonte-chica.json
 """
 
 import json
@@ -16,7 +18,7 @@ from solver.contract import SolveRequest
 
 DESTINO = Path(__file__).resolve().parents[3] / "contracts" / "fixtures" / "demo"
 
-PLANTELES = [("CEN", "Plantel Centro"), ("NOR", "Plantel Norte"), ("SUR", "Plantel Sur")]
+PLANTELES = (("CEN", "Plantel Centro"), ("NOR", "Plantel Norte"), ("SUR", "Plantel Sur"))
 PATRONES = {2: [[2], [1, 1]], 3: [[2, 1]], 4: [[2, 2]]}
 
 # (nombre, área, horas por semana, tipo de espacio). Inglés va por nivel en semestres impares.
@@ -97,6 +99,8 @@ EN_DOS_PLANTELES = 15  # profesores que dan clase en dos planteles
 TURNOS_SEPARADOS = (
     True  # cada profesor en un turno (con ambos turnos la búsqueda es mucho más lenta)
 )
+# Medida con 0.1 CPU y 512 MB: 32 cursos, `ok` en ~90 s (con 7 grupos y 20 o 30 s no alcanza).
+CHICA = {"planteles": PLANTELES[:1], "semestres": (1, 2, 3), "letras": "A", "tiempo_limite_s": 30}
 
 NOMBRES = [
     "Ana",
@@ -199,8 +203,16 @@ def _clave(nombre: str) -> str:
     return "".join(c for c in limpio if c.isalnum())
 
 
-def build(seed: int = 42) -> SolveRequest:
+def build(
+    seed: int = 42,
+    planteles: tuple[tuple[str, str], ...] = PLANTELES,
+    semestres: tuple[int, ...] = tuple(PLAN),
+    letras: str = "AB",
+    tiempo_limite_s: int = 60,
+) -> SolveRequest:
+    """La escuela demo; `letras` son las secciones de cada semestre en cada plantel."""
     rng = random.Random(seed)
+    plan = {s: PLAN[s] for s in semestres}
     plantillas = [
         {
             "id": "MAT",
@@ -215,7 +227,7 @@ def build(seed: int = 42) -> SolveRequest:
         {"id": "SAB", "nombre": "Sabatino", "franjas": _franjas([5], 8 * 60, 6, 60)},
     ]
     materias, area_de = [], {}
-    for sem, lista in PLAN.items():
+    for sem, lista in plan.items():
         for nombre, area, horas, tipo in lista:
             mid = f"S{sem}-{_clave(nombre)}"
             materias.append(
@@ -241,9 +253,9 @@ def build(seed: int = 42) -> SolveRequest:
         )
         area_de[mid] = (mid, None)  # cada materia BIS con su propio profesor (S7 en sábado)
 
-    planteles = [{"id": pid, "nombre": nombre} for pid, nombre in PLANTELES]
+    lista_planteles = [{"id": pid, "nombre": nombre} for pid, nombre in planteles]
     espacios, grupos, cursos = [], [], []
-    for pid, _ in PLANTELES:
+    for pid, _ in planteles:
         espacios += [
             {
                 "id": f"{pid}-A{i}",
@@ -277,9 +289,9 @@ def build(seed: int = 42) -> SolveRequest:
                 "capacidad": 60,
             },
         ]
-        for sem, lista in PLAN.items():
+        for sem, lista in plan.items():
             secciones = []
-            for letra in "AB":
+            for letra in letras:
                 gid = f"{pid}-{sem}{letra}"
                 alumnos = rng.randint(25, 45)
                 grupos.append(
@@ -327,21 +339,21 @@ def build(seed: int = 42) -> SolveRequest:
             for n, _ in BIS
         ]
 
-    profesores = _profesores(rng, plantillas, materias, area_de, cursos, grupos)
+    profesores = _profesores(rng, plantillas, materias, area_de, cursos, grupos, planteles)
     fis = [m["id"] for m in materias if area_de[m["id"]][0] == "FIS"]
     primera_hora = [{"plantilla": "MAT", "dia": d, "orden": 0} for d in range(5)]
     return SolveRequest.model_validate(
         {
             "schema_version": "1",
             "parametros": {
-                "tiempo_limite_s": 60,
+                "tiempo_limite_s": tiempo_limite_s,
                 "num_workers": 8,
                 "semilla": seed,
                 "minutos_traslado": 50,
                 "reglas": {"S6_restricciones": [{"materias": fis, "franjas": primera_hora}]},
             },
             "plantillas": plantillas,
-            "planteles": planteles,
+            "planteles": lista_planteles,
             "espacios": espacios,
             "materias": materias,
             "grupos": grupos,
@@ -351,7 +363,7 @@ def build(seed: int = 42) -> SolveRequest:
     )
 
 
-def _profesores(rng, plantillas, materias, area_de, cursos, grupos) -> list[dict]:
+def _profesores(rng, plantillas, materias, area_de, cursos, grupos, planteles) -> list[dict]:
     """Profesores por asignatura según la demanda de horas por (área, plantel, jornada).
 
     Con `TURNOS_SEPARADOS` cada profesor da clase en un solo turno; si no, en matutino y
@@ -408,21 +420,24 @@ def _profesores(rng, plantillas, materias, area_de, cursos, grupos) -> list[dict
                     "preferente": preferente,
                 }
             )
-    ids_planteles = [p for p, _ in PLANTELES]
+    ids_planteles = [p for p, _ in planteles]
+    if len(ids_planteles) == 1:
+        return profesores
     for prof in rng.sample(
         [p for p in profesores if "BIS" not in p["materias"][0]], EN_DOS_PLANTELES
     ):
-        otro = ids_planteles[(ids_planteles.index(prof["planteles"][0]) + 1) % 3]
-        prof["planteles"].append(otro)  # da clase en dos planteles
+        siguiente = (ids_planteles.index(prof["planteles"][0]) + 1) % len(ids_planteles)
+        prof["planteles"].append(ids_planteles[siguiente])  # da clase en dos planteles
     return profesores
 
 
 def main() -> None:
     DESTINO.mkdir(parents=True, exist_ok=True)
-    destino = DESTINO / "prepa-horizonte.json"
-    datos = build(42).model_dump(mode="json")
-    destino.write_text(json.dumps(datos, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Escuela demo escrita en {destino}")
+    for nombre, opciones in (("prepa-horizonte.json", {}), ("prepa-horizonte-chica.json", CHICA)):
+        destino = DESTINO / nombre
+        datos = build(42, **opciones).model_dump(mode="json")
+        destino.write_text(json.dumps(datos, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(f"Escuela demo escrita en {destino}")
 
 
 if __name__ == "__main__":

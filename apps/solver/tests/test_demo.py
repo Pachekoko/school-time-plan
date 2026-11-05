@@ -7,7 +7,7 @@ from solver.prechecks import run_prechecks
 from solver.solve import solve
 from solver.validator import validate_schedule
 
-from generate_demo import build
+from generate_demo import CHICA, build
 from helpers import FIXTURES
 
 
@@ -28,6 +28,23 @@ def test_demo_pasa_prechecks():
 def test_json_versionado_es_el_generado():
     guardado = json.loads((FIXTURES / "demo" / "prepa-horizonte.json").read_text(encoding="utf-8"))
     assert guardado == build(42).model_dump(mode="json")
+
+
+def test_demo_chica_cabe_en_el_plan_gratis():
+    req = build(42, **CHICA)
+    inst = build_instance(req)
+    assert len(inst.planteles) == 1
+    assert len(inst.grupos) == 4
+    assert len(req.cursos) == 32
+    assert req.parametros.tiempo_limite_s == 30
+    assert inst.sincronias, "Inglés por nivel debe generar sincronías"
+    assert run_prechecks(inst) == []
+
+
+def test_json_chica_versionado_es_el_generado():
+    ruta = FIXTURES / "demo" / "prepa-horizonte-chica.json"
+    guardado = json.loads(ruta.read_text(encoding="utf-8"))
+    assert guardado == build(42, **CHICA).model_dump(mode="json")
 
 
 def test_ninguna_marca_real():

@@ -63,6 +63,20 @@ class CargarDemoTest extends TestCase
         $this->assertTrue(Hash::check('secreta-123', $admin->password));
     }
 
+    public function test_la_demo_chica_del_plan_gratis_se_carga(): void
+    {
+        $this->artisan('demo:cargar', ['--archivo' => '../../contracts/fixtures/demo/prepa-horizonte-chica.json', '--password' => 'secreta-123'])
+            ->assertSuccessful();
+
+        $escuela = Escuela::firstWhere('nombre', 'Prepa Horizonte');
+        $problema = app(EscuelaActual::class)->usar($escuela->id, fn () => app(ConstructorProblema::class)
+            ->construir($escuela->cicloActual()->firstOrFail(), ParametrosCorrida::normalizar([], $escuela)));
+
+        $this->assertSame([1, 4, 32, 30], [
+            count($problema['planteles']), count($problema['grupos']), count($problema['cursos']), $problema['parametros']['tiempo_limite_s'],
+        ]);
+    }
+
     public function test_sin_password_imprime_una(): void
     {
         $this->artisan('demo:cargar', ['--correo' => 'otra@prepa-horizonte.test'])

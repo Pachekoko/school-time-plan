@@ -1,0 +1,2171 @@
+{
+  "schema_version": "1",
+  "parametros": {
+    "tiempo_limite_s": 30.0,
+    "semilla": 42,
+    "num_workers": 8,
+    "permitir_parcial": false,
+    "minutos_traslado": 50,
+    "reglas": {
+      "S1": {
+        "modo": "obligatoria",
+        "peso": 5
+      },
+      "S2": {
+        "modo": "preferencia",
+        "peso": 7
+      },
+      "S3": {
+        "modo": "preferencia",
+        "peso": 5
+      },
+      "S4": {
+        "modo": "preferencia",
+        "peso": 4
+      },
+      "S5": {
+        "modo": "preferencia",
+        "peso": 3
+      },
+      "S6": {
+        "modo": "preferencia",
+        "peso": 5
+      },
+      "S6_restricciones": [
+        {
+          "materias": [
+            "S1-ACTIVIDADFISICAI",
+            "S2-ACTIVIDADFISICAII",
+            "S3-ACTIVIDADFISICAIII"
+          ],
+          "tipos_espacio": [],
+          "franjas": [
+            {
+              "plantilla": "MAT",
+              "dia": 0,
+              "orden": 0
+            },
+            {
+              "plantilla": "MAT",
+              "dia": 1,
+              "orden": 0
+            },
+            {
+              "plantilla": "MAT",
+              "dia": 2,
+              "orden": 0
+            },
+            {
+              "plantilla": "MAT",
+              "dia": 3,
+              "orden": 0
+            },
+            {
+              "plantilla": "MAT",
+              "dia": 4,
+              "orden": 0
+            }
+          ]
+        }
+      ],
+      "S7": {
+        "modo": "obligatoria",
+        "peso": 5
+      }
+    }
+  },
+  "plantillas": [
+    {
+      "id": "MAT",
+      "nombre": "Matutino L–V",
+      "franjas": [
+        {
+          "dia": 0,
+          "orden": 0,
+          "inicio": "07:00",
+          "fin": "07:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 1,
+          "inicio": "07:50",
+          "fin": "08:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 2,
+          "inicio": "08:40",
+          "fin": "09:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 3,
+          "inicio": "09:30",
+          "fin": "10:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 0,
+          "orden": 4,
+          "inicio": "10:00",
+          "fin": "10:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 5,
+          "inicio": "10:50",
+          "fin": "11:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 6,
+          "inicio": "11:40",
+          "fin": "12:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 7,
+          "inicio": "12:30",
+          "fin": "13:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 0,
+          "inicio": "07:00",
+          "fin": "07:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 1,
+          "inicio": "07:50",
+          "fin": "08:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 2,
+          "inicio": "08:40",
+          "fin": "09:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 3,
+          "inicio": "09:30",
+          "fin": "10:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 1,
+          "orden": 4,
+          "inicio": "10:00",
+          "fin": "10:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 5,
+          "inicio": "10:50",
+          "fin": "11:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 6,
+          "inicio": "11:40",
+          "fin": "12:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 7,
+          "inicio": "12:30",
+          "fin": "13:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 0,
+          "inicio": "07:00",
+          "fin": "07:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 1,
+          "inicio": "07:50",
+          "fin": "08:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 2,
+          "inicio": "08:40",
+          "fin": "09:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 3,
+          "inicio": "09:30",
+          "fin": "10:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 2,
+          "orden": 4,
+          "inicio": "10:00",
+          "fin": "10:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 5,
+          "inicio": "10:50",
+          "fin": "11:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 6,
+          "inicio": "11:40",
+          "fin": "12:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 7,
+          "inicio": "12:30",
+          "fin": "13:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 0,
+          "inicio": "07:00",
+          "fin": "07:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 1,
+          "inicio": "07:50",
+          "fin": "08:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 2,
+          "inicio": "08:40",
+          "fin": "09:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 3,
+          "inicio": "09:30",
+          "fin": "10:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 3,
+          "orden": 4,
+          "inicio": "10:00",
+          "fin": "10:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 5,
+          "inicio": "10:50",
+          "fin": "11:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 6,
+          "inicio": "11:40",
+          "fin": "12:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 7,
+          "inicio": "12:30",
+          "fin": "13:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 0,
+          "inicio": "07:00",
+          "fin": "07:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 1,
+          "inicio": "07:50",
+          "fin": "08:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 2,
+          "inicio": "08:40",
+          "fin": "09:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 3,
+          "inicio": "09:30",
+          "fin": "10:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 4,
+          "orden": 4,
+          "inicio": "10:00",
+          "fin": "10:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 5,
+          "inicio": "10:50",
+          "fin": "11:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 6,
+          "inicio": "11:40",
+          "fin": "12:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 7,
+          "inicio": "12:30",
+          "fin": "13:20",
+          "tipo": "clase"
+        }
+      ]
+    },
+    {
+      "id": "VESP",
+      "nombre": "Vespertino L–V",
+      "franjas": [
+        {
+          "dia": 0,
+          "orden": 0,
+          "inicio": "13:00",
+          "fin": "13:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 1,
+          "inicio": "13:50",
+          "fin": "14:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 2,
+          "inicio": "14:40",
+          "fin": "15:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 3,
+          "inicio": "15:30",
+          "fin": "16:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 0,
+          "orden": 4,
+          "inicio": "16:00",
+          "fin": "16:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 5,
+          "inicio": "16:50",
+          "fin": "17:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 6,
+          "inicio": "17:40",
+          "fin": "18:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 0,
+          "orden": 7,
+          "inicio": "18:30",
+          "fin": "19:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 0,
+          "inicio": "13:00",
+          "fin": "13:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 1,
+          "inicio": "13:50",
+          "fin": "14:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 2,
+          "inicio": "14:40",
+          "fin": "15:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 3,
+          "inicio": "15:30",
+          "fin": "16:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 1,
+          "orden": 4,
+          "inicio": "16:00",
+          "fin": "16:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 5,
+          "inicio": "16:50",
+          "fin": "17:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 6,
+          "inicio": "17:40",
+          "fin": "18:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 1,
+          "orden": 7,
+          "inicio": "18:30",
+          "fin": "19:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 0,
+          "inicio": "13:00",
+          "fin": "13:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 1,
+          "inicio": "13:50",
+          "fin": "14:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 2,
+          "inicio": "14:40",
+          "fin": "15:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 3,
+          "inicio": "15:30",
+          "fin": "16:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 2,
+          "orden": 4,
+          "inicio": "16:00",
+          "fin": "16:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 5,
+          "inicio": "16:50",
+          "fin": "17:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 6,
+          "inicio": "17:40",
+          "fin": "18:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 2,
+          "orden": 7,
+          "inicio": "18:30",
+          "fin": "19:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 0,
+          "inicio": "13:00",
+          "fin": "13:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 1,
+          "inicio": "13:50",
+          "fin": "14:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 2,
+          "inicio": "14:40",
+          "fin": "15:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 3,
+          "inicio": "15:30",
+          "fin": "16:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 3,
+          "orden": 4,
+          "inicio": "16:00",
+          "fin": "16:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 5,
+          "inicio": "16:50",
+          "fin": "17:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 6,
+          "inicio": "17:40",
+          "fin": "18:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 3,
+          "orden": 7,
+          "inicio": "18:30",
+          "fin": "19:20",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 0,
+          "inicio": "13:00",
+          "fin": "13:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 1,
+          "inicio": "13:50",
+          "fin": "14:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 2,
+          "inicio": "14:40",
+          "fin": "15:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 3,
+          "inicio": "15:30",
+          "fin": "16:00",
+          "tipo": "receso"
+        },
+        {
+          "dia": 4,
+          "orden": 4,
+          "inicio": "16:00",
+          "fin": "16:50",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 5,
+          "inicio": "16:50",
+          "fin": "17:40",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 6,
+          "inicio": "17:40",
+          "fin": "18:30",
+          "tipo": "clase"
+        },
+        {
+          "dia": 4,
+          "orden": 7,
+          "inicio": "18:30",
+          "fin": "19:20",
+          "tipo": "clase"
+        }
+      ]
+    },
+    {
+      "id": "SAB",
+      "nombre": "Sabatino",
+      "franjas": [
+        {
+          "dia": 5,
+          "orden": 0,
+          "inicio": "08:00",
+          "fin": "09:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 5,
+          "orden": 1,
+          "inicio": "09:00",
+          "fin": "10:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 5,
+          "orden": 2,
+          "inicio": "10:00",
+          "fin": "11:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 5,
+          "orden": 3,
+          "inicio": "11:00",
+          "fin": "12:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 5,
+          "orden": 4,
+          "inicio": "12:00",
+          "fin": "13:00",
+          "tipo": "clase"
+        },
+        {
+          "dia": 5,
+          "orden": 5,
+          "inicio": "13:00",
+          "fin": "14:00",
+          "tipo": "clase"
+        }
+      ]
+    }
+  ],
+  "planteles": [
+    {
+      "id": "CEN",
+      "nombre": "Plantel Centro"
+    }
+  ],
+  "espacios": [
+    {
+      "id": "CEN-A1",
+      "plantel": "CEN",
+      "nombre": "Aula 1",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-A2",
+      "plantel": "CEN",
+      "nombre": "Aula 2",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-A3",
+      "plantel": "CEN",
+      "nombre": "Aula 3",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-A4",
+      "plantel": "CEN",
+      "nombre": "Aula 4",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-A5",
+      "plantel": "CEN",
+      "nombre": "Aula 5",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-A6",
+      "plantel": "CEN",
+      "nombre": "Aula 6",
+      "tipo": "aula",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-LAB",
+      "plantel": "CEN",
+      "nombre": "Laboratorio",
+      "tipo": "laboratorio",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-CMP",
+      "plantel": "CEN",
+      "nombre": "Sala de cómputo",
+      "tipo": "computo",
+      "capacidad": 45
+    },
+    {
+      "id": "CEN-CAN",
+      "plantel": "CEN",
+      "nombre": "Cancha",
+      "tipo": "cancha",
+      "capacidad": 60
+    }
+  ],
+  "materias": [
+    {
+      "id": "S1-PENSAMIENTOMATEMATICOI",
+      "nombre": "Pensamiento Matemático I",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S1-QUIMICAI",
+      "nombre": "Química I",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "laboratorio"
+    },
+    {
+      "id": "S1-LENGUAYCOMUNICACIONI",
+      "nombre": "Lengua y Comunicación I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S1-INGLESI",
+      "nombre": "Inglés I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S1-CULTURADIGITALI",
+      "nombre": "Cultura Digital I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "computo"
+    },
+    {
+      "id": "S1-HUMANIDADESI",
+      "nombre": "Humanidades I",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S1-CIENCIASSOCIALESI",
+      "nombre": "Ciencias Sociales I",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S1-ACTIVIDADFISICAI",
+      "nombre": "Actividad Física I",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "cancha"
+    },
+    {
+      "id": "S1-TUTORIAI",
+      "nombre": "Tutoría I",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-PENSAMIENTOMATEMATICOII",
+      "nombre": "Pensamiento Matemático II",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-FISICAI",
+      "nombre": "Física I",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "laboratorio"
+    },
+    {
+      "id": "S2-LENGUAYCOMUNICACIONII",
+      "nombre": "Lengua y Comunicación II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-INGLESII",
+      "nombre": "Inglés II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-CULTURADIGITALII",
+      "nombre": "Cultura Digital II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "computo"
+    },
+    {
+      "id": "S2-HUMANIDADESII",
+      "nombre": "Humanidades II",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-CIENCIASSOCIALESII",
+      "nombre": "Ciencias Sociales II",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S2-ACTIVIDADFISICAII",
+      "nombre": "Actividad Física II",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "cancha"
+    },
+    {
+      "id": "S2-TUTORIAII",
+      "nombre": "Tutoría II",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-PENSAMIENTOMATEMATICOIII",
+      "nombre": "Pensamiento Matemático III",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-BIOLOGIA",
+      "nombre": "Biología",
+      "horas_semana": 4,
+      "patrones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "tipo_espacio": "laboratorio"
+    },
+    {
+      "id": "S3-COMPRENSIONLECTORA",
+      "nombre": "Comprensión Lectora",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-INGLESIII",
+      "nombre": "Inglés III",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-HISTORIADEMEXICO",
+      "nombre": "Historia de México",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-FILOSOFIA",
+      "nombre": "Filosofía",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-EDUCACIONFINANCIERA",
+      "nombre": "Educación Financiera",
+      "horas_semana": 3,
+      "patrones": [
+        [
+          2,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "S3-ACTIVIDADFISICAIII",
+      "nombre": "Actividad Física III",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "cancha"
+    },
+    {
+      "id": "S3-SOCIOEMOCIONALIII",
+      "nombre": "Socioemocional III",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "BIS-BISMATEMATICAS",
+      "nombre": "BIS Matemáticas",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "BIS-BISCOMUNICACION",
+      "nombre": "BIS Comunicación",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    },
+    {
+      "id": "BIS-BISCIENCIAS",
+      "nombre": "BIS Ciencias",
+      "horas_semana": 2,
+      "patrones": [
+        [
+          2
+        ]
+      ],
+      "tipo_espacio": "aula"
+    }
+  ],
+  "grupos": [
+    {
+      "id": "CEN-1A",
+      "nombre": "1A CEN",
+      "plantel": "CEN",
+      "plantilla": "MAT",
+      "alumnos": 45
+    },
+    {
+      "id": "CEN-2A",
+      "nombre": "2A CEN",
+      "plantel": "CEN",
+      "plantilla": "MAT",
+      "alumnos": 28
+    },
+    {
+      "id": "CEN-3A",
+      "nombre": "3A CEN",
+      "plantel": "CEN",
+      "plantilla": "MAT",
+      "alumnos": 25
+    },
+    {
+      "id": "CEN-BIS",
+      "nombre": "BIS CEN",
+      "plantel": "CEN",
+      "plantilla": "SAB",
+      "alumnos": 28
+    }
+  ],
+  "profesores": [
+    {
+      "id": "PR001",
+      "nombre": "Iván Nava",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "BIS-BISCIENCIAS"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR002",
+      "nombre": "Paula Lara",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "BIS-BISCOMUNICACION"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [
+        {
+          "plantilla": "SAB",
+          "dia": 5,
+          "orden": 0
+        },
+        {
+          "plantilla": "SAB",
+          "dia": 5,
+          "orden": 1
+        },
+        {
+          "plantilla": "SAB",
+          "dia": 5,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR003",
+      "nombre": "Raúl Nava",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "BIS-BISMATEMATICAS"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR004",
+      "nombre": "Jorge Esquivel",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-QUIMICAI",
+        "S2-FISICAI",
+        "S3-BIOLOGIA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR005",
+      "nombre": "Félix Robles",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-CULTURADIGITALI",
+        "S2-CULTURADIGITALII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR006",
+      "nombre": "Irene Tapia",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-ACTIVIDADFISICAI",
+        "S2-ACTIVIDADFISICAII",
+        "S3-ACTIVIDADFISICAIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 7
+        }
+      ],
+      "preferente": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR007",
+      "nombre": "Jorge Salas",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-HUMANIDADESI",
+        "S1-CIENCIASSOCIALESI",
+        "S2-HUMANIDADESII",
+        "S2-CIENCIASSOCIALESII",
+        "S3-HISTORIADEMEXICO",
+        "S3-FILOSOFIA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR008",
+      "nombre": "Alma Rangel",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR009",
+      "nombre": "Julia Ríos",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-INGLESI",
+        "S2-INGLESII",
+        "S3-INGLESIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 4
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 5
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 6
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 7
+        }
+      ],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR010",
+      "nombre": "Luis Cruz",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-LENGUAYCOMUNICACIONI",
+        "S2-LENGUAYCOMUNICACIONII",
+        "S3-COMPRENSIONLECTORA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR011",
+      "nombre": "Luis Luna",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-PENSAMIENTOMATEMATICOI",
+        "S2-PENSAMIENTOMATEMATICOII",
+        "S3-PENSAMIENTOMATEMATICOIII",
+        "S3-EDUCACIONFINANCIERA"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 0,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 1,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 2,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 3,
+          "orden": 2
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 0
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 1
+        },
+        {
+          "plantilla": "MAT",
+          "dia": 4,
+          "orden": 2
+        }
+      ],
+      "sin_huecos": false
+    },
+    {
+      "id": "PR012",
+      "nombre": "Jorge Campos",
+      "planteles": [
+        "CEN"
+      ],
+      "materias": [
+        "S1-TUTORIAI",
+        "S2-TUTORIAII",
+        "S3-SOCIOEMOCIONALIII"
+      ],
+      "horas_min": 0,
+      "horas_max": 26,
+      "max_dia": 7,
+      "no_disponible": [],
+      "preferente": [],
+      "sin_huecos": false
+    }
+  ],
+  "cursos": [
+    {
+      "id": "CEN-1A-S1-PENSAMIENTOMATEMATICOI",
+      "materia": "S1-PENSAMIENTOMATEMATICOI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-QUIMICAI",
+      "materia": "S1-QUIMICAI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-LENGUAYCOMUNICACIONI",
+      "materia": "S1-LENGUAYCOMUNICACIONI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-S1-INGLESI-N1",
+      "materia": "S1-INGLESI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": "CEN-ING1",
+      "alumnos": 23,
+      "vacante": false
+    },
+    {
+      "id": "CEN-S1-INGLESI-N2",
+      "materia": "S1-INGLESI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": "CEN-ING1",
+      "alumnos": 23,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-CULTURADIGITALI",
+      "materia": "S1-CULTURADIGITALI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-HUMANIDADESI",
+      "materia": "S1-HUMANIDADESI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-CIENCIASSOCIALESI",
+      "materia": "S1-CIENCIASSOCIALESI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-ACTIVIDADFISICAI",
+      "materia": "S1-ACTIVIDADFISICAI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-1A-S1-TUTORIAI",
+      "materia": "S1-TUTORIAI",
+      "grupos": [
+        "CEN-1A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-PENSAMIENTOMATEMATICOII",
+      "materia": "S2-PENSAMIENTOMATEMATICOII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-FISICAI",
+      "materia": "S2-FISICAI",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-LENGUAYCOMUNICACIONII",
+      "materia": "S2-LENGUAYCOMUNICACIONII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-INGLESII",
+      "materia": "S2-INGLESII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-CULTURADIGITALII",
+      "materia": "S2-CULTURADIGITALII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-HUMANIDADESII",
+      "materia": "S2-HUMANIDADESII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-CIENCIASSOCIALESII",
+      "materia": "S2-CIENCIASSOCIALESII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-ACTIVIDADFISICAII",
+      "materia": "S2-ACTIVIDADFISICAII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-2A-S2-TUTORIAII",
+      "materia": "S2-TUTORIAII",
+      "grupos": [
+        "CEN-2A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-PENSAMIENTOMATEMATICOIII",
+      "materia": "S3-PENSAMIENTOMATEMATICOIII",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-BIOLOGIA",
+      "materia": "S3-BIOLOGIA",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-COMPRENSIONLECTORA",
+      "materia": "S3-COMPRENSIONLECTORA",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-S3-INGLESIII-N1",
+      "materia": "S3-INGLESIII",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": "CEN-ING3",
+      "alumnos": 13,
+      "vacante": false
+    },
+    {
+      "id": "CEN-S3-INGLESIII-N2",
+      "materia": "S3-INGLESIII",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": "CEN-ING3",
+      "alumnos": 13,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-HISTORIADEMEXICO",
+      "materia": "S3-HISTORIADEMEXICO",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-FILOSOFIA",
+      "materia": "S3-FILOSOFIA",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-EDUCACIONFINANCIERA",
+      "materia": "S3-EDUCACIONFINANCIERA",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-ACTIVIDADFISICAIII",
+      "materia": "S3-ACTIVIDADFISICAIII",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-3A-S3-SOCIOEMOCIONALIII",
+      "materia": "S3-SOCIOEMOCIONALIII",
+      "grupos": [
+        "CEN-3A"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-BIS-BISMATEMATICAS",
+      "materia": "BIS-BISMATEMATICAS",
+      "grupos": [
+        "CEN-BIS"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-BIS-BISCOMUNICACION",
+      "materia": "BIS-BISCOMUNICACION",
+      "grupos": [
+        "CEN-BIS"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    },
+    {
+      "id": "CEN-BIS-BISCIENCIAS",
+      "materia": "BIS-BISCIENCIAS",
+      "grupos": [
+        "CEN-BIS"
+      ],
+      "profesor": null,
+      "sincronia": null,
+      "alumnos": null,
+      "vacante": false
+    }
+  ],
+  "fijadas": []
+}
