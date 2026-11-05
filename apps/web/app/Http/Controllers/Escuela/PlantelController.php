@@ -55,7 +55,10 @@ class PlantelController extends Controller
 
     public function destroy(Plantel $plantel): RedirectResponse
     {
-        Borrado::impedirSiSeUsa($plantel->nombre, ['espacio|espacios' => $plantel->espacios()]);
+        Borrado::impedirSiSeUsa($plantel->nombre, [
+            'espacio|espacios' => $plantel->espacios(),
+            'grupo|grupos' => $plantel->grupos(),
+        ]);
 
         $plantel->delete();
 

@@ -34,4 +34,12 @@ class Plantel extends Model
     {
         return $this->hasMany(Espacio::class);
     }
+
+    /**
+     * @return HasMany<Grupo, $this>
+     */
+    public function grupos(): HasMany
+    {
+        return $this->hasMany(Grupo::class);
+    }
 }

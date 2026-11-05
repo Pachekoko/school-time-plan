@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import {
+    BookOpen,
     Building2,
     CalendarCheck,
     CalendarRange,
     Clock,
     DoorOpen,
     FolderGit2,
+    GraduationCap,
     LayoutGrid,
+    Users,
 } from '@lucide/vue';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
@@ -27,34 +30,53 @@ import { dashboard, miDisponibilidad } from '@/routes';
 import { index as ciclos } from '@/routes/ciclos';
 import { index as espacios } from '@/routes/espacios';
 import { inicio } from '@/routes/escuela';
+import { index as grupos } from '@/routes/grupos';
+import { index as materias } from '@/routes/materias';
+import { index as planes } from '@/routes/planes';
 import { index as planteles } from '@/routes/planteles';
 import { index as plantillas } from '@/routes/plantillas';
 import type { NavItem } from '@/types';
 
 const page = usePage();
 
-const menu = computed<{ label: string; items: NavItem[] }>(() =>
+const secciones = computed<{ label: string; items: NavItem[] }[]>(() =>
     page.props.rol === 'admin'
-        ? {
-              label: 'Escuela',
-              items: [
-                  { title: 'Inicio', href: inicio(), icon: LayoutGrid },
-                  { title: 'Ciclos', href: ciclos(), icon: CalendarRange },
-                  { title: 'Planteles', href: planteles(), icon: Building2 },
-                  { title: 'Espacios', href: espacios(), icon: DoorOpen },
-                  { title: 'Plantillas', href: plantillas(), icon: Clock },
-              ],
-          }
-        : {
-              label: 'Profesor',
-              items: [
-                  {
-                      title: 'Mi disponibilidad',
-                      href: miDisponibilidad(),
-                      icon: CalendarCheck,
-                  },
-              ],
-          },
+        ? [
+              {
+                  label: 'Escuela',
+                  items: [
+                      { title: 'Inicio', href: inicio(), icon: LayoutGrid },
+                      { title: 'Ciclos', href: ciclos(), icon: CalendarRange },
+                      {
+                          title: 'Planteles',
+                          href: planteles(),
+                          icon: Building2,
+                      },
+                      { title: 'Espacios', href: espacios(), icon: DoorOpen },
+                      { title: 'Plantillas', href: plantillas(), icon: Clock },
+                  ],
+              },
+              {
+                  label: 'Académico',
+                  items: [
+                      { title: 'Planes', href: planes(), icon: GraduationCap },
+                      { title: 'Materias', href: materias(), icon: BookOpen },
+                      { title: 'Grupos', href: grupos(), icon: Users },
+                  ],
+              },
+          ]
+        : [
+              {
+                  label: 'Profesor',
+                  items: [
+                      {
+                          title: 'Mi disponibilidad',
+                          href: miDisponibilidad(),
+                          icon: CalendarCheck,
+                      },
+                  ],
+              },
+          ],
 );
 
 const footerNavItems: NavItem[] = [
@@ -81,7 +103,12 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :label="menu.label" :items="menu.items" />
+            <NavMain
+                v-for="seccion in secciones"
+                :key="seccion.label"
+                :label="seccion.label"
+                :items="seccion.items"
+            />
         </SidebarContent>
 
         <SidebarFooter>

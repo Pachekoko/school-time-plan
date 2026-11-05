@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -38,5 +39,13 @@ class Ciclo extends Model
             'fin' => 'date',
             'estado' => EstadoCiclo::class,
         ];
+    }
+
+    /**
+     * @return HasMany<Grupo, $this>
+     */
+    public function grupos(): HasMany
+    {
+        return $this->hasMany(Grupo::class);
     }
 }

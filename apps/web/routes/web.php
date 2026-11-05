@@ -4,6 +4,9 @@ use App\Enums\Rol;
 use App\Http\Controllers\Escuela\CicloController;
 use App\Http\Controllers\Escuela\EspacioController;
 use App\Http\Controllers\Escuela\FranjaController;
+use App\Http\Controllers\Escuela\GrupoController;
+use App\Http\Controllers\Escuela\MateriaController;
+use App\Http\Controllers\Escuela\PlanController;
 use App\Http\Controllers\Escuela\PlantelController;
 use App\Http\Controllers\Escuela\PlantillaController;
 use Illuminate\Http\Request;
@@ -32,6 +35,13 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
         Route::post('plantillas/{plantilla}/franjas/generar', [FranjaController::class, 'generar'])->name('plantillas.generar');
         Route::put('franjas/{franja}', [FranjaController::class, 'update'])->name('franjas.update');
         Route::delete('franjas/{franja}', [FranjaController::class, 'destroy'])->name('franjas.destroy');
+
+        Route::resource('planes', PlanController::class)->except('show')->parameters(['planes' => 'plan']);
+        Route::resource('materias', MateriaController::class)->except('show')->parameters(['materias' => 'materia']);
+
+        Route::middleware('ciclo')->group(function () {
+            Route::resource('grupos', GrupoController::class)->except('show')->parameters(['grupos' => 'grupo']);
+        });
     });
 
     Route::middleware('rol:profesor')->group(function () {

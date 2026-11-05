@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CicloRequest;
 use App\Models\Ciclo;
 use App\Models\Escuela;
+use App\Support\Borrado;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -69,6 +70,8 @@ class CicloController extends Controller
 
     public function destroy(Ciclo $ciclo): RedirectResponse
     {
+        Borrado::impedirSiSeUsa($ciclo->clave, ['grupo|grupos' => $ciclo->grupos()]);
+
         $ciclo->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Ciclo borrado.']);

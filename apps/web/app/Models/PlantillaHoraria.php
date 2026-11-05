@@ -33,4 +33,12 @@ class PlantillaHoraria extends Model
     {
         return $this->hasMany(Franja::class, 'plantilla_id');
     }
+
+    /**
+     * @return HasMany<Grupo, $this>
+     */
+    public function grupos(): HasMany
+    {
+        return $this->hasMany(Grupo::class, 'plantilla_id');
+    }
 }

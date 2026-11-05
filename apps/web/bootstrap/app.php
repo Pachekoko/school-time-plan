@@ -3,6 +3,7 @@
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\IdentificarEscuela;
+use App\Http\Middleware\RequiereCicloActual;
 use App\Http\Middleware\RequiereRol;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -29,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'escuela' => IdentificarEscuela::class,
             'rol' => RequiereRol::class,
+            'ciclo' => RequiereCicloActual::class,
         ]);
 
         // La escuela y el rol se resuelven antes que los modelos de la ruta, para que

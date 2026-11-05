@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Concerns;
 
+use App\Models\Ciclo;
 use App\Support\EscuelaActual;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
@@ -42,6 +43,16 @@ trait ReglasEscuela
         $modelo = $this->route($parametro);
 
         return $modelo instanceof Model ? (int) $modelo->getKey() : null;
+    }
+
+    /**
+     * El ciclo actual que dejó el middleware `ciclo` en la petición.
+     */
+    protected function cicloActual(): Ciclo
+    {
+        $ciclo = $this->attributes->get('ciclo');
+
+        return $ciclo instanceof Ciclo ? $ciclo : throw new LogicException('La ruta necesita el middleware ciclo.');
     }
 
     private function escuelaActualId(): int
