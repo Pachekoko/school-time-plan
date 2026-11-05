@@ -9,6 +9,7 @@ import {
     ClipboardList,
     Clock,
     DoorOpen,
+    FileSpreadsheet,
     FolderGit2,
     GraduationCap,
     LayoutGrid,
@@ -36,6 +37,7 @@ import { index as corridas } from '@/routes/corridas';
 import { index as cursos } from '@/routes/cursos';
 import { index as espacios } from '@/routes/espacios';
 import { inicio } from '@/routes/escuela';
+import { index as excel } from '@/routes/importar';
 import { index as grupos } from '@/routes/grupos';
 import { index as materias } from '@/routes/materias';
 import { index as planes } from '@/routes/planes';
@@ -62,6 +64,7 @@ const secciones = computed<{ label: string; items: NavItem[] }[]>(() =>
                       },
                       { title: 'Espacios', href: espacios(), icon: DoorOpen },
                       { title: 'Plantillas', href: plantillas(), icon: Clock },
+                      { title: 'Excel', href: excel(), icon: FileSpreadsheet },
                   ],
               },
               {

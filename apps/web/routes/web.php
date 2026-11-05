@@ -9,6 +9,7 @@ use App\Http\Controllers\Escuela\EspacioController;
 use App\Http\Controllers\Escuela\ExportacionController;
 use App\Http\Controllers\Escuela\FranjaController;
 use App\Http\Controllers\Escuela\GrupoController;
+use App\Http\Controllers\Escuela\ImportacionController;
 use App\Http\Controllers\Escuela\MateriaController;
 use App\Http\Controllers\Escuela\PlanController;
 use App\Http\Controllers\Escuela\PlantelController;
@@ -60,6 +61,10 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
 
             Route::resource('corridas', CorridaController::class)->only(['index', 'create', 'store', 'show'])->parameters(['corridas' => 'corrida']);
             Route::post('corridas/{corrida}/reintentar', [CorridaController::class, 'reintentar'])->name('corridas.reintentar');
+
+            Route::get('importar', [ImportacionController::class, 'index'])->name('importar.index');
+            Route::post('importar', [ImportacionController::class, 'store'])->name('importar.store');
+            Route::post('importar/{uuid}/confirmar', [ImportacionController::class, 'confirmar'])->whereUuid('uuid')->name('importar.confirmar');
         });
     });
 
