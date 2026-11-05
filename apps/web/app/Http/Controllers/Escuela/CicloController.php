@@ -74,6 +74,7 @@ class CicloController extends Controller
             'grupo|grupos' => $ciclo->grupos(),
             'curso|cursos' => $ciclo->cursos(),
             'sincronía|sincronías' => $ciclo->sincronias(),
+            'corrida|corridas' => $ciclo->corridas(),
         ]);
 
         $ciclo->delete();

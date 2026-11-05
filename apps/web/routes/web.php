@@ -2,6 +2,7 @@
 
 use App\Enums\Rol;
 use App\Http\Controllers\Escuela\CicloController;
+use App\Http\Controllers\Escuela\CorridaController;
 use App\Http\Controllers\Escuela\CursoController;
 use App\Http\Controllers\Escuela\DisponibilidadController;
 use App\Http\Controllers\Escuela\EspacioController;
@@ -52,6 +53,9 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
             Route::resource('grupos', GrupoController::class)->except('show')->parameters(['grupos' => 'grupo']);
             Route::resource('cursos', CursoController::class)->except('show')->parameters(['cursos' => 'curso']);
             Route::resource('sincronias', SincroniaController::class)->except('show')->parameters(['sincronias' => 'sincronia']);
+
+            Route::resource('corridas', CorridaController::class)->only(['index', 'create', 'store', 'show'])->parameters(['corridas' => 'corrida']);
+            Route::post('corridas/{corrida}/reintentar', [CorridaController::class, 'reintentar'])->name('corridas.reintentar');
         });
     });
 

@@ -64,4 +64,12 @@ class Ciclo extends Model
     {
         return $this->hasMany(Sincronia::class);
     }
+
+    /**
+     * @return HasMany<Corrida, $this>
+     */
+    public function corridas(): HasMany
+    {
+        return $this->hasMany(Corrida::class);
+    }
 }

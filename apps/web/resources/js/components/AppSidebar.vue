@@ -4,6 +4,7 @@ import {
     BookOpen,
     Building2,
     CalendarCheck,
+    CalendarClock,
     CalendarRange,
     ClipboardList,
     Clock,
@@ -31,6 +32,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard, miDisponibilidad } from '@/routes';
 import { index as ciclos } from '@/routes/ciclos';
+import { index as corridas } from '@/routes/corridas';
 import { index as cursos } from '@/routes/cursos';
 import { index as espacios } from '@/routes/espacios';
 import { inicio } from '@/routes/escuela';
@@ -84,6 +86,11 @@ const secciones = computed<{ label: string; items: NavItem[] }[]>(() =>
                           icon: ClipboardList,
                       },
                       { title: 'Sincronías', href: sincronias(), icon: Link2 },
+                      {
+                          title: 'Horarios',
+                          href: corridas(),
+                          icon: CalendarClock,
+                      },
                   ],
               },
           ]
