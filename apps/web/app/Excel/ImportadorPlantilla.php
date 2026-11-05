@@ -3,6 +3,7 @@
 namespace App\Excel;
 
 use App\Domain\ClaveCurso;
+use App\Domain\CursosCompartidos;
 use App\Domain\Patrones;
 use App\Domain\ReglasFranjas;
 use App\Enums\Contrato;
@@ -96,6 +97,12 @@ final class ImportadorPlantilla
     /** @var array<string, array{plantel: string, plantilla: string}> */
     private array $gruposArchivo = [];
 
+    /** @var array<string, int> grupo => su fila en la hoja Grupos */
+    private array $filaDeGrupo = [];
+
+    /** @var array<string, true> los cursos que trae la hoja Carga */
+    private array $cursosArchivo = [];
+
     /** @var array<string, true> */
     private array $profesoresArchivo = [];
 
@@ -104,6 +111,9 @@ final class ImportadorPlantilla
 
     /** @var array<string, array<string, int>> plantilla => «día inicio» => orden, de las franjas de clase finales */
     private array $franjasDeClase = [];
+
+    /** @var list<string> los encabezados (normalizados) de la hoja que se está revisando */
+    private array $presentes = [];
 
     /**
      * @param  array<string, array{encabezados: list<string>, filas: list<Fila>}>  $libro  el de LectorLibro::leer
@@ -116,6 +126,7 @@ final class ImportadorPlantilla
             $this->plantelesArchivo = $this->plantillasArchivo = $this->planesNuevos = [];
             $this->materiasArchivo = $this->profesoresArchivo = $this->sincroniasNuevas = [];
             $this->gruposArchivo = $this->franjasDeClase = $this->estados = [];
+            $this->filaDeGrupo = $this->cursosArchivo = [];
             $this->cargarBase();
             $hojas = $this->hojasConocidas($libro);
 
@@ -127,6 +138,7 @@ final class ImportadorPlantilla
                 }
 
                 $filas = $hoja !== null && $this->columnas($nombre, $hoja['encabezados']) ? $hoja['filas'] : [];
+                $this->presentes = array_map(Normalizador::encabezado(...), $hoja['encabezados'] ?? []);
 
                 switch ($nombre) {
                     case 'Planteles':
@@ -155,6 +167,8 @@ final class ImportadorPlantilla
                         break;
                 }
             }
+
+            $this->revisarGruposMovidos();
 
             return $this->plan;
         });
@@ -285,6 +299,7 @@ final class ImportadorPlantilla
 
             $this->plantelesArchivo[$clave] = true;
             $actual = $this->planteles->get($clave);
+            $direccion = $actual === null ? $direccion : $this->oGuardado('dirección', $direccion, $actual->direccion);
             $this->resultado(
                 'Planteles', 'plantel', ['clave' => $clave, 'nombre' => $nombre, 'direccion' => $direccion],
                 $actual === null ? null : ['nombre' => $actual->nombre, 'direccion' => $actual->direccion],
@@ -371,6 +386,11 @@ final class ImportadorPlantilla
             }
 
             $this->plantillasArchivo[$clave] = true;
+
+            foreach ($nuevas as $llave => $franja) {
+                $nuevas[$llave]['tipo'] = $this->oGuardado('tipo', $franja['tipo'], $base[$llave]['tipo'] ?? $franja['tipo']);
+            }
+
             $finales = array_replace($base, $nuevas);
 
             foreach (ReglasFranjas::traslapes($finales) as $traslape) {
@@ -468,6 +488,12 @@ final class ImportadorPlantilla
             $this->materiasArchivo[$clave] = true;
             $nombres[$clave] = (string) $nombre;
             $actual = $this->materias->get($clave);
+
+            if ($actual !== null) {
+                $tipo = $this->oGuardado('tipo_espacio', $tipo, $actual->tipo_espacio->value);
+                $patrones = $this->oGuardado('patrones', $patrones, $this->patronesQueCuadran($fila, $clave, $actual->patrones, (int) $horas));
+            }
+
             $nuevo = ['plan' => $plan, 'nombre' => $nombre, 'semestre' => $semestre, 'horas_semana' => $horas, 'patrones' => $patrones, 'tipo_espacio' => $tipo];
             $this->resultado(
                 'Materias', 'materia', ['clave' => $clave, ...$nuevo],
@@ -480,6 +506,24 @@ final class ImportadorPlantilla
         }
 
         $this->avisarMateriasParecidas($nombres);
+    }
+
+    /**
+     * Los patrones guardados, si todavía suman las horas de la materia; si no, los de omisión.
+     *
+     * @param  Fila  $fila
+     * @param  list<list<int>>|null  $patrones
+     * @return list<list<int>>|null
+     */
+    private function patronesQueCuadran(array $fila, string $clave, ?array $patrones, int $horas): ?array
+    {
+        if ($patrones === null || collect($patrones)->every(fn (array $patron) => array_sum($patron) === $horas)) {
+            return $patrones;
+        }
+
+        $this->plan->aviso('Materias', $fila['fila'], "los patrones guardados de {$clave} no suman {$horas} horas; se usarán los de omisión");
+
+        return null;
     }
 
     /**
@@ -538,6 +582,7 @@ final class ImportadorPlantilla
             }
 
             $this->gruposArchivo[$clave] = ['plantel' => $plantel, 'plantilla' => $plantilla];
+            $this->filaDeGrupo[$clave] = $fila['fila'];
             $actual = $this->grupos->get($clave);
             $nuevo = ['plantel' => $plantel, 'plantilla' => $plantilla, 'plan' => $plan, 'semestre' => $semestre, 'alumnos' => $alumnos];
             $this->resultado(
@@ -572,10 +617,6 @@ final class ImportadorPlantilla
             $planteles = $this->celda('Profesores', $fila, 'planteles', $this->claves()) ?? [];
             $materias = $this->celda('Profesores', $fila, 'materias', $this->claves()) ?? [];
 
-            if ($horasMax !== null && $horasMin > $horasMax) {
-                $this->fallo('Profesores', $fila['fila'], 'horas_max', 'debe ser mayor o igual que horas_min');
-            }
-
             foreach ($planteles as $plantel) {
                 if (! $this->existePlantel($plantel)) {
                     $this->fallo('Profesores', $fila['fila'], 'planteles', "el plantel {$plantel} no existe");
@@ -588,12 +629,25 @@ final class ImportadorPlantilla
                 }
             }
 
+            $actual = $clave === null ? null : $this->profesores->get($clave);
+
+            if ($actual !== null) {
+                $contrato = $this->oGuardado('contrato', $contrato, $actual->contrato->value);
+                $horasMin = $this->oGuardado('horas_min', $horasMin, $actual->horas_min);
+                $sinHuecos = $this->oGuardado('sin_huecos', $sinHuecos, $actual->sin_huecos);
+                $planteles = $this->oGuardado('planteles', $planteles, $actual->planteles->pluck('clave')->all());
+                $materias = $this->oGuardado('materias', $materias, $actual->materias->pluck('clave')->all());
+            }
+
+            if ($horasMax !== null && $horasMin > $horasMax) {
+                $this->fallo('Profesores', $fila['fila'], 'horas_max', 'debe ser mayor o igual que horas_min');
+            }
+
             if ($clave === null || $this->repetida('Profesores', $fila, $clave, $vistas) || $this->conErrores($antes)) {
                 continue;
             }
 
             $this->profesoresArchivo[$clave] = true;
-            $actual = $this->profesores->get($clave);
             $nuevo = [
                 'nombre' => $nombre, 'contrato' => $contrato, 'horas_min' => $horasMin, 'horas_max' => $horasMax,
                 'max_dia' => $maxDia, 'sin_huecos' => $sinHuecos, 'planteles' => $this->ordenadas($planteles), 'materias' => $this->ordenadas($materias),
@@ -686,7 +740,8 @@ final class ImportadorPlantilla
     }
 
     /**
-     * Sin clave, el curso se busca por materia y grupos (si hay uno solo así) o se le genera.
+     * Sin clave, el curso se busca por materia y grupos o se le genera. Las claves escritas en
+     * la hoja se apartan antes, para que una fila sin clave no tome la de otra fila.
      *
      * @param  list<Fila>  $filas
      */
@@ -694,6 +749,18 @@ final class ImportadorPlantilla
     {
         $vistas = [];
         $tomadas = [];
+
+        foreach ($filas as $fila) {
+            try {
+                $escrita = Normalizador::texto($fila['celdas']['clave'] ?? null);
+            } catch (ValorInvalido) {
+                $escrita = null;
+            }
+
+            if ($escrita !== null) {
+                $tomadas[] = $escrita;
+            }
+        }
 
         foreach ($filas as $fila) {
             $antes = count($this->plan->errores());
@@ -727,6 +794,16 @@ final class ImportadorPlantilla
             }
 
             $tomadas[] = $clave;
+            $this->cursosArchivo[$clave] = true;
+            $actual = $this->cursos->get($clave);
+
+            if ($actual !== null) {
+                $profesor = $this->oGuardado('profesor', $profesor, $actual->profesor?->clave);
+                // Un curso vacante deja de serlo si el archivo le pone profesor.
+                $vacante = $this->oGuardado('vacante', $vacante, $actual->vacante && $profesor === null);
+                $sincronia = $this->oGuardado('sincronía', $sincronia, $actual->sincronia?->clave);
+                $alumnos = $this->oGuardado('alumnos', $alumnos, $actual->alumnos);
+            }
 
             if ($sincronia !== null && ! $this->sincronias->has($sincronia) && ! isset($this->sincroniasNuevas[$sincronia])) {
                 $this->sincroniasNuevas[$sincronia] = true;
@@ -734,7 +811,6 @@ final class ImportadorPlantilla
                 $this->plan->operar('sincronia', ['clave' => $sincronia]);
             }
 
-            $actual = $this->cursos->get($clave);
             $nuevo = [
                 'grupos' => $this->ordenadas($grupos), 'materia' => $materia, 'profesor' => $vacante ? null : $profesor,
                 'vacante' => $vacante, 'sincronia' => $sincronia, 'alumnos' => $alumnos,
@@ -785,6 +861,33 @@ final class ImportadorPlantilla
     }
 
     /**
+     * Un grupo que el archivo cambia de plantel o de plantilla no puede dejar en otro lugar a
+     * los grupos con los que comparte un curso que la hoja Carga no trae (esos ya se revisaron).
+     */
+    private function revisarGruposMovidos(): void
+    {
+        foreach ($this->gruposArchivo as $clave => $lugar) {
+            $grupo = $this->grupos->get($clave);
+
+            if ($grupo === null || ['plantel' => $grupo->plantel->clave, 'plantilla' => $grupo->plantilla->clave] === $lugar) {
+                continue;
+            }
+
+            $partidos = $this->cursos
+                ->filter(fn (Curso $curso) => ! isset($this->cursosArchivo[$curso->clave])
+                    && $curso->grupos->contains('clave', $clave)
+                    && $curso->grupos->contains(fn (Grupo $otro) => $this->lugarDeGrupo($otro->clave) !== $lugar))
+                ->keys()
+                ->all();
+
+            if ($partidos !== []) {
+                $columna = $grupo->plantel->clave !== $lugar['plantel'] ? 'plantel' : 'plantilla';
+                $this->plan->error('Grupos', $this->filaDeGrupo[$clave], $columna, CursosCompartidos::mensaje($clave, $this->ordenadas(array_map(strval(...), $partidos))));
+            }
+        }
+    }
+
+    /**
      * @return array{plantel: string, plantilla: string}|null
      */
     private function lugarDeGrupo(string $clave): ?array
@@ -799,8 +902,8 @@ final class ImportadorPlantilla
     }
 
     /**
-     * La clave del único curso del ciclo con esa materia y esos grupos que ninguna otra fila
-     * ya tomó.
+     * La clave del primer curso del ciclo (en orden de clave) con esa materia y esos grupos que
+     * ninguna otra fila ya tomó: dos filas iguales sin clave (Inglés por nivel) son dos cursos.
      *
      * @param  list<string>  $grupos
      * @param  list<string>  $tomadas
@@ -812,7 +915,22 @@ final class ImportadorPlantilla
             && $this->ordenadas($curso->grupos->pluck('clave')->all()) === $buscados
             && ! in_array($curso->clave, $tomadas, true));
 
-        return $iguales->count() === 1 ? (string) $iguales->keys()->first() : null;
+        return $this->ordenadas(array_map(strval(...), $iguales->keys()->all()))[0] ?? null;
+    }
+
+    /**
+     * Lo leído, o lo guardado si la hoja no trae la columna: importar nunca borra lo que el
+     * archivo no trae.
+     *
+     * @template T
+     *
+     * @param  T  $leido
+     * @param  T  $guardado
+     * @return T
+     */
+    private function oGuardado(string $columna, mixed $leido, mixed $guardado): mixed
+    {
+        return in_array(Normalizador::encabezado($columna), $this->presentes, true) ? $leido : $guardado;
     }
 
     /**

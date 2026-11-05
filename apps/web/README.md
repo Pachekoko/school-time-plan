@@ -15,8 +15,7 @@ cp .env.example .env
 php artisan key:generate
 composer install && npm install
 php artisan migrate
-composer dev                                 # servidor, Vite y logs
-php artisan queue:work --timeout=1000        # en otra terminal: el job que llama al motor
+composer dev                                 # servidor, Vite, logs y la cola (el job que llama al motor)
 ```
 
 `.env.example` apunta a ese Postgres (`DB_PORT=5433`) y al motor (`SOLVER_URL=http://localhost:8000`, `SOLVER_TOKEN=dev`). Para trabajar sin Docker, usa `DB_CONNECTION=sqlite`.

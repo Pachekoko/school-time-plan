@@ -30,6 +30,17 @@ class ResolverCorrida implements ShouldQueue
 
     public function __construct(public int $corridaId) {}
 
+    /**
+     * Lo más que tarda una corrida desde que entra a la cola o empieza un intento: todos sus
+     * intentos con sus esperas. Si pasa más sin avanzar, se atascó.
+     */
+    public static function duracionMaxima(): int
+    {
+        $job = new self(0);
+
+        return $job->tries * $job->timeout + array_sum($job->backoff);
+    }
+
     public function handle(ClienteSolver $cliente, ConstructorProblema $constructor, GuardarResultado $guardar): void
     {
         $corrida = Corrida::withoutGlobalScope('escuela')->findOrFail($this->corridaId);

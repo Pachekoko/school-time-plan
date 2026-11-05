@@ -63,6 +63,12 @@ final class Normalizador
         }
 
         if (is_int($valor) || is_float($valor)) {
+            // Excel guarda la hora como fracción de día y la fecha con hora como un número de
+            // días (desde 10000, 1927); un 7 o un 730 escritos a mano no son una hora.
+            if ($valor < 0 || ($valor >= 1 && $valor < 10000)) {
+                throw new ValorInvalido("«{$valor}» no es una hora; escríbela como 07:00");
+            }
+
             $minutos = (int) round(($valor - floor($valor)) * 1440) % 1440;
 
             return sprintf('%02d:%02d', intdiv($minutos, 60), $minutos % 60);

@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Contrato;
+use App\Enums\TipoEspacio;
+use App\Enums\TipoFranja;
 use App\Excel\AplicadorImportacion;
 use App\Excel\ExportadorPlantilla;
 use App\Excel\ImportadorPlantilla;
@@ -295,6 +298,81 @@ class ImportarPlantillaTest extends TestCase
         $this->confirmar($this->subir($archivo))->assertRedirect();
 
         $this->assertEqualsCanonicalizing(['CEN', 'NTE'], Plantel::pluck('clave')->all());
+    }
+
+    public function test_las_columnas_opcionales_que_no_vienen_se_quedan_como_estan(): void
+    {
+        Storage::fake();
+        $e = EscuelaDePrueba::crear();
+        $this->actingAs($e['admin']);
+        $e['planteles']['CEN']->update(['direccion' => 'Av. Juárez 10']);
+        $e['plantilla']->franjas()->where('dia', 0)->where('orden', 3)->update(['tipo' => TipoFranja::Receso]);
+        $e['cursos']['1A-ING1']->update(['alumnos' => 25]);
+        $archivo = $this->libro([
+            'Planteles' => [['clave', 'nombre'], ['CEN', 'Plantel Centro']],
+            'Plantillas' => [['plantilla', 'día', 'orden', 'inicio', 'fin'], ['MAT', 'Lun', 3, '09:30', '10:20']],
+            'Materias' => [['clave', 'plan', 'nombre', 'semestre', 'horas_semana'], ['QUI1', 'BGE', 'Química I', 1, 2]],
+            'Profesores' => [['clave', 'nombre', 'horas_max', 'max_dia'], ['P1', 'Ana López', 20, 6], ['P3', 'Caro Díaz', 10, 4]],
+            'Carga' => [['clave', 'grupos', 'materia'], ['1A-ING1', '1A', 'ING1']],
+        ]);
+
+        $vistaPrevia = $this->subir($archivo)->assertOk()->assertInertia(fn (Assert $page) => $page->where('tieneErrores', false));
+
+        foreach ($this->conteos($vistaPrevia) as $hoja => $conteo) {
+            $this->assertSame($hoja === 'Profesores' ? 1 : 0, $conteo['crear'], "{$hoja}: ".json_encode($conteo));
+            $this->assertSame(0, $conteo['actualizar'], "{$hoja}: ".json_encode($conteo));
+        }
+
+        $this->confirmar($vistaPrevia)->assertRedirect();
+        $ana = Profesor::firstWhere('clave', 'P1');
+        $this->assertSame([Contrato::TiempoCompleto, true], [$ana->contrato, $ana->sin_huecos]);
+        $this->assertEqualsCanonicalizing(['ING1', 'MAT1', 'QUI1'], $ana->materias()->pluck('clave')->all());
+        $this->assertSame(['CEN'], $ana->planteles()->pluck('clave')->all());
+        $caro = Profesor::firstWhere('clave', 'P3');
+        $this->assertSame([Contrato::Asignatura, 0, false, 0], [$caro->contrato, $caro->horas_min, $caro->sin_huecos, $caro->materias()->count()]);
+        $quimica = Materia::firstWhere('clave', 'QUI1');
+        $this->assertSame([[[2], [1, 1]], TipoEspacio::Laboratorio], [$quimica->patrones, $quimica->tipo_espacio]);
+        $ingles = Curso::firstWhere('clave', '1A-ING1');
+        $this->assertSame(['P2', 'ING', 25, false], [$ingles->profesor?->clave, $ingles->sincronia?->clave, $ingles->alumnos, $ingles->vacante]);
+        $this->assertSame('Av. Juárez 10', Plantel::firstWhere('clave', 'CEN')->direccion);
+        $this->assertSame(TipoFranja::Receso, $e['plantilla']->franjas()->where('dia', 0)->where('orden', 3)->firstOrFail()->tipo);
+    }
+
+    public function test_carga_sin_claves_reusa_los_cursos_iguales_que_ya_hay(): void
+    {
+        Storage::fake();
+        $e = EscuelaDePrueba::crear();
+        $this->actingAs($e['admin']);
+        $segundo = Curso::factory()->for($e['ciclo'])->for($e['materias']['ING1'])->create(['clave' => '1A-ING1-2']);
+        $segundo->grupos()->attach($e['grupos']['1A']);
+        $columnas = ['clave', 'grupos', 'materia'];
+
+        $dosSinClave = $this->subir($this->libro(['Carga' => [$columnas, [null, '1A', 'ING1'], [null, '1A', 'ING1']]]))->assertOk();
+        $unaConClaveDespues = $this->subir($this->libro(['Carga' => [$columnas, [null, '1A', 'ING1'], ['1A-ING1', '1A', 'ING1']]]))->assertOk();
+
+        $this->assertSame(['crear' => 0, 'actualizar' => 0, 'sin_cambios' => 2], $this->conteos($dosSinClave)['Carga']);
+        $this->assertSame([], $unaConClaveDespues->viewData('page')['props']['errores']);
+        $this->assertSame(['crear' => 0, 'actualizar' => 0, 'sin_cambios' => 2], $this->conteos($unaConClaveDespues)['Carga']);
+    }
+
+    public function test_mover_un_grupo_que_comparte_cursos_da_error(): void
+    {
+        Storage::fake();
+        $e = EscuelaDePrueba::crear();
+        $this->actingAs($e['admin']);
+        $compartido = Curso::factory()->for($e['ciclo'])->for($e['materias']['ING1'])->create(['clave' => '1AB-ING1']);
+        $compartido->grupos()->attach([$e['grupos']['1A']->id, $e['grupos']['1B']->id]);
+        $plantillas = [['plantilla', 'día', 'orden', 'inicio', 'fin'], ['VESP', 'Lun', 0, '13:00', '13:50']];
+        $columnas = ['clave', 'plantel', 'plantilla', 'plan', 'semestre', 'alumnos'];
+
+        $solo1B = $this->subir($this->libro(['Plantillas' => $plantillas, 'Grupos' => [$columnas, ['1B', 'CEN', 'VESP', 'BGE', 1, 28]]]))->assertOk();
+        $losDos = $this->subir($this->libro(['Plantillas' => $plantillas, 'Grupos' => [$columnas, ['1A', 'CEN', 'VESP', 'BGE', 1, 30], ['1B', 'CEN', 'VESP', 'BGE', 1, 28]]]))->assertOk();
+
+        $this->assertSame(
+            [['hoja' => 'Grupos', 'fila' => 2, 'columna' => 'plantilla', 'mensaje' => 'No se puede mover 1B: comparte el curso 1AB-ING1 con otros grupos.']],
+            $solo1B->viewData('page')['props']['errores'],
+        );
+        $this->assertSame([], $losDos->viewData('page')['props']['errores']);
     }
 
     public function test_avisa_materias_casi_iguales(): void

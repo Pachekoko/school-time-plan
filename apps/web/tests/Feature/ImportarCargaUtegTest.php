@@ -165,6 +165,24 @@ class ImportarCargaUtegTest extends TestCase
         $this->assertSame(25, Grupo::firstWhere('clave', '01A')->alumnos);
     }
 
+    public function test_reimportar_dos_filas_iguales_conserva_sus_cursos(): void
+    {
+        $this->preparar();
+        $filas = [
+            ['grupo' => '01A', 'materia' => 'Inglés I', 'horas' => 2, 'numero' => '101', 'docente' => 'Ana Pérez'],
+            ['grupo' => '01A', 'materia' => 'Inglés I', 'horas' => 2, 'numero' => '102', 'docente' => 'Beto Ruiz'],
+        ];
+        $this->confirmar($this->subir($filas))->assertRedirect();
+        $primero = Curso::query()->orderBy('clave')->firstOrFail();
+        $primero->update(['alumnos' => 15]);
+
+        $segunda = $this->subir($filas)->assertOk();
+        $this->confirmar($segunda)->assertRedirect();
+
+        $this->assertSame(['crear' => 0, 'actualizar' => 0, 'sin_cambios' => 2], $this->conteos($segunda)['Carga']);
+        $this->assertSame([2, 15], [Curso::count(), $primero->fresh()->alumnos]);
+    }
+
     public function test_sin_columnas_obligatorias_da_error(): void
     {
         $this->preparar();

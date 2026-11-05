@@ -252,10 +252,11 @@ final class ImportadorCargaUteg
                 $docentes[$claveProfesor]['materias'][] = $claveMateria;
             }
 
-            // El curso que ya existe con esa materia y ese grupo conserva su clave, su sincronía y sus alumnos.
-            $iguales = $cursosBase->filter(fn (Curso $c) => $c->materia->clave === $claveMateria
-                && $c->grupos->pluck('clave')->all() === [$f['grupo']] && ! in_array($c->clave, $tomadas, true));
-            $curso = $iguales->count() === 1 ? $iguales->first() : null;
+            // El curso que ya existe con esa materia y ese grupo conserva su clave, su sincronía y sus
+            // alumnos; con varios iguales (Inglés por nivel), cada fila toma el siguiente en orden de clave.
+            $curso = $cursosBase->filter(fn (Curso $c) => $c->materia->clave === $claveMateria
+                && $c->grupos->pluck('clave')->all() === [$f['grupo']] && ! in_array($c->clave, $tomadas, true))
+                ->sortBy('clave', SORT_NATURAL)->first();
 
             if ($curso !== null) {
                 $tomadas[] = $curso->clave;

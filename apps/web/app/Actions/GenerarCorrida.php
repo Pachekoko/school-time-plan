@@ -60,6 +60,8 @@ final class GenerarCorrida
     {
         try {
             return DB::transaction(function () use ($ciclo, $preparar): Corrida {
+                $this->soltarAtascadas($ciclo);
+
                 if (Corrida::query()->where('ciclo_id', $ciclo->id)->activas()->lockForUpdate()->exists()) {
                     throw new CorridaEnCurso;
                 }
@@ -73,5 +75,23 @@ final class GenerarCorrida
             // Otra petición ganó la carrera entre la revisión y el insert.
             throw new CorridaEnCurso;
         }
+    }
+
+    /**
+     * Da por fallidas las corridas activas que no avanzan desde hace más de lo que duran todos
+     * sus intentos (se perdió su trabajo en la cola o no hubo worker), para que no bloqueen el
+     * ciclo para siempre.
+     */
+    private function soltarAtascadas(Ciclo $ciclo): void
+    {
+        $limite = ResolverCorrida::duracionMaxima();
+
+        Corrida::query()->where('ciclo_id', $ciclo->id)->activas()
+            ->where('updated_at', '<', now()->subSeconds($limite))
+            ->update([
+                'estado' => EstadoCorrida::Error,
+                'mensaje_error' => sprintf('La corrida no avanzó en %d min y se dio por fallida; puedes reintentarla.', (int) ceil($limite / 60)),
+                'terminada_en' => now(),
+            ]);
     }
 }

@@ -47,6 +47,18 @@ class NormalizadorTest extends TestCase
         Normalizador::hora('25:00');
     }
 
+    public function test_un_numero_suelto_no_es_una_hora(): void
+    {
+        foreach ([7, 7.5, 13, 730, 1330, -0.5] as $valor) {
+            try {
+                Normalizador::hora($valor);
+                $this->fail("{$valor} no debió leerse como hora");
+            } catch (ValorInvalido $e) {
+                $this->assertSame("«{$valor}» no es una hora; escríbela como 07:00", $e->getMessage());
+            }
+        }
+    }
+
     public function test_dia(): void
     {
         foreach (['Lun' => 0, 'LUN' => 0, 'lunes' => 0, 'Mié' => 2, 'mie' => 2, 'Miércoles' => 2, 'sáb' => 5, 'Domingo' => 6] as $texto => $dia) {

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Ciclo;
+use App\Models\Curso;
 use App\Models\Grupo;
 use App\Models\PlanEstudios;
 use App\Models\Plantel;
@@ -10,6 +11,7 @@ use App\Models\PlantillaHoraria;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\Support\ActuaComoAdmin;
+use Tests\Support\EscuelaDePrueba;
 use Tests\TestCase;
 
 class GruposTest extends TestCase
@@ -91,6 +93,25 @@ class GruposTest extends TestCase
         ])->assertSessionHasErrors('plantilla_id');
 
         $this->assertSame(0, Grupo::count());
+    }
+
+    public function test_mover_un_grupo_que_comparte_cursos_se_bloquea(): void
+    {
+        $e = EscuelaDePrueba::crear();
+        $this->actingAs($e['admin']);
+        $compartido = Curso::factory()->for($e['ciclo'])->for($e['materias']['ING1'])->create(['clave' => '1AB-ING1']);
+        $compartido->grupos()->attach([$e['grupos']['1A']->id, $e['grupos']['1B']->id]);
+        $vespertino = PlantillaHoraria::factory()->create(['clave' => 'VESP']);
+        $grupo = $e['grupos']['1B'];
+        $datos = $grupo->only(['plantel_id', 'plantilla_id', 'plan_id', 'semestre', 'clave', 'alumnos']);
+
+        $this->put(route('grupos.update', $grupo), [...$datos, 'plantilla_id' => $vespertino->id])
+            ->assertSessionHasErrors(['plantilla_id' => 'No se puede mover 1B: comparte el curso 1AB-ING1 con otros grupos.']);
+        $this->put(route('grupos.update', $grupo), [...$datos, 'plantel_id' => $e['planteles']['NTE']->id])
+            ->assertSessionHasErrors(['plantel_id' => 'No se puede mover 1B: comparte el curso 1AB-ING1 con otros grupos.']);
+        $this->put(route('grupos.update', $grupo), [...$datos, 'alumnos' => 31])->assertSessionHasNoErrors();
+
+        $this->assertSame([$e['plantilla']->id, 31], [$grupo->fresh()->plantilla_id, $grupo->fresh()->alumnos]);
     }
 
     public function test_grupo_de_otro_ciclo_da_404(): void

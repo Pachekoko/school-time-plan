@@ -276,5 +276,29 @@ class CorridasTest extends TestCase
         $this->assertSame(3, $job->tries);
         $this->assertSame([10, 30], $job->backoff);
         $this->assertSame(1000, $job->timeout);
+        $this->assertSame(3040, ResolverCorrida::duracionMaxima());
+    }
+
+    public function test_la_cola_no_reparte_una_corrida_que_sigue_resolviendo(): void
+    {
+        $this->assertGreaterThan((new ResolverCorrida(1))->timeout, config('queue.connections.database.retry_after'));
+    }
+
+    public function test_una_corrida_atascada_no_bloquea_el_ciclo(): void
+    {
+        $e = $this->preparar();
+        Queue::fake();
+        $atascada = $e['ciclo']->corridas()->create(['estado' => EstadoCorrida::Resolviendo, 'parametros' => [], 'tiempo_limite_s' => 60]);
+
+        $this->travel(ResolverCorrida::duracionMaxima() - 60)->seconds();
+        $this->post(route('corridas.store'))->assertSessionHasErrors('corrida');
+
+        $this->travel(120)->seconds();
+        $this->post(route('corridas.store'))->assertSessionHasNoErrors();
+
+        $this->assertSame(EstadoCorrida::Error, $atascada->fresh()->estado);
+        $this->assertSame('La corrida no avanzó en 51 min y se dio por fallida; puedes reintentarla.', $atascada->fresh()->mensaje_error);
+        $this->assertSame(2, Corrida::count());
+        Queue::assertPushed(ResolverCorrida::class, 1);
     }
 }
