@@ -113,6 +113,9 @@ final class ImportadorPlantilla
         return app(EscuelaActual::class)->usar($ciclo->escuela_id, function () use ($libro, $ciclo): PlanImportacion {
             $this->plan = new PlanImportacion($ciclo->escuela_id, $ciclo->id);
             $this->ciclo = $ciclo;
+            $this->plantelesArchivo = $this->plantillasArchivo = $this->planesNuevos = [];
+            $this->materiasArchivo = $this->profesoresArchivo = $this->sincroniasNuevas = [];
+            $this->gruposArchivo = $this->franjasDeClase = $this->estados = [];
             $this->cargarBase();
             $hojas = $this->hojasConocidas($libro);
 

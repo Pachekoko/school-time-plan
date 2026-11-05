@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
 import { FileDown, FileSpreadsheet, Upload } from '@lucide/vue';
+import { ref } from 'vue';
 import ImportacionController from '@/actions/App/Http/Controllers/Escuela/ImportacionController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -10,10 +11,33 @@ import { Label } from '@/components/ui/label';
 import { datos, plantilla } from '@/routes/exportar';
 import { index } from '@/routes/importar';
 
-defineProps<{
+type Opcion = { id: number; nombre: string };
+
+const props = defineProps<{
     ciclo: string;
     formatos: { valor: string; etiqueta: string }[];
+    planteles: Opcion[];
+    plantillas: Opcion[];
+    planes: (Opcion & { clave: string })[];
 }>();
+
+const formato = ref(props.formatos[0]?.valor ?? 'plantilla');
+
+// Para la carga de UTEG: dónde van los grupos que trae.
+const opcionesUteg = [
+    { nombre: 'plantel_id', etiqueta: 'Plantel', lista: 'planteles' },
+    {
+        nombre: 'plantilla_1y2_id',
+        etiqueta: 'Plantilla de 1.º y 2.º semestre',
+        lista: 'plantillas',
+    },
+    {
+        nombre: 'plantilla_3a6_id',
+        etiqueta: 'Plantilla de 3.º a 6.º semestre',
+        lista: 'plantillas',
+    },
+    { nombre: 'plan_id', etiqueta: 'Plan de estudios', lista: 'planes' },
+] as const;
 
 defineOptions({
     layout: {
@@ -81,18 +105,63 @@ defineOptions({
 
                 <div class="grid gap-2">
                     <Label for="formato">Formato</Label>
-                    <SelectNativo id="formato" name="formato" class="max-w-xs">
+                    <SelectNativo
+                        id="formato"
+                        name="formato"
+                        class="max-w-sm"
+                        @change="
+                            formato = ($event.target as HTMLSelectElement).value
+                        "
+                    >
                         <option
-                            v-for="(formato, i) in formatos"
-                            :key="formato.valor"
-                            :value="formato.valor"
-                            :selected="i === 0"
+                            v-for="opcion in formatos"
+                            :key="opcion.valor"
+                            :value="opcion.valor"
+                            :selected="opcion.valor === formato"
                         >
-                            {{ formato.etiqueta }}
+                            {{ opcion.etiqueta }}
                         </option>
                     </SelectNativo>
                     <InputError :message="errors.formato" />
                 </div>
+
+                <fieldset
+                    v-if="formato === 'uteg'"
+                    class="grid gap-4 rounded-lg border p-3 sm:grid-cols-2"
+                >
+                    <legend class="px-1 text-sm font-medium">
+                        Dónde van los grupos de la carga
+                    </legend>
+                    <div
+                        v-for="opcion in opcionesUteg"
+                        :key="opcion.nombre"
+                        class="grid gap-2"
+                    >
+                        <Label :for="opcion.nombre">{{
+                            opcion.etiqueta
+                        }}</Label>
+                        <SelectNativo
+                            :id="opcion.nombre"
+                            :name="opcion.nombre"
+                            required
+                        >
+                            <option value="" disabled selected>Elige</option>
+                            <option
+                                v-for="elemento in props[opcion.lista]"
+                                :key="elemento.id"
+                                :value="elemento.id"
+                            >
+                                {{ elemento.nombre }}
+                            </option>
+                        </SelectNativo>
+                        <InputError :message="errors[opcion.nombre]" />
+                    </div>
+                    <p class="text-sm text-muted-foreground sm:col-span-2">
+                        Los grupos de 1.º y 2.º usan la primera plantilla y el
+                        resto la segunda; los 09… cuentan como 6.º. GENERICO en
+                        Docente es un curso vacante.
+                    </p>
+                </fieldset>
 
                 <div>
                     <Button type="submit" :disabled="processing">

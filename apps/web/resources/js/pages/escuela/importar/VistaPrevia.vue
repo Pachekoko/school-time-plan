@@ -14,6 +14,7 @@ const props = defineProps<{
     uuid: string;
     archivo: string | null;
     formato: string;
+    opciones: Record<string, number> | null;
     conteos: Record<string, Conteo>;
     errores: { hoja: string; fila: number; columna: string; mensaje: string }[];
     avisos: { hoja: string; fila: number | null; mensaje: string }[];
@@ -137,6 +138,13 @@ const totales = computed(() =>
             v-slot="{ errors, processing }"
         >
             <input type="hidden" name="formato" :value="formato" />
+            <input
+                v-for="(valor, nombre) in opciones ?? {}"
+                :key="nombre"
+                type="hidden"
+                :name="nombre"
+                :value="valor"
+            />
             <InputError :message="errors.importacion" />
             <p v-if="tieneErrores" class="text-sm text-muted-foreground">
                 Corrige los errores y vuelve a subir el archivo.
