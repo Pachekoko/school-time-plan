@@ -19,6 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Render termina el TLS en su proxy, que no tiene IPs fijas: se le cree el esquema y el
+        // puerto (sin esto los assets salen por http y el navegador los bloquea), pero no el
+        // host, para que nadie cambie a dónde apuntan los enlaces de los correos.
+        $middleware->trustProxies(at: '*', headers: Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_PORT | Request::HEADER_X_FORWARDED_PROTO);
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->web(append: [

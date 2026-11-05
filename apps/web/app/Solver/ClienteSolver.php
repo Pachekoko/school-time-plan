@@ -54,7 +54,7 @@ final class ClienteSolver
         try {
             $respuesta = $this->http()
                 ->withToken((string) config('solver.token'))
-                ->timeout($tiempoLimiteS * 3 + 30)
+                ->timeout(self::esperaDeRespuesta($tiempoLimiteS))
                 ->post('/solve', $problema);
         } catch (ConnectionException $e) {
             throw new SolverNoDisponible('No se pudo conectar con el motor.', previous: $e);
@@ -67,6 +67,15 @@ final class ClienteSolver
             $respuesta->serverError() => throw new SolverNoDisponible("El motor respondió {$respuesta->status()}."),
             default => throw new RuntimeException("Respuesta inesperada del motor: {$respuesta->status()}"),
         };
+    }
+
+    /**
+     * Cuántos segundos esperar la respuesta de /solve: con 1 worker el reloj del motor llega a
+     * 3 veces el tiempo límite, más la holgura de `solver.holgura_s`.
+     */
+    public static function esperaDeRespuesta(int $tiempoLimiteS): int
+    {
+        return $tiempoLimiteS * 3 + (int) config('solver.holgura_s');
     }
 
     private function http(): PendingRequest
