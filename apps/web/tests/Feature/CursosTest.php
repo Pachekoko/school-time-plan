@@ -187,7 +187,7 @@ class CursosTest extends TestCase
         $this->delete(route('profesores.destroy', $profesor))
             ->assertSessionHasErrors(['borrar' => 'No se puede borrar «Ana López»: lo usan 2 cursos.']);
         $this->delete(route('ciclos.destroy', $this->ciclo))
-            ->assertSessionHasErrors(['borrar' => "No se puede borrar «{$this->ciclo->clave}»: lo usan 2 cursos."]);
+            ->assertSessionHasErrors(['borrar' => "No se puede borrar «{$this->ciclo->clave}»: lo usan 1 grupo y 2 cursos."]);
 
         $this->assertModelExists($grupo);
         $this->assertModelExists($profesor);

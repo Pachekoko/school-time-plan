@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { Pencil, Plus } from '@lucide/vue';
 import PlantelController from '@/actions/App/Http/Controllers/Escuela/PlantelController';
-import AlertError from '@/components/AlertError.vue';
 import BotonBorrar from '@/components/BotonBorrar.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
@@ -25,8 +24,6 @@ defineOptions({
         breadcrumbs: [{ title: 'Planteles', href: index() }],
     },
 });
-
-const page = usePage();
 </script>
 
 <template>
@@ -45,12 +42,6 @@ const page = usePage();
                 </Link>
             </Button>
         </div>
-
-        <AlertError
-            v-if="page.props.errors.borrar"
-            :errors="[page.props.errors.borrar]"
-            title="No se pudo borrar"
-        />
 
         <p
             v-if="planteles.length === 0"

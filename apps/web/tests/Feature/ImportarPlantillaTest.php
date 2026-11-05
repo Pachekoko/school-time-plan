@@ -204,7 +204,8 @@ class ImportarPlantillaTest extends TestCase
                 ->where('tieneErrores', true)
                 ->where('errores.0', ['hoja' => 'Profesores', 'fila' => 3, 'columna' => 'materias', 'mensaje' => 'la materia MAT-3 no existe']));
 
-        $this->confirmar($vistaPrevia)->assertSessionHasErrors('importacion');
+        $this->confirmar($vistaPrevia)->assertSessionHasErrors('importacion')
+            ->assertInertiaFlash('toast', ['type' => 'error', 'message' => 'El archivo tiene errores: corrígelos y vuelve a subirlo.']);
         $this->assertSame(0, Plantel::count());
     }
 

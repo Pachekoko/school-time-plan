@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { Pencil, Plus } from '@lucide/vue';
 import CursoController from '@/actions/App/Http/Controllers/Escuela/CursoController';
-import AlertError from '@/components/AlertError.vue';
 import BotonBorrar from '@/components/BotonBorrar.vue';
 import Heading from '@/components/Heading.vue';
 import SelectNativo from '@/components/SelectNativo.vue';
@@ -36,8 +35,6 @@ defineOptions({
         breadcrumbs: [{ title: 'Carga académica', href: index() }],
     },
 });
-
-const page = usePage();
 
 function filtrar(campo: keyof Filtros, valor: string): void {
     const filtros: Filtros = {
@@ -112,12 +109,6 @@ function filtrar(campo: keyof Filtros, valor: string): void {
                 </option>
             </SelectNativo>
         </div>
-
-        <AlertError
-            v-if="page.props.errors.borrar"
-            :errors="[page.props.errors.borrar]"
-            title="No se pudo borrar"
-        />
 
         <p
             v-if="cursos.length === 0"

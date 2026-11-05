@@ -83,7 +83,10 @@ class ImportacionController extends Controller
         $plan = $this->revisar($request, $ruta);
 
         if ($plan->tieneErrores()) {
-            return back()->withErrors(['importacion' => 'El archivo tiene errores: corrígelos y vuelve a subirlo.']);
+            $mensaje = 'El archivo tiene errores: corrígelos y vuelve a subirlo.';
+            Inertia::flash('toast', ['type' => 'error', 'message' => $mensaje]);
+
+            return back()->withErrors(['importacion' => $mensaje]);
         }
 
         $aplicador->aplicar($plan);

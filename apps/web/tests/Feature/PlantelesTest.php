@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Espacio;
+use App\Models\Grupo;
 use App\Models\Plantel;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -103,6 +104,22 @@ class PlantelesTest extends TestCase
         $this->delete(route('planteles.destroy', $plantel))
             ->assertSessionHasErrors(['borrar' => 'No se puede borrar «Plantel Centro»: lo usa 1 espacio.']);
 
+        $this->assertModelExists($plantel);
+    }
+
+    public function test_varios_usos_van_en_un_mensaje_que_se_ve_en_cualquier_pagina(): void
+    {
+        $this->comoAdmin();
+        $plantel = Plantel::factory()->create(['nombre' => 'Plantel Centro']);
+        Espacio::factory()->for($plantel)->create();
+        Grupo::factory()->count(2)->for($plantel)->create();
+        $mensaje = 'No se puede borrar «Plantel Centro»: lo usan 1 espacio y 2 grupos.';
+
+        $this->delete(route('planteles.destroy', $plantel))
+            ->assertInertiaFlash('toast', ['type' => 'error', 'message' => $mensaje]);
+
+        // Inertia comparte solo el primer mensaje de cada clave: tiene que ser uno solo.
+        $this->assertSame([$mensaje], session('errors')->get('borrar'));
         $this->assertModelExists($plantel);
     }
 
