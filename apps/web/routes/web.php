@@ -1,8 +1,11 @@
 <?php
 
 use App\Enums\Rol;
+use App\Http\Controllers\Escuela\CicloController;
 use App\Http\Controllers\Escuela\EspacioController;
+use App\Http\Controllers\Escuela\FranjaController;
 use App\Http\Controllers\Escuela\PlantelController;
+use App\Http\Controllers\Escuela\PlantillaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +23,15 @@ Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
 
         Route::resource('planteles', PlantelController::class)->except('show')->parameters(['planteles' => 'plantel']);
         Route::resource('espacios', EspacioController::class)->except('show')->parameters(['espacios' => 'espacio']);
+
+        Route::resource('ciclos', CicloController::class)->except('show')->parameters(['ciclos' => 'ciclo']);
+        Route::post('ciclos/{ciclo}/activar', [CicloController::class, 'activar'])->name('ciclos.activar');
+
+        Route::resource('plantillas', PlantillaController::class)->except('show')->parameters(['plantillas' => 'plantilla']);
+        Route::get('plantillas/{plantilla}/franjas', [FranjaController::class, 'index'])->name('plantillas.franjas');
+        Route::post('plantillas/{plantilla}/franjas/generar', [FranjaController::class, 'generar'])->name('plantillas.generar');
+        Route::put('franjas/{franja}', [FranjaController::class, 'update'])->name('franjas.update');
+        Route::delete('franjas/{franja}', [FranjaController::class, 'destroy'])->name('franjas.destroy');
     });
 
     Route::middleware('rol:profesor')->group(function () {

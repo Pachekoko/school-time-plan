@@ -1,5 +1,5 @@
 import type { Directive } from 'vue';
-import type { Auth, EscuelaCompartida, Rol } from '@/types/auth';
+import type { Auth, CicloActual, EscuelaCompartida, Rol } from '@/types/auth';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -21,6 +21,7 @@ declare module '@inertiajs/core' {
             auth: Auth;
             escuela: EscuelaCompartida | null;
             rol: Rol | null;
+            cicloActual: CicloActual | null;
             sidebarOpen: boolean;
             [key: string]: unknown;
         };

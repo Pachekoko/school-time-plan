@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\EscuelaActual;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -43,7 +44,27 @@ class HandleInertiaRequests extends Middleware
             ],
             'escuela' => fn () => $request->user()?->escuela()->first(['id', 'nombre'])?->only(['id', 'nombre']),
             'rol' => fn () => $request->user()?->rol->value,
+            'cicloActual' => fn () => $this->cicloActual($request),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
+    }
+
+    /**
+     * El ciclo actual de la escuela del usuario, también en páginas fuera del grupo
+     * `escuela` (como los ajustes), donde no hay escuela actual fijada.
+     *
+     * @return array{id: int, clave: string, estado: string}|null
+     */
+    private function cicloActual(Request $request): ?array
+    {
+        $escuela = $request->user()?->escuela()->first();
+
+        if ($escuela?->ciclo_actual_id === null) {
+            return null;
+        }
+
+        $ciclo = app(EscuelaActual::class)->usar($escuela->id, fn () => $escuela->cicloActual()->first());
+
+        return $ciclo === null ? null : ['id' => $ciclo->id, 'clave' => $ciclo->clave, 'estado' => $ciclo->estado->value];
     }
 }

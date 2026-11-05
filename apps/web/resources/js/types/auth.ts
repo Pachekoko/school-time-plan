@@ -17,6 +17,12 @@ export type EscuelaCompartida = {
     nombre: string;
 };
 
+export type CicloActual = {
+    id: number;
+    clave: string;
+    estado: 'captura' | 'cerrado';
+};
+
 export type Auth = {
     user: User;
 };

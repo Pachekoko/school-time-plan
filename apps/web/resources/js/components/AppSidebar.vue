@@ -3,6 +3,8 @@ import { Link, usePage } from '@inertiajs/vue3';
 import {
     Building2,
     CalendarCheck,
+    CalendarRange,
+    Clock,
     DoorOpen,
     FolderGit2,
     LayoutGrid,
@@ -22,9 +24,11 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard, miDisponibilidad } from '@/routes';
+import { index as ciclos } from '@/routes/ciclos';
 import { index as espacios } from '@/routes/espacios';
 import { inicio } from '@/routes/escuela';
 import { index as planteles } from '@/routes/planteles';
+import { index as plantillas } from '@/routes/plantillas';
 import type { NavItem } from '@/types';
 
 const page = usePage();
@@ -35,8 +39,10 @@ const menu = computed<{ label: string; items: NavItem[] }>(() =>
               label: 'Escuela',
               items: [
                   { title: 'Inicio', href: inicio(), icon: LayoutGrid },
+                  { title: 'Ciclos', href: ciclos(), icon: CalendarRange },
                   { title: 'Planteles', href: planteles(), icon: Building2 },
                   { title: 'Espacios', href: espacios(), icon: DoorOpen },
+                  { title: 'Plantillas', href: plantillas(), icon: Clock },
               ],
           }
         : {
