@@ -199,9 +199,8 @@
     }
 }
 
-/* Espacio al final de la página para el panel de la guía en el celular (GuiaPanel). */
-@media (width < 40rem) {
-    .guia-con-panel main {
-        padding-bottom: var(--guia-alto, 0px);
-    }
+/* Espacio al final de la página para el panel de la guía (GuiaPanel): lo último de la
+   página puede subir por encima del panel, en el celular y en escritorio. */
+.guia-con-panel main {
+    padding-bottom: var(--guia-alto, 0px);
 }

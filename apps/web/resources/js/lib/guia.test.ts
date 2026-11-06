@@ -58,6 +58,13 @@ describe('guía de primeros pasos', () => {
         );
     });
 
+    it('la página reserva el alto del panel en cualquier ancho', () => {
+        expect(estilos).toMatch(
+            /\.guia-con-panel main\s*\{\s*padding-bottom: var\(--guia-alto/,
+        );
+        expect(estilos).not.toMatch(/@media[^{]*\{\s*\.guia-con-panel main/);
+    });
+
     it('el borde no va en botones deshabilitados', () => {
         expect(estilos).toMatch(
             /\[data-guia=['"]generar['"]\]\s*\)\s*:not\(:disabled\)/,

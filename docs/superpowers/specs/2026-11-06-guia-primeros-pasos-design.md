@@ -24,7 +24,8 @@ El admin de una escuela nueva aprende a usar la app mientras captura sus propios
 - **Panel flotante:** abajo a la derecha; en pantallas angostas, a lo ancho abajo.
   - Encabezado «Primeros pasos · N de 9» con barra de avance.
   - El paso actual (el primero pendiente) destacado: título, qué hacer, para qué sirve y un botón «Ir a …» a su pantalla.
-  - La lista de los 9 pasos: hechos con ✓, pendientes en gris. Cada uno es un enlace a su pantalla.
+  - La lista de los 9 pasos, plegada: «Ver los 9 pasos» la despliega. Hechos con ✓, pendientes en gris. Cada uno es un enlace a su pantalla.
+  - La página reserva abajo el alto del panel, así lo último de la página puede subir por encima de él.
   - Desde el paso 2 (ya hay ciclo actual), el atajo «¿Ya tienes tus datos en Excel? Importar todo», que lleva a `importar.index`.
   - Botones para minimizar (queda una pastilla con el avance) y para cerrar.
   - Con los 9 pasos hechos, muestra «Listo: ya generaste tu primer horario».

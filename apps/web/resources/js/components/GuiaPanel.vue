@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { Check, ListChecks, Minus, X } from '@lucide/vue';
+import { Check, ChevronDown, ListChecks, Minus, X } from '@lucide/vue';
 import { computed, nextTick, onUnmounted, ref, watch } from 'vue';
 import { Button } from '@/components/ui/button';
 import { resaltar, useGuia } from '@/composables/useGuia';
@@ -32,6 +32,9 @@ watch(
     },
     { immediate: true },
 );
+
+// La lista de los pasos va plegada para que el panel tape poco de la página.
+const verPasos = ref(false);
 
 // El foco pasa al control que queda a la vista, para quien usa el teclado.
 const pastilla = ref<HTMLButtonElement | null>(null);
@@ -82,7 +85,7 @@ watch(caja, (elemento) => {
     }
 });
 
-watch([minimizado, actual], () => nextTick(medir));
+watch([minimizado, actual, verPasos], () => nextTick(medir));
 
 onUnmounted(() => {
     resaltar(null);
@@ -164,7 +167,26 @@ onUnmounted(() => {
                 Listo: ya generaste tu primer horario.
             </p>
 
-            <ol class="hidden space-y-1 sm:block">
+            <Button
+                variant="ghost"
+                size="sm"
+                class="h-7 w-full justify-between px-1 text-xs text-muted-foreground"
+                :aria-expanded="verPasos"
+                aria-controls="guia-pasos"
+                @click="verPasos = !verPasos"
+            >
+                {{
+                    verPasos
+                        ? 'Ocultar los pasos'
+                        : `Ver los ${conteo.total} pasos`
+                }}
+                <ChevronDown
+                    class="transition-transform"
+                    :class="{ 'rotate-180': verPasos }"
+                />
+            </Button>
+
+            <ol v-show="verPasos" id="guia-pasos" class="space-y-1">
                 <li v-for="paso in PASOS" :key="paso.clave">
                     <!-- Hechos con ✓, el actual en negritas y los demás pendientes en gris. -->
                     <Link
