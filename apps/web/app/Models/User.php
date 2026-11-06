@@ -49,6 +49,7 @@ class User extends Authenticatable implements PasskeyUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'guia_cerrada_en' => 'datetime',
             'rol' => Rol::class,
         ];
     }

@@ -16,6 +16,7 @@ use App\Http\Controllers\Escuela\PlantelController;
 use App\Http\Controllers\Escuela\PlantillaController;
 use App\Http\Controllers\Escuela\ProfesorController;
 use App\Http\Controllers\Escuela\SincroniaController;
+use App\Http\Controllers\GuiaController;
 use App\Http\Controllers\MiDisponibilidadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'escuela'])->group(function () {
 
     Route::middleware('rol:admin')->group(function () {
         Route::inertia('escuela', 'escuela/Inicio')->name('escuela.inicio');
+        Route::put('guia', [GuiaController::class, 'update'])->name('guia.update');
 
         Route::resource('planteles', PlantelController::class)->except('show')->parameters(['planteles' => 'plantel']);
         Route::resource('espacios', EspacioController::class)->except('show')->parameters(['espacios' => 'espacio']);

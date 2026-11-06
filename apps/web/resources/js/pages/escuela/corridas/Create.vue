@@ -173,7 +173,10 @@ const modos = ref<Record<string, string>>(
             <InputError :message="errors.corrida" />
 
             <div class="flex items-center gap-2">
-                <Button type="submit" :disabled="processing || hayActiva"
+                <Button
+                    type="submit"
+                    :disabled="processing || hayActiva"
+                    data-guia="generar"
                     >Generar</Button
                 >
                 <Button variant="ghost" as-child>

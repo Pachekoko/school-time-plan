@@ -35,7 +35,7 @@ defineOptions({
                 title="Planteles"
                 description="Las sedes de tu escuela. Cada grupo y cada espacio pertenecen a un plantel."
             />
-            <Button as-child>
+            <Button as-child data-guia="planteles">
                 <Link :href="PlantelController.create()">
                     <Plus />
                     Nuevo plantel

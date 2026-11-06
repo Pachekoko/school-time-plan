@@ -36,7 +36,7 @@ defineOptions({
                 title="Espacios"
                 description="Aulas, laboratorios y demás lugares donde se da clase, con su capacidad."
             />
-            <Button as-child>
+            <Button as-child data-guia="espacios">
                 <Link :href="EspacioController.create()">
                     <Plus />
                     Nuevo espacio

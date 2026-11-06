@@ -39,7 +39,7 @@ defineOptions({
                 title="Profesores"
                 description="Su carga (horas mínimas y máximas), dónde dan clase, qué materias pueden dar y su disponibilidad."
             />
-            <Button as-child>
+            <Button as-child data-guia="profesores">
                 <Link :href="ProfesorController.create()">
                     <Plus />
                     Nuevo profesor

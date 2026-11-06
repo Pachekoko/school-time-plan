@@ -165,7 +165,10 @@ const porDia = computed(() => {
                 <InputError :message="errors.generar" />
 
                 <div>
-                    <Button type="submit" :disabled="processing"
+                    <Button
+                        type="submit"
+                        :disabled="processing"
+                        data-guia="plantilla"
                         >Generar</Button
                     >
                 </div>

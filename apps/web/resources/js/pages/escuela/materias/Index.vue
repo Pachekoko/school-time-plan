@@ -39,7 +39,7 @@ defineOptions({
                 title="Materias"
                 description="Horas por semana y cómo se reparten en bloques: 2+1 es un día de 2 h y otro de 1 h."
             />
-            <Button as-child>
+            <Button as-child data-guia="materias">
                 <Link :href="MateriaController.create()">
                     <Plus />
                     Nueva materia

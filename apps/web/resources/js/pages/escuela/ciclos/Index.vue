@@ -39,7 +39,7 @@ defineOptions({
                 title="Ciclos"
                 description="Los grupos y la carga académica se capturan por ciclo. La interfaz trabaja sobre el ciclo actual."
             />
-            <Button as-child>
+            <Button as-child data-guia="ciclo">
                 <Link :href="CicloController.create()">
                     <Plus />
                     Nuevo ciclo

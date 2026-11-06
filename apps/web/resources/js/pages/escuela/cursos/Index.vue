@@ -58,7 +58,7 @@ function filtrar(campo: keyof Filtros, valor: string): void {
                 title="Carga académica"
                 :description="`Los cursos del ciclo ${ciclo}: qué materia se da a qué grupos y con qué profesor. Sin profesor, lo elige el motor.`"
             />
-            <Button as-child>
+            <Button as-child data-guia="carga">
                 <Link :href="CursoController.create()">
                     <Plus />
                     Nuevo curso

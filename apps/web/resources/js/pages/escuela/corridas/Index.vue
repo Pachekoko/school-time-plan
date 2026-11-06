@@ -43,7 +43,7 @@ const formato = new Intl.DateTimeFormat('es-MX', {
                 title="Horarios"
                 :description="`Cada corrida del motor genera un horario para el ciclo ${ciclo}.`"
             />
-            <Button as-child>
+            <Button as-child data-guia="generar">
                 <Link :href="CorridaController.create()">
                     <Play />
                     Generar horario
