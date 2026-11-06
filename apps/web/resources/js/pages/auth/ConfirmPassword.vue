@@ -31,7 +31,7 @@ defineOptions({
         }"
         label="Confirmar con llave de acceso"
         loading-label="Confirmando…"
-        separator="Or confirm with password"
+        separator="O confirma con tu contraseña"
     />
 
     <Form

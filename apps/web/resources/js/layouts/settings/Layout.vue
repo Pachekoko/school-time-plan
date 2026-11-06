@@ -31,15 +31,15 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
 <template>
     <div class="px-4 py-6">
         <Heading
-            title="Ajustes"
-            description="Administra tu perfil y los ajustes de tu cuenta"
+            title="Configuración"
+            description="Administra tu perfil y la configuración de tu cuenta"
         />
 
         <div class="flex flex-col lg:flex-row lg:space-x-12">
             <aside class="w-full max-w-xl lg:w-48">
                 <nav
                     class="flex flex-col space-y-1 space-x-0"
-                    aria-label="Ajustes"
+                    aria-label="Configuración"
                 >
                     <Button
                         v-for="item in sidebarNavItems"
