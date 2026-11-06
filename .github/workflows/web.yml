@@ -1,0 +1,92 @@
+name: web
+
+on:
+  pull_request:
+    paths:
+      - "apps/web/**"
+      - "contracts/**"
+      - ".github/workflows/web.yml"
+  push:
+    paths:
+      - "apps/web/**"
+      - "contracts/**"
+      - ".github/workflows/web.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: pdo_sqlite, intl, zip, gd
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: composer install --no-interaction --prefer-dist
+      - run: cp .env.example .env && php artisan key:generate
+      # El mismo npm que generó el lock: desde 11.19 `npm ci` pide react (peer de ink, opcional).
+      - run: npm install -g npm@11.6.2
+      - run: npm ci
+      - run: npm run build
+      - run: composer ci:check
+      # Vitest carga laravel-vite-plugin en modo servidor, que se niega a correr si CI está definida.
+      - run: npm run test
+        env:
+          LARAVEL_BYPASS_ENV_CHECK: 1
+
+  # Las mismas pruebas sobre PostgreSQL, la base de producción (Neon).
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: horarios
+          POSTGRES_PASSWORD: horarios
+          POSTGRES_DB: horarios_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U horarios"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: "5432"
+      DB_DATABASE: horarios_test
+      DB_USERNAME: horarios
+      DB_PASSWORD: horarios
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: pdo_pgsql, intl, zip, gd
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: composer install --no-interaction --prefer-dist
+      - run: cp .env.example .env && php artisan key:generate
+      # El mismo npm que generó el lock: desde 11.19 `npm ci` pide react (peer de ink, opcional).
+      - run: npm install -g npm@11.6.2
+      - run: npm ci
+      - run: npm run build
+      - run: php artisan test --compact

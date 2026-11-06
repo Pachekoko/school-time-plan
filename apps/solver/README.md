@@ -124,7 +124,16 @@ Resultado con 60 s y 8 workers en un Intel Core 5 120U (12 hilos):
 Notas:
 
 - **Varianza:** con más de 1 worker, CP-SAT no es determinista; el puntaje cambia entre corridas.
-- **Hardware:** con menos núcleos (por ejemplo, un servicio pequeño de Render), la misma demo necesita más tiempo límite.
+- **Hardware:** con menos núcleos, la misma demo necesita más tiempo límite. Medido en Docker con los límites de Render:
+
+  | Límites | Demo | Resultado |
+  |---|---|---|
+  | 0.1 CPU, 512 MB (plan free), 4 workers | completa | sin memoria a los 226 s |
+  | 0.1 CPU, 512 MB, 1 worker | completa | `tiempo_agotado` en 181 s |
+  | 1 CPU, 2 GB (Standard), 2 workers, 120 s | completa | `ok` en 116 s, pico de 1 GB |
+  | 0.1 CPU, 512 MB, 1 worker, 30 s | chica: 1 plantel, 4 grupos, 32 cursos | `ok` en 88 s, pico de 253 MB |
+
+  La demo chica (`prepa-horizonte-chica.json`, opciones `CHICA` del generador) es la que carga la demo pública en el plan free.
 - **Profesores por turno:** se probó con profesores que dan clase en matutino y vespertino (69 en total). La fase A tardó de 19 s a más de 60 s según la semilla, contra 10 a 18 s con profesores por turno. Por eso la demo usa profesores por turno.
 - **Ajuste de la demo, para que sea factible:**
   - Cada materia del BIS sabatino tiene su propio profesor, porque S7 no deja que uno dé dos materias al mismo grupo el mismo sábado.

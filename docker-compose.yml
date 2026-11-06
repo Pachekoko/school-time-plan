@@ -1,0 +1,26 @@
+# Desarrollo local: base de datos y motor. La web corre nativa (`composer dev` en apps/web).
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: horarios
+      POSTGRES_USER: horarios
+      POSTGRES_PASSWORD: horarios
+    ports:
+      - "5433:5432"  # 5433 en el host para no chocar con un PostgreSQL local
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U horarios -d horarios"]
+      interval: 5s
+      retries: 10
+
+  solver:
+    build: apps/solver
+    environment:
+      SOLVER_TOKEN: dev
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres:
