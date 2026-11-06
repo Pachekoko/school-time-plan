@@ -305,7 +305,7 @@ git commit -m "feat(web): pasos y textos de la guía en el navegador"
 - Modify: `apps/web/resources/js/layouts/app/AppSidebarLayout.vue` (monta `GuiaPanel`)
 - Modify: `apps/web/resources/js/components/AppSidebar.vue` (`NavGuia` en `SidebarFooter`, antes de `NavFooter`)
 - Modify: `apps/web/resources/css/app.css` (clase `guia-resaltado`)
-- Modify: estos 12 elementos de 11 páginas de `apps/web/resources/js/pages/escuela/`, agregándoles `data-guia="<clave>"`:
+- Modify: estos 12 elementos de 12 páginas de `apps/web/resources/js/pages/escuela/`, agregándoles `data-guia="<clave>"`:
 
   | Página | Elemento | `data-guia` |
   |---|---|---|

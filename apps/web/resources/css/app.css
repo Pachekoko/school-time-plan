@@ -172,16 +172,19 @@
 }
 
 /* El botón que toca en la guía de primeros pasos: <html data-guia-paso> dice el paso (useGuia)
-   y sus botones llevan data-guia, así también lo reciben los que se montan después. */
-:root[data-guia-paso='ciclo'] [data-guia='ciclo'],
-:root[data-guia-paso='planteles'] [data-guia='planteles'],
-:root[data-guia-paso='espacios'] [data-guia='espacios'],
-:root[data-guia-paso='plantilla'] [data-guia='plantilla'],
-:root[data-guia-paso='materias'] [data-guia='materias'],
-:root[data-guia-paso='grupos'] [data-guia='grupos'],
-:root[data-guia-paso='profesores'] [data-guia='profesores'],
-:root[data-guia-paso='carga'] [data-guia='carga'],
-:root[data-guia-paso='generar'] [data-guia='generar'] {
+   y sus botones llevan data-guia, así también lo reciben los que se montan después.
+   Un botón deshabilitado no se marca: todavía no se puede usar. */
+:is(
+    :root[data-guia-paso='ciclo'] [data-guia='ciclo'],
+    :root[data-guia-paso='planteles'] [data-guia='planteles'],
+    :root[data-guia-paso='espacios'] [data-guia='espacios'],
+    :root[data-guia-paso='plantilla'] [data-guia='plantilla'],
+    :root[data-guia-paso='materias'] [data-guia='materias'],
+    :root[data-guia-paso='grupos'] [data-guia='grupos'],
+    :root[data-guia-paso='profesores'] [data-guia='profesores'],
+    :root[data-guia-paso='carga'] [data-guia='carga'],
+    :root[data-guia-paso='generar'] [data-guia='generar']
+):not(:disabled) {
     outline: 2px solid var(--ring);
     outline-offset: 3px;
 

@@ -4,10 +4,11 @@ import { Check, ListChecks, Minus, X } from '@lucide/vue';
 import { computed, nextTick, onUnmounted, ref, watch } from 'vue';
 import { Button } from '@/components/ui/button';
 import { resaltar, useGuia } from '@/composables/useGuia';
-import { avance, PASOS } from '@/lib/guia';
+import { avance, cierraSola, PASOS } from '@/lib/guia';
 import { index as importar } from '@/routes/importar';
 
-const { guia, actual, abierto, minimizado, cerrar } = useGuia();
+const { guia, actual, abierto, minimizado, cerrar, darPorTerminada } =
+    useGuia();
 
 const conteo = computed(() =>
     guia.value ? avance(guia.value.hechos) : { hechos: 0, total: PASOS.length },
@@ -19,6 +20,37 @@ const claveResaltada = computed(() =>
 );
 
 watch(claveResaltada, resaltar, { immediate: true });
+
+// Con los 9 pasos hechos la guía cuenta como cerrada: el panel sigue con su «Listo»,
+// pero ya no se abre sola cuando empiece otro ciclo.
+watch(
+    () => guia.value !== null && cierraSola(guia.value),
+    (terminada) => {
+        if (terminada) {
+            darPorTerminada();
+        }
+    },
+    { immediate: true },
+);
+
+// El foco pasa al control que queda a la vista, para quien usa el teclado.
+const pastilla = ref<HTMLButtonElement | null>(null);
+const region = ref<HTMLElement | null>(null);
+
+function minimizar(): void {
+    minimizado.value = true;
+    nextTick(() => pastilla.value?.focus());
+}
+
+function expandir(): void {
+    minimizado.value = false;
+    nextTick(() => region.value?.focus());
+}
+
+function cerrarPanel(): void {
+    cerrar();
+    nextTick(() => document.getElementById('guia-boton')?.focus());
+}
 
 // En el celular el panel va abajo a lo ancho: la página gana ese alto como espacio al
 // final, para que el panel no tape los últimos botones (como «Guardar»).
@@ -62,14 +94,16 @@ onUnmounted(() => {
 <template>
     <div
         v-if="guia && abierto"
+        id="guia-panel"
         ref="caja"
         class="fixed inset-x-3 bottom-3 z-50 sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-80"
     >
         <button
             v-if="minimizado"
+            ref="pastilla"
             type="button"
             class="ml-auto flex items-center gap-2 rounded-full border bg-background px-4 py-2 text-sm font-medium shadow-lg hover:bg-accent"
-            @click="minimizado = false"
+            @click="expandir"
         >
             <ListChecks class="size-4" />
             Guía {{ conteo.hechos }}/{{ conteo.total }}
@@ -77,9 +111,11 @@ onUnmounted(() => {
 
         <section
             v-else
+            ref="region"
             role="region"
             aria-label="Guía de primeros pasos"
-            class="space-y-3 rounded-xl border bg-background p-4 shadow-lg"
+            tabindex="-1"
+            class="space-y-3 rounded-xl border bg-background p-4 shadow-lg outline-none"
         >
             <div class="flex items-center justify-between gap-2">
                 <p class="text-sm font-semibold">
@@ -90,7 +126,7 @@ onUnmounted(() => {
                         variant="ghost"
                         size="icon-sm"
                         aria-label="Minimizar la guía"
-                        @click="minimizado = true"
+                        @click="minimizar"
                     >
                         <Minus />
                     </Button>
@@ -98,7 +134,7 @@ onUnmounted(() => {
                         variant="ghost"
                         size="icon-sm"
                         aria-label="Cerrar la guía"
-                        @click="cerrar"
+                        @click="cerrarPanel"
                     >
                         <X />
                     </Button>
@@ -130,15 +166,19 @@ onUnmounted(() => {
 
             <ol class="hidden space-y-1 sm:block">
                 <li v-for="paso in PASOS" :key="paso.clave">
+                    <!-- Hechos con ✓, el actual en negritas y los demás pendientes en gris. -->
                     <Link
                         :href="paso.ir()"
                         class="flex items-center gap-2 rounded px-1 py-0.5 text-sm hover:bg-accent"
                         :class="
-                            guia.hechos[paso.clave]
-                                ? 'text-muted-foreground'
-                                : paso.clave === actual?.clave
-                                  ? 'font-medium'
-                                  : ''
+                            paso.clave === actual?.clave
+                                ? 'font-medium'
+                                : guia.hechos[paso.clave]
+                                  ? ''
+                                  : 'text-muted-foreground'
+                        "
+                        :aria-current="
+                            paso.clave === actual?.clave ? 'step' : undefined
                         "
                     >
                         <Check
@@ -150,6 +190,9 @@ onUnmounted(() => {
                             class="size-4 rounded-full border border-muted-foreground/50"
                         />
                         {{ paso.titulo }}
+                        <span class="sr-only">{{
+                            guia.hechos[paso.clave] ? '(hecho)' : '(pendiente)'
+                        }}</span>
                     </Link>
                 </li>
             </ol>

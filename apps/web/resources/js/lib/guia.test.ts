@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { ClavePaso } from '@/types/guia';
-import { abreSola, avance, PASOS, pasoActual } from './guia';
+import { abreSola, avance, cierraSola, PASOS, pasoActual } from './guia';
 
 const estilos = readFileSync(
     new URL('../../css/app.css', import.meta.url),
@@ -48,6 +48,20 @@ describe('guía de primeros pasos', () => {
         expect(abreSola({ hechos: todos(false), cerrada: false })).toBe(true);
         expect(abreSola({ hechos: todos(false), cerrada: true })).toBe(false);
         expect(abreSola({ hechos: todos(true), cerrada: false })).toBe(false);
+    });
+
+    it('se cierra sola al terminar los 9 pasos, si no estaba cerrada', () => {
+        expect(cierraSola({ hechos: todos(true), cerrada: false })).toBe(true);
+        expect(cierraSola({ hechos: todos(true), cerrada: true })).toBe(false);
+        expect(cierraSola({ hechos: todos(false), cerrada: false })).toBe(
+            false,
+        );
+    });
+
+    it('el borde no va en botones deshabilitados', () => {
+        expect(estilos).toMatch(
+            /\[data-guia=['"]generar['"]\]\s*\)\s*:not\(:disabled\)/,
+        );
     });
 
     // El borde lo pone el CSS según <html data-guia-paso>, así alcanza también a los

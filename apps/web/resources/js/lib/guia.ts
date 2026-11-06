@@ -122,3 +122,8 @@ export function avance(hechos: Record<ClavePaso, boolean>): {
 export function abreSola(guia: Guia): boolean {
     return !guia.cerrada && pasoActual(guia.hechos) !== null;
 }
+
+/** Con los 9 pasos hechos cuenta como cerrada: así no se abre sola al empezar otro ciclo. */
+export function cierraSola(guia: Guia): boolean {
+    return !guia.cerrada && pasoActual(guia.hechos) === null;
+}
