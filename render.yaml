@@ -30,10 +30,6 @@ services:
 
       - key: APP_NAME
         value: Horarios
-      - key: APP_LOCALE
-        value: es
-      - key: APP_FALLBACK_LOCALE
-        value: es
       - key: LOG_LEVEL
         value: info
       - key: DB_CONNECTION

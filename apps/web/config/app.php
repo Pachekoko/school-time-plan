@@ -78,11 +78,12 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'es'),
+    // Fijo, sin leerlo del entorno: la app solo existe en español de México.
+    'locale' => 'es_MX',
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'es'),
+    'fallback_locale' => 'es_MX',
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'es_MX'),
+    'faker_locale' => 'es_MX',
 
     /*
     |--------------------------------------------------------------------------
