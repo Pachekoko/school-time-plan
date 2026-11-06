@@ -40,7 +40,7 @@ El admin de una escuela nueva aprende a usar la app mientras captura sus propios
 | 2 | `planteles` | Agrega tus planteles | al menos 1 plantel | `planteles.index` | «Nuevo plantel» |
 | 3 | `espacios` | Registra tus espacios | al menos 1 espacio | `espacios.index` | «Nuevo espacio» |
 | 4 | `plantilla` | Arma tu plantilla horaria | al menos 1 franja de tipo clase | `plantillas.index` | «Nueva plantilla» y «Generar franjas» |
-| 5 | `materias` | Captura tu plan y sus materias | al menos 1 materia | `planes.index` | «Nuevo plan» y «Nueva materia» |
+| 5 | `materias` | Captura tu plan y sus materias | al menos 1 materia | `planes.index` | «Nuevo plan» mientras no hay planes, después «Materias» en Planes; y «Nueva materia» |
 | 6 | `grupos` | Crea tus grupos | al menos 1 grupo en el ciclo | `grupos.index` | «Nuevo grupo» |
 | 7 | `profesores` | Agrega a tus profesores | al menos 1 profesor | `profesores.index` | «Nuevo profesor» |
 | 8 | `carga` | Asigna la carga académica | al menos 1 curso en el ciclo | `cursos.index` | «Nuevo curso» |
@@ -69,7 +69,7 @@ El panel muestra, para el paso actual, qué hacer y para qué sirve:
 - **Ruta `PUT /guia`** (`guia.update`), dentro del grupo `auth` + `escuela` + `rol:admin`:
   - recibe `abierta` (booleano obligatorio);
   - si es `false`, guarda `guia_cerrada_en = now()`; si es `true`, lo pone en `null`;
-  - responde `back()`.
+  - responde 204 sin contenido: guardarlo no cambia la página.
 - **Prop compartida `guia`** en `HandleInertiaRequests`:
   - para un admin con escuela: `{ hechos: Record<clave, boolean>, cerrada: boolean }`;
   - para cualquier otro rol: `null`.
@@ -83,12 +83,12 @@ El panel muestra, para el paso actual, qué hacer y para qué sirve:
   - Funciones puras: `pasoActual(hechos)` (el primero pendiente o `null`), `avance(hechos)` (`{ hechos, total }`) y `abreSola(guia)` (`!cerrada && hay pendientes`).
 - **`resources/js/composables/useGuia.ts`:**
   - estado compartido del panel (`abierto`, `minimizado`), iniciado con `abreSola`;
-  - `abrir()` y `cerrar()`, que llaman a `PUT /guia` con `preserveState`, `preserveScroll` y `only: ['guia']`;
-  - el resaltado: después de cada navegación de Inertia, quita la clase `guia-resaltado` y la pone en `[data-guia="<paso actual>"]`.
+  - `abrir()` y `cerrar()`, que mandan `PUT /guia` con `useHttp`, sin visita de Inertia: no cambian la página ni cortan otra petición;
+  - el resaltado: pone `data-guia-paso="<paso actual>"` en `<html>`, y el CSS le da el borde a cada `[data-guia]` de ese paso, también a los que se montan después.
 - **`GuiaPanel.vue`:** el panel, montado en `AppSidebarLayout.vue` solo si hay `guia`.
 - **`NavGuia.vue`:** el botón de la barra lateral, en `AppSidebar.vue`.
-- **Marcas `data-guia` en los 12 elementos de la tabla:** en las páginas `Index` de cada catálogo, en `plantillas/Franjas.vue` y en las dos de corridas.
-- **Estilos en `app.css`:** la clase `guia-resaltado` (anillo y pulso) y su variante con movimiento reducido.
+- **Marcas `data-guia` en los 13 elementos de la tabla:** en las páginas `Index` de cada catálogo, en `plantillas/Franjas.vue` y en las dos de corridas. En Planes, «Nuevo plan» lleva la marca solo mientras no hay planes, y el botón «Materias» aparece cuando ya hay.
+- **Estilos en `app.css`:** una regla por paso, `:root[data-guia-paso="<paso>"] [data-guia="<paso>"]`, con el anillo; el pulso solo va sin movimiento reducido.
 
 ## Casos raros
 

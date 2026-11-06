@@ -1,4 +1,4 @@
-import { router, usePage } from '@inertiajs/vue3';
+import { useHttp, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import { abreSola, pasoActual } from '@/lib/guia';
@@ -11,24 +11,14 @@ const abierto = ref(false);
 const minimizado = ref(false);
 let iniciado = false;
 
-function guardar(abierta: boolean): void {
-    router.put(
-        update().url,
-        { abierta },
-        { preserveState: true, preserveScroll: true, only: ['guia'] },
-    );
-}
-
-/** Quita el borde de la guía de toda la página y se lo pone a los botones del paso dado. */
+/** Marca en <html> el paso a resaltar; el CSS le pone el borde a cada [data-guia] de ese paso. */
 export function resaltar(clave: string | null): void {
-    document
-        .querySelectorAll('.guia-resaltado')
-        .forEach((elemento) => elemento.classList.remove('guia-resaltado'));
+    const raiz = document.documentElement;
 
-    if (clave !== null) {
-        document
-            .querySelectorAll(`[data-guia="${clave}"]`)
-            .forEach((elemento) => elemento.classList.add('guia-resaltado'));
+    if (clave === null) {
+        raiz.removeAttribute('data-guia-paso');
+    } else {
+        raiz.setAttribute('data-guia-paso', clave);
     }
 }
 
@@ -42,6 +32,7 @@ export function useGuia(): {
     alternar: () => void;
 } {
     const page = usePage();
+    const http = useHttp({ abierta: true });
     const guia = computed(() => page.props.guia);
     const actual = computed(() =>
         guia.value ? pasoActual(guia.value.hechos) : null,
@@ -51,6 +42,13 @@ export function useGuia(): {
     if (!iniciado && guia.value) {
         iniciado = true;
         abierto.value = abreSola(guia.value);
+    }
+
+    // Sin visita de Inertia: no cambia la página ni corta otra petición. Si falla, la guía
+    // queda como el admin la dejó en esta visita y en la siguiente manda el servidor.
+    function guardar(abierta: boolean): void {
+        http.abierta = abierta;
+        http.submit(update()).catch(() => {});
     }
 
     function abrir(): void {

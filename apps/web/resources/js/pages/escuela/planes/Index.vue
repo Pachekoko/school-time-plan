@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { Pencil, Plus } from '@lucide/vue';
+import { BookOpen, Pencil, Plus } from '@lucide/vue';
 import PlanController from '@/actions/App/Http/Controllers/Escuela/PlanController';
 import BotonBorrar from '@/components/BotonBorrar.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
+import { index as materias } from '@/routes/materias';
 import { index } from '@/routes/planes';
 
 type Plan = {
@@ -34,12 +35,29 @@ defineOptions({
                 title="Planes de estudio"
                 description="Cada materia y cada grupo siguen un plan."
             />
-            <Button as-child data-guia="materias">
-                <Link :href="PlanController.create()">
-                    <Plus />
-                    Nuevo plan
-                </Link>
-            </Button>
+            <!-- La guía marca «Nuevo plan» hasta que haya un plan; después, «Materias». -->
+            <div class="flex flex-wrap gap-2">
+                <Button
+                    v-if="planes.length > 0"
+                    variant="outline"
+                    as-child
+                    data-guia="materias"
+                >
+                    <Link :href="materias()">
+                        <BookOpen />
+                        Materias
+                    </Link>
+                </Button>
+                <Button
+                    as-child
+                    :data-guia="planes.length === 0 ? 'materias' : undefined"
+                >
+                    <Link :href="PlanController.create()">
+                        <Plus />
+                        Nuevo plan
+                    </Link>
+                </Button>
+            </div>
         </div>
 
         <p

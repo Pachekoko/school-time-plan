@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { Check, ListChecks, Minus, X } from '@lucide/vue';
 import { computed, nextTick, onUnmounted, ref, watch } from 'vue';
 import { Button } from '@/components/ui/button';
@@ -18,13 +18,7 @@ const claveResaltada = computed(() =>
     abierto.value ? (actual.value?.clave ?? null) : null,
 );
 
-watch(claveResaltada, (clave) => nextTick(() => resaltar(clave)), {
-    immediate: true,
-});
-
-const quitarEscucha = router.on('navigate', () =>
-    nextTick(() => resaltar(claveResaltada.value)),
-);
+watch(claveResaltada, resaltar, { immediate: true });
 
 // En el celular el panel va abajo a lo ancho: la página gana ese alto como espacio al
 // final, para que el panel no tape los últimos botones (como «Guardar»).
@@ -59,7 +53,6 @@ watch(caja, (elemento) => {
 watch([minimizado, actual], () => nextTick(medir));
 
 onUnmounted(() => {
-    quitarEscucha();
     resaltar(null);
     observador?.disconnect();
     document.documentElement.classList.remove('guia-con-panel');

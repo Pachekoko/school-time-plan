@@ -34,11 +34,11 @@ class GuiaTest extends TestCase
         $admin = EscuelaDePrueba::crear()['admin'];
         $this->actingAs($admin);
 
-        $this->put(route('guia.update'), ['abierta' => false])->assertRedirect();
+        $this->put(route('guia.update'), ['abierta' => false])->assertNoContent();
         $this->assertNotNull($admin->fresh()->guia_cerrada_en);
         $this->get(route('escuela.inicio'))->assertInertia(fn (Assert $page) => $page->where('guia.cerrada', true));
 
-        $this->put(route('guia.update'), ['abierta' => true])->assertRedirect();
+        $this->put(route('guia.update'), ['abierta' => true])->assertNoContent();
         $this->assertNull($admin->fresh()->guia_cerrada_en);
     }
 
