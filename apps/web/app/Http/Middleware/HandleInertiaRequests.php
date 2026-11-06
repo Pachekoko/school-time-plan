@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\Rol;
+use App\Guia\PrimerosPasos;
 use App\Support\EscuelaActual;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -45,8 +47,26 @@ class HandleInertiaRequests extends Middleware
             'escuela' => fn () => $request->user()?->escuela()->first(['id', 'nombre'])?->only(['id', 'nombre']),
             'rol' => fn () => $request->user()?->rol->value,
             'cicloActual' => fn () => $this->cicloActual($request),
+            'guia' => fn () => $this->guia($request),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
+    }
+
+    /**
+     * La guía de primeros pasos: solo para el admin con escuela.
+     *
+     * @return array{hechos: array<string, bool>, cerrada: bool}|null
+     */
+    private function guia(Request $request): ?array
+    {
+        $usuario = $request->user();
+        $escuela = $usuario?->rol === Rol::Admin ? $usuario->escuela()->first() : null;
+
+        if ($usuario === null || $escuela === null) {
+            return null;
+        }
+
+        return ['hechos' => app(PrimerosPasos::class)->hechos($escuela), 'cerrada' => $usuario->guia_cerrada_en !== null];
     }
 
     /**
