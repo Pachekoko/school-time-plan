@@ -23,7 +23,11 @@ withDefaults(defineProps<Props>(), {
             <AppSidebarHeader :breadcrumbs="breadcrumbs" />
             <slot />
         </AppContent>
-        <Toaster />
+        <!-- Los avisos salen arriba del panel de la guía; GuiaPanel pone --guia-alto. -->
+        <Toaster
+            :offset="{ bottom: 'calc(var(--guia-alto, 0px) + 24px)' }"
+            :mobile-offset="{ bottom: 'calc(var(--guia-alto, 0px) + 16px)' }"
+        />
         <GuiaPanel />
     </AppShell>
 </template>

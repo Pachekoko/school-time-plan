@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\Support\EscuelaDePrueba;
 use Tests\TestCase;
@@ -21,6 +22,17 @@ class GuiaTest extends TestCase
                 ->where('guia.hechos.planteles', true)
                 ->where('guia.hechos.generar', false)
                 ->where('guia.cerrada', false));
+    }
+
+    public function test_la_pagina_busca_la_escuela_una_sola_vez(): void
+    {
+        $e = EscuelaDePrueba::crear();
+        DB::enableQueryLog();
+
+        $this->actingAs($e['admin'])->get(route('escuela.inicio'))->assertOk();
+
+        $busquedas = array_filter(DB::getQueryLog(), fn (array $q) => str_contains($q['query'], 'from "escuelas"'));
+        $this->assertCount(1, $busquedas);
     }
 
     public function test_el_profesor_no_recibe_la_guia(): void

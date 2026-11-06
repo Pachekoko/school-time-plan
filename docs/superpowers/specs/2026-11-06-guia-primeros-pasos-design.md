@@ -14,7 +14,7 @@ El admin de una escuela nueva aprende a usar la app mientras captura sus propios
 |---|---|
 | Cómo enseña | Acompaña la captura: un paso está hecho cuando hay datos, no cuando se da «Siguiente». |
 | Forma | Panel flotante que sigue al usuario por las pantallas y resalta el botón que toca. |
-| Apertura | Se abre sola mientras falten pasos y no se haya cerrado. Al cerrarla, solo la abre el botón «Guía». |
+| Apertura | Se abre sola mientras falten pasos y no se haya cerrado. Terminar los 9 pasos cuenta como cerrarla. Cerrada, solo la abre el botón «Guía». |
 | Construcción | Propia, sin librerías: el avance se calcula en el servidor y el panel es de Vue. |
 | Quién la ve | Solo el rol admin. |
 
@@ -24,7 +24,8 @@ El admin de una escuela nueva aprende a usar la app mientras captura sus propios
 - **Panel flotante:** abajo a la derecha; en pantallas angostas, a lo ancho abajo.
   - Encabezado «Primeros pasos · N de 9» con barra de avance.
   - El paso actual (el primero pendiente) destacado: título, qué hacer, para qué sirve y un botón «Ir a …» a su pantalla.
-  - La lista de los 9 pasos: hechos con ✓, pendientes en gris. Cada uno es un enlace a su pantalla.
+  - La lista de los 9 pasos, plegada: «Ver los 9 pasos» la despliega. Hechos con ✓, pendientes en gris. Cada uno es un enlace a su pantalla.
+  - La página reserva abajo el alto del panel, así lo último de la página puede subir por encima de él.
   - Desde el paso 2 (ya hay ciclo actual), el atajo «¿Ya tienes tus datos en Excel? Importar todo», que lleva a `importar.index`.
   - Botones para minimizar (queda una pastilla con el avance) y para cerrar.
   - Con los 9 pasos hechos, muestra «Listo: ya generaste tu primer horario».
@@ -82,13 +83,16 @@ El panel muestra, para el paso actual, qué hacer y para qué sirve:
   - `PASOS`: por cada clave, título, qué hacer, para qué y ruta de «Ir a» (Wayfinder). Dónde se resalta no se configura: lo dicen las marcas `data-guia` de cada página.
   - Funciones puras: `pasoActual(hechos)` (el primero pendiente o `null`), `avance(hechos)` (`{ hechos, total }`) y `abreSola(guia)` (`!cerrada && hay pendientes`).
 - **`resources/js/composables/useGuia.ts`:**
-  - estado compartido del panel (`abierto`, `minimizado`), iniciado con `abreSola`;
+  - estado compartido del panel (`abierto`, `minimizado`), iniciado con `abreSola` una vez por usuario: otro admin en la misma pestaña no hereda cómo la dejó el anterior;
+  - con Atrás o Adelante vuelve a pedir la prop `guia` (`router.reload({ only: ['guia'] })`), porque el historial guarda el avance viejo;
+  - con los 9 pasos hechos la guarda cerrada (`cierraSola`), sin quitar el «Listo» de la vista;
   - `abrir()` y `cerrar()`, que mandan `PUT /guia` con `useHttp`, sin visita de Inertia: no cambian la página ni cortan otra petición;
   - el resaltado: pone `data-guia-paso="<paso actual>"` en `<html>`, y el CSS le da el borde a cada `[data-guia]` de ese paso, también a los que se montan después.
 - **`GuiaPanel.vue`:** el panel, montado en `AppSidebarLayout.vue` solo si hay `guia`.
 - **`NavGuia.vue`:** el botón de la barra lateral, en `AppSidebar.vue`.
 - **Marcas `data-guia` en los 13 elementos de la tabla:** en las páginas `Index` de cada catálogo, en `plantillas/Franjas.vue` y en las dos de corridas. En Planes, «Nuevo plan» lleva la marca solo mientras no hay planes, y el botón «Materias» aparece cuando ya hay.
-- **Estilos en `app.css`:** una regla por paso, `:root[data-guia-paso="<paso>"] [data-guia="<paso>"]`, con el anillo; el pulso solo va sin movimiento reducido.
+- **Estilos en `app.css`:** una regla por paso, `:root[data-guia-paso="<paso>"] [data-guia="<paso>"]`, con el anillo; el pulso solo va sin movimiento reducido, y un botón deshabilitado no se marca.
+- **Avisos (toasts):** salen arriba del panel, sumando su alto (`--guia-alto`).
 
 ## Casos raros
 
@@ -100,6 +104,9 @@ El panel muestra, para el paso actual, qué hacer y para qué sirve:
 | Profesor o alumno | `guia` es `null`: no hay panel ni botón. |
 | Falla `PUT /guia` | El panel se cierra o abre igual en esta visita; en la siguiente manda el servidor. |
 | El botón resaltado no está en la página | No se resalta nada; el panel sigue normal. |
+| Atrás o Adelante | El panel pide de nuevo su avance; no se queda con el del historial. |
+| Otro admin entra en la misma pestaña | La guía se decide de nuevo con los datos de ese admin. |
+| En el celular, «Guía» dentro del menú lateral | El menú se cierra para que el panel quede a la vista. |
 
 ## Pruebas
 

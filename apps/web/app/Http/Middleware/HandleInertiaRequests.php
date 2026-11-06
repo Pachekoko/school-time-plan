@@ -44,7 +44,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'escuela' => fn () => $request->user()?->escuela()->first(['id', 'nombre'])?->only(['id', 'nombre']),
+            // La escuela sale de la relación del usuario: estas props comparten una sola consulta.
+            'escuela' => fn () => $request->user()?->escuela?->only(['id', 'nombre']),
             'rol' => fn () => $request->user()?->rol->value,
             'cicloActual' => fn () => $this->cicloActual($request),
             'guia' => fn () => $this->guia($request),
@@ -60,7 +61,7 @@ class HandleInertiaRequests extends Middleware
     private function guia(Request $request): ?array
     {
         $usuario = $request->user();
-        $escuela = $usuario?->rol === Rol::Admin ? $usuario->escuela()->first() : null;
+        $escuela = $usuario?->rol === Rol::Admin ? $usuario->escuela : null;
 
         if ($usuario === null || $escuela === null) {
             return null;
@@ -77,7 +78,7 @@ class HandleInertiaRequests extends Middleware
      */
     private function cicloActual(Request $request): ?array
     {
-        $escuela = $request->user()?->escuela()->first();
+        $escuela = $request->user()?->escuela;
 
         if ($escuela?->ciclo_actual_id === null) {
             return null;
