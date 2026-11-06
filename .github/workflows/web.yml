@@ -38,7 +38,10 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: composer ci:check
+      # Vitest carga laravel-vite-plugin en modo servidor, que se niega a correr si CI está definida.
       - run: npm run test
+        env:
+          LARAVEL_BYPASS_ENV_CHECK: 1
 
   # Las mismas pruebas sobre PostgreSQL, la base de producción (Neon).
   postgres:
