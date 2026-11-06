@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Laravel\Fortify\Features;
 use Tests\TestCase;
 
@@ -36,5 +38,25 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    public function test_al_registrarse_entra_directo_sin_confirmar_el_correo(): void
+    {
+        Notification::fake();
+
+        $this->post(route('register.store'), [
+            'escuela' => 'Prepa de Prueba', 'name' => 'Ana', 'email' => 'ana@ejemplo.mx',
+            'password' => 'contraseña-larga-123', 'password_confirmation' => 'contraseña-larga-123',
+        ])->assertRedirect(route('dashboard', absolute: false));
+
+        $this->get(route('escuela.inicio'))->assertOk();
+        Notification::assertNothingSent();
+    }
+
+    public function test_una_cuenta_sin_correo_confirmado_entra_igual(): void
+    {
+        $this->actingAs(User::factory()->admin()->unverified()->create())
+            ->get(route('escuela.inicio'))
+            ->assertOk();
     }
 }
