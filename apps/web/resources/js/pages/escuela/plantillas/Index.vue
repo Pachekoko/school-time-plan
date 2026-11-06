@@ -37,7 +37,7 @@ defineOptions({
                 title="Plantillas horarias"
                 description="Las franjas de clase y receso de cada turno. Cada grupo usa una plantilla."
             />
-            <Button as-child>
+            <Button as-child data-guia="plantilla">
                 <Link :href="PlantillaController.create()">
                     <Plus />
                     Nueva plantilla

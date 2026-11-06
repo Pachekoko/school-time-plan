@@ -170,3 +170,29 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* El botón que toca en la guía de primeros pasos (useGuia). */
+.guia-resaltado {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    animation: guia-latido 1.6s ease-in-out infinite;
+}
+
+@keyframes guia-latido {
+    50% {
+        outline-color: transparent;
+    }
+}
+
+/* Espacio al final de la página para el panel de la guía en el celular (GuiaPanel). */
+@media (width < 40rem) {
+    .guia-con-panel main {
+        padding-bottom: var(--guia-alto, 0px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .guia-resaltado {
+        animation: none;
+    }
+}

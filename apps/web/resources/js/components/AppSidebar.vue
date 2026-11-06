@@ -20,6 +20,7 @@ import {
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
+import NavGuia from '@/components/NavGuia.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
@@ -144,6 +145,7 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
+            <NavGuia />
             <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>

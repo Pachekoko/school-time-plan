@@ -38,7 +38,7 @@ defineOptions({
                 title="Grupos"
                 :description="`Los grupos del ciclo ${ciclo}. Cada uno toma clase en un plantel con una plantilla horaria.`"
             />
-            <Button as-child>
+            <Button as-child data-guia="grupos">
                 <Link :href="GrupoController.create()">
                     <Plus />
                     Nuevo grupo

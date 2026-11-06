@@ -34,7 +34,7 @@ defineOptions({
                 title="Planes de estudio"
                 description="Cada materia y cada grupo siguen un plan."
             />
-            <Button as-child>
+            <Button as-child data-guia="materias">
                 <Link :href="PlanController.create()">
                     <Plus />
                     Nuevo plan
