@@ -29,7 +29,7 @@ Route::patterns(array_fill_keys(
 // La raíz no tiene página: lleva al login o, con sesión, al panel (que redirige según el rol).
 Route::get('/', fn (Request $request) => to_route($request->user() ? 'dashboard' : 'login'))->name('home');
 
-Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
+Route::middleware(['auth', 'escuela'])->group(function () {
     Route::get('dashboard', fn (Request $request) => match ($request->user()?->rol) {
         Rol::Admin => to_route('escuela.inicio'),
         Rol::Profesor => to_route('mi-disponibilidad'),
