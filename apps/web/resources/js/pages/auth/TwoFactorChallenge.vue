@@ -21,14 +21,14 @@ const authConfigContent = computed<TwoFactorConfigContent>(() => {
             title: 'Código de recuperación',
             description:
                 'Confirma el acceso a tu cuenta con uno de tus códigos de recuperación.',
-            buttonText: 'entrar con un código de autenticación',
+            buttonText: 'usar el código de tu app de autenticación',
         };
     }
 
     return {
         title: 'Código de autenticación',
         description: 'Ingresa el código que te da tu app de autenticación.',
-        buttonText: 'entrar con un código de recuperación',
+        buttonText: 'usar un código de recuperación',
     };
 });
 

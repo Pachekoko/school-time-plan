@@ -42,7 +42,7 @@ defineProps<{
                     name="email"
                     autocomplete="off"
                     v-focus
-                    placeholder="email@example.com"
+                    placeholder="correo@ejemplo.com"
                 />
                 <InputError :message="errors.email" />
             </div>
@@ -61,7 +61,7 @@ defineProps<{
 
         <div class="space-x-1 text-center text-sm text-muted-foreground">
             <span>O vuelve a</span>
-            <TextLink :href="login()">entrar</TextLink>
+            <TextLink :href="login()">iniciar sesión</TextLink>
         </div>
     </div>
 </template>

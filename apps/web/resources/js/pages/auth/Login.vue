@@ -15,8 +15,8 @@ import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
 defineOptions({
     layout: {
-        title: 'Entra a tu cuenta',
-        description: 'Ingresa tu correo y tu contraseña para entrar',
+        title: 'Inicia sesión en tu cuenta',
+        description: 'Ingresa tu correo y tu contraseña',
     },
 });
 
@@ -27,7 +27,7 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Entrar" />
+    <Head title="Iniciar sesión" />
 
     <div
         v-if="status"
@@ -55,7 +55,7 @@ defineProps<{
                     v-focus
                     :tabindex="1"
                     autocomplete="email"
-                    placeholder="email@example.com"
+                    placeholder="correo@ejemplo.com"
                 />
                 <InputError :message="errors.email" />
             </div>
@@ -98,7 +98,7 @@ defineProps<{
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                Entrar
+                Iniciar sesión
             </Button>
         </div>
 

@@ -14,7 +14,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             {
-                title: 'Ajustes del perfil',
+                title: 'Configuración del perfil',
                 href: edit(),
             },
         ],
@@ -26,9 +26,9 @@ const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
-    <Head title="Ajustes del perfil" />
+    <Head title="Configuración del perfil" />
 
-    <h1 class="sr-only">Ajustes del perfil</h1>
+    <h1 class="sr-only">Configuración del perfil</h1>
 
     <div class="flex flex-col space-y-6">
         <Heading

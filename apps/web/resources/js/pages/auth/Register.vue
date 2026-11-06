@@ -71,7 +71,7 @@ defineOptions({
                     :tabindex="3"
                     autocomplete="email"
                     name="email"
-                    placeholder="email@example.com"
+                    placeholder="correo@ejemplo.com"
                 />
                 <InputError :message="errors.email" />
             </div>
@@ -122,7 +122,7 @@ defineOptions({
                 :href="login()"
                 class="underline underline-offset-4"
                 :tabindex="7"
-                >Entrar</TextLink
+                >Inicia sesión</TextLink
             >
         </div>
     </Form>

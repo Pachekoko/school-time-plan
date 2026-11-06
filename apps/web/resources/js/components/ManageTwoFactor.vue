@@ -40,9 +40,8 @@ onUnmounted(() => clearTwoFactorAuthData());
             class="flex flex-col items-start justify-start space-y-4"
         >
             <p class="text-sm text-muted-foreground">
-                When you enable two-factor authentication, you will be prompted
-                for a secure pin during login. This pin can be retrieved from a
-                TOTP-supported application on your phone.
+                Con la verificación en dos pasos, al iniciar sesión te pediremos
+                un código que genera una app de autenticación en tu celular.
             </p>
 
             <div>
@@ -56,7 +55,7 @@ onUnmounted(() => clearTwoFactorAuthData());
                     #default="{ processing }"
                 >
                     <Button type="submit" :disabled="processing">
-                        Activar 2FA
+                        Activar verificación
                     </Button>
                 </Form>
             </div>
@@ -64,9 +63,8 @@ onUnmounted(() => clearTwoFactorAuthData());
 
         <div v-else class="flex flex-col items-start justify-start space-y-4">
             <p class="text-sm text-muted-foreground">
-                You will be prompted for a secure, random pin during login,
-                which you can retrieve from the TOTP-supported application on
-                your phone.
+                Al iniciar sesión te pediremos el código que genera la app de
+                autenticación de tu celular.
             </p>
 
             <div class="relative inline">
@@ -76,7 +74,7 @@ onUnmounted(() => clearTwoFactorAuthData());
                         type="submit"
                         :disabled="processing"
                     >
-                        Desactivar 2FA
+                        Desactivar verificación
                     </Button>
                 </Form>
             </div>

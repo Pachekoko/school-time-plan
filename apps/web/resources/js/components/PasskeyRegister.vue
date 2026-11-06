@@ -79,7 +79,7 @@ const handleCancel = () => {
                 id="passkey-name"
                 type="text"
                 v-model="name"
-                placeholder="e.g., MacBook Pro, iPhone"
+                placeholder="Por ejemplo, MacBook Pro o iPhone"
                 class="mt-1 block w-full border-foreground/20"
                 v-focus
             />
