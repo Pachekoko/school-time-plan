@@ -26,7 +26,8 @@ Route::patterns(array_fill_keys(
     '[0-9]{1,18}',
 ));
 
-Route::inertia('/', 'Welcome')->name('home');
+// La raíz no tiene página: lleva al login o, con sesión, al panel (que redirige según el rol).
+Route::get('/', fn (Request $request) => to_route($request->user() ? 'dashboard' : 'login'))->name('home');
 
 Route::middleware(['auth', 'verified', 'escuela'])->group(function () {
     Route::get('dashboard', fn (Request $request) => match ($request->user()?->rol) {
